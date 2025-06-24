@@ -32,6 +32,7 @@
     // Komponente für den Startscreen
     const StartScreen = ({ setCurrentScreen }) => {
       const handleClick = (screen) => {
+        console.log(`Navigating to ${screen}`);
         setCurrentScreen(screen);
       };
 
@@ -54,7 +55,8 @@
             <button
               className="w-40 h-40 rounded-full bg-light_red text-white text-xl font-semibold hover:bg-light_red-600 transition"
               onClick={() => {
-                try { new Audio('/hajime.mp3').play(); } catch (e) { console.log('Audio not found'); }
+                console.log('Playing hajime.mp3');
+                try { new Audio('/hajime.mp3').play(); } catch (e) { console.error('Audio error:', e); }
               }}
             >
               Hajime
@@ -66,15 +68,23 @@
 
     // Komponente für Uke (Angreifer)
     const UkeScreen = ({ attacks, setCurrentScreen }) => {
+      if (!attacks || attacks.length === 0) {
+        console.log('No attacks loaded');
+        return <div className="flex items-center justify-center min-h-screen bg-mint-cream text-midnight-green">Lade Angriffe...</div>;
+      }
+
       const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
       let touchStartTime;
 
       const handleTouchStart = () => {
         touchStartTime = Date.now();
+        console.log('Touch start');
       };
 
       const handleTouchEnd = () => {
-        if (Date.now() - touchStartTime > 500) { // Langer Klick = 500ms
+        const duration = Date.now() - touchStartTime;
+        console.log(`Touch end, duration: ${duration}ms`);
+        if (duration > 500) {
           setCurrentScreen('start');
         }
       };
@@ -94,15 +104,23 @@
 
     // Komponente für Tori (Verteidiger)
     const ToriScreen = ({ techniques, setCurrentScreen }) => {
+      if (!techniques || techniques.length === 0) {
+        console.log('No techniques loaded');
+        return <div className="flex items-center justify-center min-h-screen bg-mint-cream text-midnight-green">Lade Techniken...</div>;
+      }
+
       const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
       let touchStartTime;
 
       const handleTouchStart = () => {
         touchStartTime = Date.now();
+        console.log('Touch start');
       };
 
       const handleTouchEnd = () => {
-        if (Date.now() - touchStartTime > 500) { // Langer Klick = 500ms
+        const duration = Date.now() - touchStartTime;
+        console.log(`Touch end, duration: ${duration}ms`);
+        if (duration > 500) {
           setCurrentScreen('start');
         }
       };
@@ -123,13 +141,29 @@
     const App = () => {
       const [currentScreen, setCurrentScreen] = React.useState('start');
       const [data, setData] = React.useState({ attacks: [], techniques: [] });
+      const [loading, setLoading] = React.useState(true);
 
       React.useEffect(() => {
+        console.log('Fetching data.json');
         fetch('/data.json')
-          .then(response => response.json())
-          .then(data => setData(data))
-          .catch(error => console.error('Error loading data:', error));
+          .then(response => {
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+          })
+          .then(data => {
+            console.log('Data loaded:', data);
+            setData(data);
+            setLoading(false);
+          })
+          .catch(error => {
+            console.error('Error loading data:', error);
+            setLoading(false);
+          });
       }, []);
+
+      if (loading) {
+        return <div className="flex items-center justify-center min-h-screen bg-mint-cream text-midnight-green">Lade...</div>;
+      }
 
       return (
         <div>
