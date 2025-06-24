@@ -4,32 +4,25 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Random Attack</title>
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Font Lexend -->
   <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
-  <!-- React und ReactDOM -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <!-- Babel für JSX -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-  <!-- PWA Manifest (optional für Test) -->
-  <!-- <link rel="manifest" href="/manifest.json" /> -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1a535c" />
   <style>
     body {
       font-family: 'Lexend', sans-serif;
-      background-color: #f7fff7; /* mint_cream */
-      color: #1a535c; /* midnight_green */
+      background-color: #f7fff7;
+      color: #1a535c;
     }
   </style>
 </head>
 <body class="min-h-screen flex items-center justify-center">
   <div id="root"></div>
   <script type="text/babel">
-    // Komponente für den Startscreen
     const StartScreen = ({ setCurrentScreen }) => {
       const handleClick = (screen) => {
         console.log(`Navigating to ${screen}`);
@@ -66,11 +59,15 @@
       );
     };
 
-    // Komponente für Uke (Angreifer)
     const UkeScreen = ({ attacks, setCurrentScreen }) => {
       if (!attacks || attacks.length === 0) {
         console.log('No attacks loaded');
-        return <div className="flex items-center justify-center min-h-screen bg-mint-cream text-midnight-green">Lade Angriffe...</div>;
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen bg-mint-cream text-midnight-green">
+            <h1 className="text-3xl font-bold">Fehler</h1>
+            <p className="text-lg text-center mt-4">Keine Angriffe geladen. Bitte überprüfe data.json.</p>
+          </div>
+        );
       }
 
       const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
@@ -78,12 +75,12 @@
 
       const handleTouchStart = () => {
         touchStartTime = Date.now();
-        console.log('Touch start');
+        console.log('Touch start (Uke)');
       };
 
       const handleTouchEnd = () => {
         const duration = Date.now() - touchStartTime;
-        console.log(`Touch end, duration: ${duration}ms`);
+        console.log(`Touch end (Uke), duration: ${duration}ms`);
         if (duration > 500) {
           setCurrentScreen('start');
         }
@@ -102,11 +99,15 @@
       );
     };
 
-    // Komponente für Tori (Verteidiger)
     const ToriScreen = ({ techniques, setCurrentScreen }) => {
       if (!techniques || techniques.length === 0) {
         console.log('No techniques loaded');
-        return <div className="flex items-center justify-center min-h-screen bg-mint-cream text-midnight-green">Lade Techniken...</div>;
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen bg-mint-cream text-midnight-green">
+            <h1 className="text-3xl font-bold">Fehler</h1>
+            <p className="text-lg text-center mt-4">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+          </div>
+        );
       }
 
       const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
@@ -114,12 +115,12 @@
 
       const handleTouchStart = () => {
         touchStartTime = Date.now();
-        console.log('Touch start');
+        console.log('Touch start (Tori)');
       };
 
       const handleTouchEnd = () => {
         const duration = Date.now() - touchStartTime;
-        console.log(`Touch end, duration: ${duration}ms`);
+        console.log(`Touch end (Tori), duration: ${duration}ms`);
         if (duration > 500) {
           setCurrentScreen('start');
         }
@@ -132,16 +133,16 @@
           onTouchEnd={handleTouchEnd}
         >
           <h1 className="text-3xl font-bold">{randomTechnique.category}</h1>
-          <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomTechnique.technique}</h2>
+          <h2 className="text-2xl font-semibold text-center flex-空中flex items-center">{randomTechnique.technique}</h2>
         </div>
       );
     };
 
-    // Haupt-App-Komponente
     const App = () => {
       const [currentScreen, setCurrentScreen] = React.useState('start');
       const [data, setData] = React.useState({ attacks: [], techniques: [] });
       const [loading, setLoading] = React.useState(true);
+      const [error, setError] = React.useState(null);
 
       React.useEffect(() => {
         console.log('Fetching data.json');
@@ -157,12 +158,22 @@
           })
           .catch(error => {
             console.error('Error loading data:', error);
+            setError(error.message);
             setLoading(false);
           });
       }, []);
 
       if (loading) {
         return <div className="flex items-center justify-center min-h-screen bg-mint-cream text-midnight-green">Lade...</div>;
+      }
+
+      if (error) {
+        return (
+          <div className="flex flex-col items-center justify-center min-h-screen bg-mint-cream text-midnight-green">
+            <h1 className="text-3xl font-bold">Fehler</h1>
+            <p className="text-lg text-center mt-4">Fehler beim Laden der Daten: {error}</p>
+          </div>
+        );
       }
 
       return (
@@ -174,7 +185,6 @@
       );
     };
 
-    // Farbpalette für Tailwind
     tailwind.config = {
       theme: {
         extend: {
@@ -189,7 +199,6 @@
       },
     };
 
-    // Render der App
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
   </script>
