@@ -13,8 +13,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <!-- Babel für JSX -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
-  <!-- PWA Manifest -->
-  <link rel="manifest" href="/manifest.json" />
+  <!-- PWA Manifest (optional für Test) -->
+  <!-- <link rel="manifest" href="/manifest.json" /> -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1a535c" />
@@ -53,7 +53,9 @@
             </button>
             <button
               className="w-40 h-40 rounded-full bg-light_red text-white text-xl font-semibold hover:bg-light_red-600 transition"
-              onClick={() => new Audio('/hajime.mp3').play()}
+              onClick={() => {
+                try { new Audio('/hajime.mp3').play(); } catch (e) { console.log('Audio not found'); }
+              }}
             >
               Hajime
             </button>
@@ -65,17 +67,23 @@
     // Komponente für Uke (Angreifer)
     const UkeScreen = ({ attacks, setCurrentScreen }) => {
       const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
-      const handleLongPress = () => {
-        setCurrentScreen('start');
+      let touchStartTime;
+
+      const handleTouchStart = () => {
+        touchStartTime = Date.now();
+      };
+
+      const handleTouchEnd = () => {
+        if (Date.now() - touchStartTime > 500) { // Langer Klick = 500ms
+          setCurrentScreen('start');
+        }
       };
 
       return (
         <div
           className="flex flex-col items-center justify-between min-h-screen p-6 bg-mint-cream text-midnight-green"
-          onContextMenu={(e) => {
-            e.preventDefault();
-            handleLongPress();
-          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <h1 className="text-3xl font-bold">{randomAttack.category}</h1>
           <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomAttack.attack}</h2>
@@ -87,17 +95,23 @@
     // Komponente für Tori (Verteidiger)
     const ToriScreen = ({ techniques, setCurrentScreen }) => {
       const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
-      const handleLongPress = () => {
-        setCurrentScreen('start');
+      let touchStartTime;
+
+      const handleTouchStart = () => {
+        touchStartTime = Date.now();
+      };
+
+      const handleTouchEnd = () => {
+        if (Date.now() - touchStartTime > 500) { // Langer Klick = 500ms
+          setCurrentScreen('start');
+        }
       };
 
       return (
         <div
           className="flex flex-col items-center justify-between min-h-screen p-6 bg-mint-cream text-midnight-green"
-          onContextMenu={(e) => {
-            e.preventDefault();
-            handleLongPress();
-          }}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
         >
           <h1 className="text-3xl font-bold">{randomTechnique.category}</h1>
           <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomTechnique.technique}</h2>
@@ -144,14 +158,6 @@
     // Render der App
     const root = ReactDOM.createRoot(document.getElementById('root'));
     root.render(<App />);
-  </script>
-  <!-- Service Worker für PWA -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js');
-      });
-    }
   </script>
 </body>
 </html>
