@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Random Attack</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Font Lexend -->
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
+  <!-- React und ReactDOM -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
+  <!-- Babel für JSX -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="/manifest.json" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="theme-color" content="#1a535c" />
+  <style>
+    body {
+      font-family: 'Lexend', sans-serif;
+      background-color: #f7fff7; /* mint_cream */
+      color: #1a535c; /* midnight_green */
+    }
+  </style>
+</head>
+<body class="min-h-screen flex items-center justify-center">
+  <div id="root"></div>
+  <script type="text/babel">
+    // Komponente für den Startscreen
+    const StartScreen = ({ setCurrentScreen }) => {
+      const handleClick = (screen) => {
+        setCurrentScreen(screen);
+      };
+
+      return (
+        <div className="flex flex-col items-center justify-center min-h-screen bg-mint-cream text-midnight-green">
+          <h1 className="text-4xl font-bold mb-10">Random Attack</h1>
+          <div className="flex flex-col gap-6">
+            <button
+              className="w-40 h-40 rounded-full bg-robin_egg_blue text-white text-xl font-semibold hover:bg-robin_egg_blue-600 transition"
+              onClick={() => handleClick('uke')}
+            >
+              Uke
+            </button>
+            <button
+              className="w-40 h-40 rounded-full bg-robin_egg_blue text-white text-xl font-semibold hover:bg-robin_egg_blue-600 transition"
+              onClick={() => handleClick('tori')}
+            >
+              Tori
+            </button>
+            <button
+              className="w-40 h-40 rounded-full bg-light_red text-white text-xl font-semibold hover:bg-light_red-600 transition"
+              onClick={() => new Audio('/hajime.mp3').play()}
+            >
+              Hajime
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    // Komponente für Uke (Angreifer)
+    const UkeScreen = ({ attacks, setCurrentScreen }) => {
+      const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
+      const handleLongPress = () => {
+        setCurrentScreen('start');
+      };
+
+      return (
+        <div
+          className="flex flex-col items-center justify-between min-h-screen p-6 bg-mint-cream text-midnight-green"
+          onContextMenu={(e) => {
+            e.preventDefault();
+            handleLongPress();
+          }}
+        >
+          <h1 className="text-3xl font-bold">{randomAttack.category}</h1>
+          <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomAttack.attack}</h2>
+          <p className="text-lg text-center">{randomAttack.explanation}</p>
+        </div>
+      );
+    };
+
+    // Komponente für Tori (Verteidiger)
+    const ToriScreen = ({ techniques, setCurrentScreen }) => {
+      const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
+      const handleLongPress = () => {
+        setCurrentScreen('start');
+      };
+
+      return (
+        <div
+          className="flex flex-col items-center justify-between min-h-screen p-6 bg-mint-cream text-midnight-green"
+          onContextMenu={(e) => {
+            e.preventDefault();
+            handleLongPress();
+          }}
+        >
+          <h1 className="text-3xl font-bold">{randomTechnique.category}</h1>
+          <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomTechnique.technique}</h2>
+        </div>
+      );
+    };
+
+    // Haupt-App-Komponente
+    const App = () => {
+      const [currentScreen, setCurrentScreen] = React.useState('start');
+      const [data, setData] = React.useState({ attacks: [], techniques: [] });
+
+      React.useEffect(() => {
+        fetch('/data.json')
+          .then(response => response.json())
+          .then(data => setData(data))
+          .catch(error => console.error('Error loading data:', error));
+      }, []);
+
+      return (
+        <div>
+          {currentScreen === 'start' && <StartScreen setCurrentScreen={setCurrentScreen} />}
+          {currentScreen === 'uke' && <UkeScreen attacks={data.attacks} setCurrentScreen={setCurrentScreen} />}
+          {currentScreen === 'tori' && <ToriScreen techniques={data.techniques} setCurrentScreen={setCurrentScreen} />}
+        </div>
+      );
+    };
+
+    // Farbpalette für Tailwind
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            midnight_green: '#1a535c',
+            robin_egg_blue: '#4ecdc4',
+            mint_cream: '#f7fff7',
+            light_red: '#ff6b6b',
+            naples_yellow: '#ffe66d',
+          },
+        },
+      },
+    };
+
+    // Render der App
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+  <!-- Service Worker für PWA -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js');
+      });
+    }
+  </script>
+</body>
+</html>
