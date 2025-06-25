@@ -30,13 +30,23 @@
   <div id="root"></div>
   <script type="text/babel">
     const StartScreen = ({ setCurrentScreen }) => {
+      const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+
       const handleClick = (screen) => {
         console.log(`Navigating to ${screen}`);
         setCurrentScreen(screen);
       };
 
       return (
-        <div className="flex flex-col items-center justify-start h-screen w-screen bg-mint-cream text-midnight-green pt-8">
+        <div className="relative flex flex-col items-center justify-start h-screen w-screen bg-mint-cream text-midnight-green pt-8">
+          <button
+            className="absolute top-4 right-4 w-8 h-8 flex flex-col justify-center items-center bg-transparent"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            <span className="w-6 h-1 bg-midnight-green mb-1 rounded"></span>
+            <span className="w-6 h-1 bg-midnight-green mb-1 rounded"></span>
+            <span className="w-6 h-1 bg-midnight-green rounded"></span>
+          </button>
           <h1 className="text-4xl font-medium mb-12">Random Attack</h1>
           <div className="flex flex-col gap-6">
             <button
@@ -64,6 +74,24 @@
             >
               Hajime
             </button>
+          </div>
+          <div
+            className={`fixed top-0 right-0 h-full w-1/2 bg-mint-cream shadow-lg transform transition-transform duration-300 ${
+              isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
+            <div className="flex flex-col h-full justify-between p-4">
+              <div>
+                <h2 className="text-2xl font-bold text-midnight-green">Menü</h2>
+                {/* Platzhalter für zukünftige Menüpunkte */}
+              </div>
+              <button
+                className="w-8 h-8 rounded-full bg-light_red text-naples_yellow text-xl font-bold flex items-center justify-center hover:bg-light_red-600 transition self-end"
+                onClick={() => setIsSidebarOpen(false)}
+              >
+                X
+              </button>
+            </div>
           </div>
         </div>
       );
