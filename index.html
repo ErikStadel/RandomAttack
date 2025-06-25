@@ -59,6 +59,7 @@
                 audio.play()
                   .then(() => console.log('Hajime audio played successfully'))
                   .catch(e => console.error('Audio error:', e.message));
+                handleClick('hajime');
               }}
             >
               Hajime
@@ -68,7 +69,7 @@
       );
     };
 
-    const UkeScreen = ({ attacks, setCurrentScreen }) => {
+    const UkeScreen = ({ attacks, setCurrentScreen, setLastAttack }) => {
       if (!attacks || attacks.length === 0) {
         console.log('No attacks loaded');
         return (
@@ -80,6 +81,11 @@
       }
 
       const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
+      React.useEffect(() => {
+        setLastAttack(randomAttack);
+        console.log('Updated lastAttack:', randomAttack);
+      }, [randomAttack, setLastAttack]);
+
       let touchStartTime;
 
       const handleTouchStart = () => {
@@ -91,7 +97,7 @@
         const duration = Date.now() - touchStartTime;
         console.log(`Touch end (Uke), duration: ${duration}ms`);
         if (duration > 300) {
-          setCurrentScreen('start');
+          setCurrentScreen('hajime');
         }
       };
 
@@ -108,48 +114,102 @@
       );
     };
 
-    const ToriScreen = ({ techniques, setCurrentScreen }) => {
-  if (!techniques || techniques.length === 0) {
-    console.log('No techniques loaded');
-    return (
-      <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
-        <h1 className="text-3xl font-bold">Fehler</h1>
-        <p className="text-lg text-center mt-4">Keine Techniken geladen. Bitte überprüfe data.json.</p>
-      </div>
-    );
-  }
+    const ToriScreen = ({ techniques, setCurrentScreen, setLastTechnique }) => {
+      if (!techniques || techniques.length === 0) {
+        console.log('No techniques loaded');
+        return (
+          <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
+            <h1 className="text-3xl font-bold">Fehler</h1>
+            <p className="text-lg text-center mt-4">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+          </div>
+        );
+      }
 
-  const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
-  let touchStartTime;
+      const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
+      React.useEffect(() => {
+        setLastTechnique(randomTechnique);
+        console.log('Updated lastTechnique:', randomTechnique);
+      }, [randomTechnique, setLastTechnique]);
 
-  const handleTouchStart = () => {
-    touchStartTime = Date.now();
-    console.log('Touch start (Tori)');
-  };
+      let touchStartTime;
 
-  const handleTouchEnd = () => {
-    const duration = Date.now() - touchStartTime;
-    console.log(`Touch end (Tori), duration: ${duration}ms`);
-    if (duration > 300) {
-      setCurrentScreen('start');
-    }
-  };
+      const handleTouchStart = () => {
+        touchStartTime = Date.now();
+        console.log('Touch start (Tori)');
+      };
 
-  return (
-    <div
-      className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
-      onTouchStart={handleTouchStart}
-      onTouchEnd={handleTouchEnd}
-    >
-      <h1 className="text-3xl font-bold mb-4 text-center">{randomTechnique.category}</h1>
-      <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
-    </div>
+      const handleTouchEnd = () => {
+        const duration = Date.now() - touchStartTime;
+        console.log(`Touch end (Tori), duration: ${duration}ms`);
+        if (duration > 300) {
+          setCurrentScreen('hajime');
+        }
+      };
+
+      return (
+        <div
+          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <h1 className="text-3xl font-bold mb-4 text-center">{randomTechnique.category}</h1>
+          <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
+        </div>
+      );
+    };
+
+    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen }) => {
+      let touchStartTime;
+
+      const handleTouchStart = () => {
+        touchStartTime = Date.now();
+        console.log('Touch start (Hajime)');
+      };
+
+      const handleTouchEnd = () => {
+        const duration = Date.now() - touchStartTime;
+        console.log(`Touch end (Hajime), duration: ${duration}ms`);
+        if (duration > 300) {
+          setCurrentScreen('start');
+        }
+      };
+
+      return (
+        <div
+          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="flex flex-col items-center justify-center h-1/2 w-full">
+            {lastAttack ? (
+              <>
+                <h1 className="text-3xl font-bold mb-4 text-center">{lastAttack.category}</h1>
+                <h2 className="text-2xl font-semibold text-center">{lastAttack.attack}</h2>
+              </>
+            ) : (
+              <p className="text-lg text-center">Kein Angriff gezogen</p>
+            )}
+          </div>
+          <div className="w-4/5 border-t border-midnight-green my-4"></div>
+          <div className="flex flex-col items-center justify-center h-1/2 w-full">
+            {lastAttack ? (
+              <>
+                <h1 className="text-3xl font-bold mb-4 text-center">{lastTechnique.category}</h1>
+                <h2 className="text-2xl font-semibold text-center">{lastTechnique.technique}</h2>
+              </>
+            ) : (
+              <p className="text-lg text-center">Keine Technik gezogen</p>
+            )}
+          </div>
+        </div>
       );
     };
 
     const App = () => {
       const [currentScreen, setCurrentScreen] = React.useState('start');
       const [data, setData] = React.useState({ attacks: [], techniques: [] });
+      const [lastAttack, setLastAttack] = React.useState(null);
+      const [lastTechnique, setLastTechnique] = React.useState(null);
       const [loading, setLoading] = React.useState(true);
       const [error, setError] = React.useState(null);
 
@@ -182,7 +242,7 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
             <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Fehler beim Laden der Daten: {error}</p>
+            <p className="text-lg text-center mt-4">Fehler beim Laden der Daten: ${error}</p>
             <button
               className="mt-4 px-4 py-2 bg-robin_egg_blue text-white rounded hover:bg-robin_egg_blue-600"
               onClick={() => setCurrentScreen('start')}
@@ -196,8 +256,27 @@
       return (
         <div className="h-screen w-screen">
           {currentScreen === 'start' && <StartScreen setCurrentScreen={setCurrentScreen} />}
-          {currentScreen === 'uke' && <UkeScreen attacks={data.attacks} setCurrentScreen={setCurrentScreen} />}
-          {currentScreen === 'tori' && <ToriScreen techniques={data.techniques} setCurrentScreen={setCurrentScreen} />}
+          {currentScreen === 'uke' && (
+            <UkeScreen
+              attacks={data.attacks}
+              setCurrentScreen={setCurrentScreen}
+              setLastAttack={setLastAttack}
+            />
+          )}
+          {currentScreen === 'tori' && (
+            <ToriScreen
+              techniques={data.techniques}
+              setCurrentScreen={setCurrentScreen}
+              setLastTechnique={setLastTechnique}
+            />
+          )}
+          {currentScreen === 'hajime' && (
+            <HajimeScreen
+              lastAttack={lastAttack}
+              lastTechnique={lastTechnique}
+              setCurrentScreen={setCurrentScreen}
+            />
+          )}
         </div>
       );
     };
