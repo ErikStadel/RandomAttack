@@ -89,32 +89,21 @@
         console.log('Updated lastAttack:', randomAttack);
       }, [randomAttack, setLastAttack]);
 
-      let touchStartTime;
-
-      const handleTouchStart = () => {
-        touchStartTime = Date.now();
-        console.log('Touch start (Uke)');
-      };
-
-      const handleTouchEnd = () => {
-        const duration = Date.now() - touchStartTime;
-        console.log(`Touch end (Uke), duration: ${duration}ms`);
-        if (duration > 300) {
-          console.log('Navigating to start from Uke');
-          setCurrentScreen('start');
-          setRandomAttack(attacks[Math.floor(Math.random() * attacks.length)]);
-        }
-      };
-
       return (
-        <div
-          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
           <h1 className="text-3xl font-bold mb-4">{randomAttack.category}</h1>
           <h2 className="text-2xl font-semibold text-center mb-4">{randomAttack.attack}</h2>
           <p className="text-lg text-center max-w-full">{randomAttack.explanation}</p>
+          <button
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center hover:bg-light_red-600 transition"
+            onClick={() => {
+              console.log('Navigating to start from Uke');
+              setCurrentScreen('start');
+              setRandomAttack(attacks[Math.floor(Math.random() * attacks.length)]);
+            }}
+          >
+            X
+          </button>
         </div>
       );
     };
@@ -139,60 +128,27 @@
         console.log('Updated lastTechnique:', randomTechnique);
       }, [randomTechnique, setLastTechnique]);
 
-      let touchStartTime;
-
-      const handleTouchStart = () => {
-        touchStartTime = Date.now();
-        console.log('Touch start (Tori)');
-      };
-
-      const handleTouchEnd = () => {
-        const duration = Date.now() - touchStartTime;
-        console.log(`Touch end (Tori), duration: ${duration}ms`);
-        if (duration > 300) {
-          console.log('Navigating to start from Tori');
-          setCurrentScreen('start');
-          setRandomTechnique(techniques[Math.floor(Math.random() * techniques.length)]);
-        }
-      };
-
       return (
-        <div
-          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
           <h1 className="text-3xl font-bold mb-4 text-center">{randomTechnique.category}</h1>
           <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
+          <button
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center hover:bg-light_red-600 transition"
+            onClick={() => {
+              console.log('Navigating to start from Tori');
+              setCurrentScreen('start');
+              setRandomTechnique(techniques[Math.floor(Math.random() * techniques.length)]);
+            }}
+          >
+            X
+          </button>
         </div>
       );
     };
 
     const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen }) => {
-      let touchStartTime;
-
-      const handleTouchStart = () => {
-        touchStartTime = Date.now();
-        console.log('Touch start (Hajime)');
-      };
-
-      const handleTouchEnd = () => {
-        const duration = Date.now() - touchStartTime;
-        console.log(`Touch end (Hajime), duration: ${duration}ms`);
-        if (duration > 300) {
-          console.log('Navigating to start from Hajime');
-          setCurrentScreen('start');
-        }
-      };
-
-      console.log('Rendering HajimeScreen with:', { lastAttack, lastTechnique });
-
       return (
-        <div
-          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
           <div className="flex flex-col items-center justify-center h-1/2 w-full">
             {lastAttack ? (
               <>
@@ -214,6 +170,15 @@
               <p className="text-lg text-center">Keine Technik gezogen</p>
             )}
           </div>
+          <button
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center hover:bg-light_red-600 transition"
+            onClick={() => {
+              console.log('Navigating to start from Hajime');
+              setCurrentScreen('start');
+            }}
+          >
+            X
+          </button>
         </div>
       );
     };
