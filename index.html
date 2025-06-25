@@ -35,19 +35,20 @@
       const handleClick = (screen) => {
         console.log(`Navigating to ${screen}`);
         setCurrentScreen(screen);
+        setIsSidebarOpen(false);
       };
 
       return (
-        <div className="relative flex flex-col items-center justify-start h-screen w-screen bg-mint-cream text-midnight-green pt-8">
+        <div className="relative flex flex-col items-center justify-start h-screen w-screen bg-mint-cream text-midnight-green">
           <button
             className="absolute top-4 right-4 w-8 h-8 flex flex-col justify-center items-center bg-transparent"
             onClick={() => setIsSidebarOpen(true)}
           >
-            <span className="w-6 h-1 bg-midnight-green mb-1 rounded"></span>
-            <span className="w-6 h-1 bg-midnight-green mb-1 rounded"></span>
-            <span className="w-6 h-1 bg-midnight-green rounded"></span>
+            <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
+            <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
+            <span className="w-6 h-1 bg-gray-800 rounded"></span>
           </button>
-          <h1 className="text-4xl font-medium mb-12">Random Attack</h1>
+          <h1 className="text-4xl font-medium mb-12 pt-8">Random Attack</h1>
           <div className="flex flex-col gap-6">
             <button
               className="w-36 h-36 rounded-full bg-robin_egg_blue text-white text-lg font-semibold hover:bg-robin_egg_blue-600 transition"
@@ -76,17 +77,28 @@
             </button>
           </div>
           <div
-            className={`fixed top-0 right-0 h-full w-1/2 bg-mint-cream shadow-lg transform transition-transform duration-300 ${
+            className={`fixed top-0 right-0 h-full w-1/2 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-xl transform transition-transform duration-300 ${
               isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
             <div className="flex flex-col h-full justify-between p-4">
-              <div>
-                <h2 className="text-2xl font-bold text-midnight-green">Menü</h2>
-                {/* Platzhalter für zukünftige Menüpunkte */}
+              <div className="flex flex-col gap-4">
+                <h2 className="text-2xl font-bold text-naples_yellow">Menü</h2>
+                <div
+                  className="text-lg text-naples_yellow hover:underline cursor-pointer"
+                  onClick={() => handleClick('info')}
+                >
+                  Info
+                </div>
+                <div
+                  className="text-lg text-naples_yellow hover:underline cursor-pointer"
+                  onClick={() => handleClick('categories')}
+                >
+                  Kategorien
+                </div>
               </div>
               <button
-                className="w-8 h-8 rounded-full bg-light_red text-naples_yellow text-xl font-bold flex items-center justify-center hover:bg-light_red-600 transition self-end"
+                className="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition self-end"
                 onClick={() => setIsSidebarOpen(false)}
               >
                 X
@@ -97,25 +109,111 @@
       );
     };
 
-    const UkeScreen = ({ attacks, setCurrentScreen, setLastAttack }) => {
+    const InfoScreen = ({ setCurrentScreen }) => {
+      return (
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
+          <h1 className="text-3xl font-bold mb-4">Info</h1>
+          <p className="text-lg text-center max-w-full">Info-Seite wird geladen...</p>
+          <button
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            onClick={() => {
+              console.log('Navigating to start from Info');
+              setCurrentScreen('start');
+            }}
+          >
+            X
+          </button>
+        </div>
+      );
+    };
+
+    const CategoriesScreen = ({ categories, selectedCategories, setSelectedCategories, setCurrentScreen }) => {
+      const toggleCategory = (category) => {
+        setSelectedCategories((prev) =>
+          prev.includes(category)
+            ? prev.filter((c) => c !== category)
+            : [...prev, category]
+        );
+      };
+
+      return (
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
+          <h1 className="text-3xl font-bold mb-4">Kategorien</h1>
+          <div className="flex flex-col gap-4 w-full max-w-md">
+            {categories.map((category) => (
+              <div key={category} className="flex items-center justify-between">
+                <span className="text-lg">{category}</span>
+                <button
+                  className={`w-12 h-6 rounded-full p-1 flex items-center transition-colors ${
+                    selectedCategories.includes(category) ? 'bg-robin_egg_blue' : 'bg-gray-400'
+                  }`}
+                  onClick={() => toggleCategory(category)}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${
+                      selectedCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                  ></div>
+                </button>
+              </div>
+            ))}
+          </div>
+          <button
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            onClick={() => {
+              console.log('Navigating to start from Categories');
+              setCurrentScreen('start');
+            }}
+          >
+            X
+          </button>
+        </div>
+      );
+    };
+
+    const UkeScreen = ({ attacks, selectedCategories, setCurrentScreen, setLastAttack }) => {
       if (!attacks || attacks.length === 0) {
         console.log('No attacks loaded');
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
             <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Keine Angriffe geladen. Bitte überprüfe data.json.</p>
+            <p className="text-lg text-center mt-4">Keine Angriffe.</p>
+          </div>
+        );
+      }
+
+      const filteredAttacks = attacks.filter((attack) =>
+        selectedCategories.includes(attack.category)
+      );
+
+      if (filteredAttacks.length === 0) {
+        return (
+          <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
+            <h1 className="text-3xl font-bold">Fehler</h1>
+            <p className="text-lg text-center mt-4">Keine Angriffe in den ausgewählten Kategorien.</p>
+            <button
+              className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+              onClick={() => {
+                console.log('Navigating to start from Uke');
+                setCurrentScreen('start');
+              }}
+            >
+              X
+            </button>
           </div>
         );
       }
 
       const [randomAttack, setRandomAttack] = React.useState(
-        attacks[Math.floor(Math.random() * attacks.length)]
+        filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]
       );
 
       React.useEffect(() => {
-        setLastAttack(randomAttack);
-        console.log('Updated lastAttack:', randomAttack);
-      }, [randomAttack, setLastAttack]);
+        const newRandomAttack = filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)];
+        setRandomAttack(newRandomAttack);
+        setLastAttack(newRandomAttack);
+        console.log('Updated lastAttack:', newRandomAttack);
+      }, [selectedCategories, setLastAttack]);
 
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
@@ -123,11 +221,11 @@
           <h2 className="text-2xl font-semibold text-center mb-4">{randomAttack.attack}</h2>
           <p className="text-lg text-center max-w-full">{randomAttack.explanation}</p>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center hover:bg-light_red-600 transition"
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
               console.log('Navigating to start from Uke');
               setCurrentScreen('start');
-              setRandomAttack(attacks[Math.floor(Math.random() * attacks.length)]);
+              setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
             }}
           >
             X
@@ -161,7 +259,7 @@
           <h1 className="text-3xl font-bold mb-4 text-center">{randomTechnique.category}</h1>
           <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center hover:bg-light_red-600 transition"
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
               console.log('Navigating to start from Tori');
               setCurrentScreen('start');
@@ -199,7 +297,7 @@
             )}
           </div>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center hover:bg-light_red-600 transition"
+            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-naples_yellow text-2xl font-bold flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
               console.log('Navigating to start from Hajime');
               setCurrentScreen('start');
@@ -218,6 +316,7 @@
       const [lastTechnique, setLastTechnique] = React.useState(null);
       const [loading, setLoading] = React.useState(true);
       const [error, setError] = React.useState(null);
+      const [selectedCategories, setSelectedCategories] = React.useState([]);
 
       React.useEffect(() => {
         const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
@@ -231,6 +330,8 @@
           .then(data => {
             console.log('Data loaded:', data);
             setData(data);
+            const categories = [...new Set(data.attacks.map((attack) => attack.category))];
+            setSelectedCategories(categories); // Standard: alle Kategorien ausgewählt
             setLoading(false);
           })
           .catch(error => {
@@ -263,12 +364,24 @@
         );
       }
 
+      const categories = [...new Set(data.attacks.map((attack) => attack.category))];
+
       return (
         <div className="h-screen w-screen">
           {currentScreen === 'start' && <StartScreen setCurrentScreen={setCurrentScreen} />}
+          {currentScreen === 'info' && <InfoScreen setCurrentScreen={setCurrentScreen} />}
+          {currentScreen === 'categories' && (
+            <CategoriesScreen
+              categories={categories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              setCurrentScreen={setCurrentScreen}
+            />
+          )}
           {currentScreen === 'uke' && (
             <UkeScreen
               attacks={data.attacks}
+              selectedCategories={selectedCategories}
               setCurrentScreen={setCurrentScreen}
               setLastAttack={setLastAttack}
             />
