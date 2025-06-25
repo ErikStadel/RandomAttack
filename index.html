@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Random Attack</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="text/babel.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1a535c" />
@@ -56,11 +56,9 @@
               onClick={() => {
                 console.log('Attempting to play hajime.mp3');
                 const audio = new Audio('https://erikstadel.github.io/RandomAttack/hajime.mp3');
-                // Fallback: Falls CORS-Problem, lokale Datei verwenden
-                // const audio = new Audio('/hajime.mp3');
                 audio.play()
                   .then(() => console.log('Hajime audio played successfully'))
-                  .catch(e => console.error('Audio play error:', e.message));
+                  .catch(e => console.error('Audio error:', e.message));
                 handleClick('hajime');
               }}
             >
@@ -83,7 +81,7 @@
       }
 
       const [randomAttack, setRandomAttack] = React.useState(
-        React.useMemo(() => attacks[Math.floor(Math.random() * attacks.length)], [attacks])
+        attacks[Math.floor(Math.random() * attacks.length)]
       );
 
       React.useEffect(() => {
@@ -133,7 +131,7 @@
       }
 
       const [randomTechnique, setRandomTechnique] = React.useState(
-        React.useMemo(() => techniques[Math.floor(Math.random() * techniques.length)], [techniques])
+        techniques[Math.floor(Math.random() * techniques.length)]
       );
 
       React.useEffect(() => {
@@ -230,8 +228,6 @@
 
       React.useEffect(() => {
         const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
-        // Fallback: Falls CORS-Problem, lokale Datei verwenden
-        // const dataUrl = '/data.json';
         console.log(`Fetching ${dataUrl}`);
         fetch(`${dataUrl}?cacheBust=${Date.now()}`)
           .then(response => {
@@ -245,7 +241,7 @@
             setLoading(false);
           })
           .catch(error => {
-            console.error('Fetch error:', error.message);
+            console.error('Error loading data:', error);
             setError(error.message);
             setLoading(false);
           });
