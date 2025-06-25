@@ -55,7 +55,7 @@
               className="w-40 h-40 rounded-full bg-light_red text-white text-xl font-semibold hover:bg-light_red-600 transition"
               onClick={() => {
                 console.log('Playing hajime.mp3');
-                try { new Audio('/hajime.mp3').play(); } catch (e) { console.error('Audio error:', e); }
+                try { new Audio('./hajime').play(); } catch (e) { console.error('Audio error:', e); }
               }}
             >
               Hajime
