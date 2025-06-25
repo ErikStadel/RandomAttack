@@ -90,14 +90,14 @@
       const handleTouchEnd = () => {
         const duration = Date.now() - touchStartTime;
         console.log(`Touch end (Uke), duration: ${duration}ms`);
-        if (duration > 500) {
+        if (duration > 300) {
           setCurrentScreen('start');
         }
       };
 
       return (
         <div
-          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden"
+          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
@@ -130,14 +130,14 @@
       const handleTouchEnd = () => {
         const duration = Date.now() - touchStartTime;
         console.log(`Touch end (Tori), duration: ${duration}ms`);
-        if (duration > 500) {
+        if (duration > 300) {
           setCurrentScreen('start');
         }
       };
 
       return (
         <div
-          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden"
+          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
