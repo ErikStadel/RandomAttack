@@ -109,41 +109,41 @@
     };
 
     const ToriScreen = ({ techniques, setCurrentScreen }) => {
-      if (!techniques || techniques.length === 0) {
-        console.log('No techniques loaded');
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
-            <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Keine Techniken geladen. Bitte überprüfe data.json.</p>
-          </div>
-        );
-      }
+  if (!techniques || techniques.length === 0) {
+    console.log('No techniques loaded');
+    return (
+      <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
+        <h1 className="text-3xl font-bold">Fehler</h1>
+        <p className="text-lg text-center mt-4">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+      </div>
+    );
+  }
 
-      const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
-      let touchStartTime;
+  const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
+  let touchStartTime;
 
-      const handleTouchStart = () => {
-        touchStartTime = Date.now();
-        console.log('Touch start (Tori)');
-      };
+  const handleTouchStart = () => {
+    touchStartTime = Date.now();
+    console.log('Touch start (Tori)');
+  };
 
-      const handleTouchEnd = () => {
-        const duration = Date.now() - touchStartTime;
-        console.log(`Touch end (Tori), duration: ${duration}ms`);
-        if (duration > 300) {
-          setCurrentScreen('start');
-        }
-      };
+  const handleTouchEnd = () => {
+    const duration = Date.now() - touchStartTime;
+    console.log(`Touch end (Tori), duration: ${duration}ms`);
+    if (duration > 300) {
+      setCurrentScreen('start');
+    }
+  };
 
-      return (
-        <div
-          className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          <h1 className="text-3xl font-bold mb-4">{randomTechnique.category}</h1>
-          <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
-        </div>
+  return (
+    <div
+      className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none"
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+    >
+      <h1 className="text-3xl font-bold mb-4 text-center">{randomTechnique.category}</h1>
+      <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
+    </div>
       );
     };
 
