@@ -37,25 +37,28 @@
 
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
-          <h1 className="text-4xl font-bold mb-10">Random Attack</h1>
-          <div className="flex flex-col gap-6">
+          <h1 className="text-4xl font-medium mb-4">Random Attack</h1>
+          <div className="flex flex-col gap-4">
             <button
-              className="w-40 h-40 rounded-full bg-robin_egg_blue text-white text-xl font-semibold hover:bg-robin_egg_blue-600 transition"
+              className="w-36 h-36 rounded-full bg-robin_egg_blue text-white text-lg font-semibold hover:bg-robin_egg_blue-600 transition"
               onClick={() => handleClick('uke')}
             >
               Uke
             </button>
             <button
-              className="w-40 h-40 rounded-full bg-robin_egg_blue text-white text-xl font-semibold hover:bg-robin_egg_blue-600 transition"
+              className="w-36 h-36 rounded-full bg-robin_egg_blue text-white text-lg font-semibold hover:bg-robin_egg_blue-600 transition"
               onClick={() => handleClick('tori')}
             >
               Tori
             </button>
             <button
-              className="w-40 h-40 rounded-full bg-light_red text-white text-xl font-semibold hover:bg-light_red-600 transition"
+              className="w-36 h-36 rounded-full bg-light_red text-white text-lg font-semibold hover:bg-light_red-600 transition"
               onClick={() => {
-                console.log('Playing hajime.mp3');
-                try { new Audio('./hajime.mp3').play(); } catch (e) { console.error('Audio error:', e); }
+                console.log('Attempting to play hajime.mp3');
+                const audio = new Audio('https://erikstadel.github.io/RandomAttack/hajime.mp3');
+                audio.play()
+                  .then(() => console.log('Hajime audio played successfully'))
+                  .catch(e => console.error('Audio error:', e.message));
               }}
             >
               Hajime
@@ -94,13 +97,13 @@
 
       return (
         <div
-          className="flex flex-col items-center justify-between h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden"
+          className="flex flex-col items-center justify-center h-screen w-screen p-4 bg-mint-cream text-midnight-green overflow-hidden"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <h1 className="text-3xl font-bold">{randomAttack.category}</h1>
-          <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomAttack.attack}</h2>
-          <p className="text-lg text-center max-w-full">{randomAttack.explanation}</p>
+          <h1 className="text-2xl font-bold mb-2">{randomAttack.category}</h1>
+          <h2 className="text-xl font-semibold text-center mb-2">{randomAttack.attack}</h2>
+          <p className="text-base text-center max-w-full">{randomAttack.explanation}</p>
         </div>
       );
     };
@@ -134,12 +137,12 @@
 
       return (
         <div
-          className="flex flex-col items-center justify-between h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden"
+          className="flex flex-col items-center justify-center h-screen w-screen p-4 bg-mint-cream text-midnight-green overflow-hidden"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
-          <h1 className="text-3xl font-bold">{randomTechnique.category}</h1>
-          <h2 className="text-2xl font-semibold text-center flex-1 flex items-center">{randomTechnique.technique}</h2>
+          <h1 className="text-2xl font-bold mb-2">{randomTechnique.category}</h1>
+          <h2 className="text-xl font-semibold text-center mb-2">{randomTechnique.technique}</h2>
         </div>
       );
     };
