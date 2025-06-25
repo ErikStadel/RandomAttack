@@ -48,7 +48,7 @@
             <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
             <span className="w-6 h-1 bg-gray-800 rounded"></span>
           </button>
-          <h1 className="text-4xl font-medium mb-12 pt-8">Random Attack</h1>
+          <h1 className="text-4xl font-medium mb-12 pt-12">Random Attack</h1>
           <div className="flex flex-col gap-6">
             <button
               className="w-36 h-36 rounded-full bg-robin_egg_blue text-white text-lg font-semibold hover:bg-robin_egg_blue-600 transition"
@@ -137,9 +137,9 @@
       };
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4">Kategorien</h1>
-          <div className="flex flex-col gap-4 w-full max-w-md">
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 bg-mint-cream text-midnight-green overflow-hidden select-none">
+          <h1 className="text-3xl font-bold mb-4 pt-8">Kategorien</h1>
+          <div className="flex flex-col gap-4 w-full max-w-md overflow-y-auto">
             {categories.map((category) => (
               <div key={category} className="flex items-center justify-between">
                 <span className="text-lg">{category}</span>
