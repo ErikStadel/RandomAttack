@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Random Attack</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;700&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
+  <script src="text/babel.min.js"></script>
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1a535c" />
@@ -56,9 +56,11 @@
               onClick={() => {
                 console.log('Attempting to play hajime.mp3');
                 const audio = new Audio('https://erikstadel.github.io/RandomAttack/hajime.mp3');
+                // Fallback: Falls CORS-Problem, lokale Datei verwenden
+                // const audio = new Audio('/hajime.mp3');
                 audio.play()
                   .then(() => console.log('Hajime audio played successfully'))
-                  .catch(e => console.error('Audio error:', e.message));
+                  .catch(e => console.error('Audio play error:', e.message));
                 handleClick('hajime');
               }}
             >
@@ -80,7 +82,10 @@
         );
       }
 
-      const randomAttack = attacks[Math.floor(Math.random() * attacks.length)];
+      const [randomAttack, setRandomAttack] = React.useState(
+        React.useMemo(() => attacks[Math.floor(Math.random() * attacks.length)], [attacks])
+      );
+
       React.useEffect(() => {
         setLastAttack(randomAttack);
         console.log('Updated lastAttack:', randomAttack);
@@ -97,7 +102,9 @@
         const duration = Date.now() - touchStartTime;
         console.log(`Touch end (Uke), duration: ${duration}ms`);
         if (duration > 300) {
-          setCurrentScreen('hajime');
+          console.log('Navigating to start from Uke');
+          setCurrentScreen('start');
+          setRandomAttack(attacks[Math.floor(Math.random() * attacks.length)]);
         }
       };
 
@@ -125,7 +132,10 @@
         );
       }
 
-      const randomTechnique = techniques[Math.floor(Math.random() * techniques.length)];
+      const [randomTechnique, setRandomTechnique] = React.useState(
+        React.useMemo(() => techniques[Math.floor(Math.random() * techniques.length)], [techniques])
+      );
+
       React.useEffect(() => {
         setLastTechnique(randomTechnique);
         console.log('Updated lastTechnique:', randomTechnique);
@@ -142,7 +152,9 @@
         const duration = Date.now() - touchStartTime;
         console.log(`Touch end (Tori), duration: ${duration}ms`);
         if (duration > 300) {
-          setCurrentScreen('hajime');
+          console.log('Navigating to start from Tori');
+          setCurrentScreen('start');
+          setRandomTechnique(techniques[Math.floor(Math.random() * techniques.length)]);
         }
       };
 
@@ -170,9 +182,12 @@
         const duration = Date.now() - touchStartTime;
         console.log(`Touch end (Hajime), duration: ${duration}ms`);
         if (duration > 300) {
+          console.log('Navigating to start from Hajime');
           setCurrentScreen('start');
         }
       };
+
+      console.log('Rendering HajimeScreen with:', { lastAttack, lastTechnique });
 
       return (
         <div
@@ -192,7 +207,7 @@
           </div>
           <div className="w-4/5 border-t border-midnight-green my-4"></div>
           <div className="flex flex-col items-center justify-center h-1/2 w-full">
-            {lastAttack ? (
+            {lastTechnique ? (
               <>
                 <h1 className="text-3xl font-bold mb-4 text-center">{lastTechnique.category}</h1>
                 <h2 className="text-2xl font-semibold text-center">{lastTechnique.technique}</h2>
@@ -215,6 +230,8 @@
 
       React.useEffect(() => {
         const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
+        // Fallback: Falls CORS-Problem, lokale Datei verwenden
+        // const dataUrl = '/data.json';
         console.log(`Fetching ${dataUrl}`);
         fetch(`${dataUrl}?cacheBust=${Date.now()}`)
           .then(response => {
@@ -228,11 +245,15 @@
             setLoading(false);
           })
           .catch(error => {
-            console.error('Error loading data:', error);
+            console.error('Fetch error:', error.message);
             setError(error.message);
             setLoading(false);
           });
       }, []);
+
+      React.useEffect(() => {
+        console.log('Current screen:', currentScreen);
+      }, [currentScreen]);
 
       if (loading) {
         return <div className="flex items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">Lade...</div>;
@@ -242,7 +263,7 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen bg-mint-cream text-midnight-green">
             <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Fehler beim Laden der Daten: ${error}</p>
+            <p className="text-lg text-center mt-4">Fehler beim Laden der Daten: {error}</p>
             <button
               className="mt-4 px-4 py-2 bg-robin_egg_blue text-white rounded hover:bg-robin_egg_blue-600"
               onClick={() => setCurrentScreen('start')}
