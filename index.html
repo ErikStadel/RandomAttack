@@ -46,25 +46,14 @@
 <body class="h-screen w-screen overflow-hidden">
   <div id="root"></div>
   <script type="text/babel">
-    const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, hajimePool }) => {
-      console.log('StartScreen rendered', { isHajimeCounterEnabled, hajimePool });
+    const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, playSound, hajimeBuffer }) => {
+      console.log('StartScreen rendered', { isHajimeCounterEnabled });
       const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
       const handleClick = (screen) => {
         console.log(`Navigating to ${screen}`);
         setCurrentScreen(screen);
         setIsSidebarOpen(false);
-      };
-
-      const playHajimeSound = () => {
-        const audio = hajimePool.find(a => a.paused || a.ended);
-        if (audio) {
-          audio.play()
-            .then(() => console.log('Hajime audio played successfully'))
-            .catch(e => console.error('Hajime audio error:', e.message));
-        } else {
-          console.warn('No available hajime audio instance');
-        }
       };
 
       return (
@@ -96,7 +85,7 @@
               onClick={() => {
                 console.log('Hajime button clicked');
                 if (!isHajimeCounterEnabled) {
-                  playHajimeSound();
+                  playSound(hajimeBuffer, 'hajime');
                 }
                 handleClick('hajime');
               }}
@@ -419,20 +408,9 @@
       );
     };
 
-    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, beepPool, hajimePool }) => {
+    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, playSound, beepBuffer, hajimeBuffer }) => {
       const [timer, setTimer] = React.useState(5);
       const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled);
-
-      const playSound = (pool) => {
-        const audio = pool.find(a => a.paused || a.ended);
-        if (audio) {
-          audio.play()
-            .then(() => console.log(`${pool === beepPool ? 'Beep' : 'Hajime'} audio played successfully`))
-            .catch(e => console.error(`${pool === beepPool ? 'Beep' : 'Hajime'} audio error:`, e.message));
-        } else {
-          console.warn(`No available ${pool === beepPool ? 'beep' : 'hajime'} audio instance`);
-        }
-      };
 
       React.useEffect(() => {
         if (!isHajimeCounterEnabled) {
@@ -444,19 +422,19 @@
           setTimer((prev) => {
             if (prev <= 1) {
               clearInterval(interval);
-              playSound(hajimePool);
+              playSound(hajimeBuffer, 'hajime');
               setShowTimer(false);
               return 0;
             }
             if (prev <= 4) {
-              playSound(beepPool);
+              playSound(beepBuffer, 'beep');
             }
             return prev - 1;
           });
         }, 1000);
 
         return () => clearInterval(interval);
-      }, [isHajimeCounterEnabled, beepPool, hajimePool]);
+      }, [isHajimeCounterEnabled, playSound, beepBuffer, hajimeBuffer]);
 
       if (showTimer) {
         return (
@@ -525,23 +503,52 @@
       const [selectedCategories, setSelectedCategories] = React.useState([]);
       const [selectedDefenseCategories, setSelectedDefenseCategories] = React.useState([]);
       const [isHajimeCounterEnabled, setIsHajimeCounterEnabled] = React.useState(false);
-      const [beepPool] = React.useState(() =>
-        Array(3).fill().map(() => {
-          const audio = new Audio('./assets/sounds/beep.mp3');
-          audio.preload = 'auto';
-          return audio;
-        })
-      );
-      const [hajimePool] = React.useState(() =>
-        Array(3).fill().map(() => {
-          const audio = new Audio('./assets/sounds/hajime.mp3');
-          audio.preload = 'auto';
-          return audio;
-        })
-      );
+      const [audioContext, setAudioContext] = React.useState(null);
+      const [beepBuffer, setBeepBuffer] = React.useState(null);
+      const [hajimeBuffer, setHajimeBuffer] = React.useState(null);
+
+      const playSound = (buffer, soundName) => {
+        if (!audioContext || !buffer) {
+          console.warn(`Cannot play ${soundName}: AudioContext or buffer not ready`);
+          return;
+        }
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContext.destination);
+        source.start(0);
+        console.log(`${soundName} audio played successfully`);
+        source.onended = () => {
+          console.log(`${soundName} audio ended`);
+        };
+      };
 
       React.useEffect(() => {
-        console.log('App initialized', { beepPool, hajimePool });
+        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+        setAudioContext(ctx);
+
+        const loadAudio = async (url, setBuffer) => {
+          try {
+            const response = await fetch(url);
+            if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
+            const arrayBuffer = await response.arrayBuffer();
+            const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+            setBuffer(audioBuffer);
+            console.log(`Loaded ${url} into buffer`);
+          } catch (e) {
+            console.error(`Error loading ${url}:`, e.message);
+          }
+        };
+
+        loadAudio('./assets/sounds/beep.mp3', setBeepBuffer);
+        loadAudio('./assets/sounds/hajime.mp3', setHajimeBuffer);
+
+        return () => {
+          ctx.close().then(() => console.log('AudioContext closed'));
+        };
+      }, []);
+
+      React.useEffect(() => {
+        console.log('App initialized', { audioContext, beepBuffer, hajimeBuffer });
         const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
         console.log(`Fetching ${dataUrl}`);
         fetch(`${dataUrl}?cacheBust=${Date.now()}`)
@@ -598,7 +605,8 @@
             <StartScreen
               setCurrentScreen={setCurrentScreen}
               isHajimeCounterEnabled={isHajimeCounterEnabled}
-              hajimePool={hajimePool}
+              playSound={playSound}
+              hajimeBuffer={hajimeBuffer}
             />
           )}
           {currentScreen === 'info' && <InfoScreen setCurrentScreen={setCurrentScreen} />}
@@ -647,8 +655,9 @@
               lastTechnique={lastTechnique}
               setCurrentScreen={setCurrentScreen}
               isHajimeCounterEnabled={isHajimeCounterEnabled}
-              beepPool={beepPool}
-              hajimePool={hajimePool}
+              playSound={playSound}
+              beepBuffer={beepBuffer}
+              hajimeBuffer={hajimeBuffer}
             />
           )}
         </div>
