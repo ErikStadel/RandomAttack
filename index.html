@@ -45,8 +45,9 @@
 </head>
 <body class="h-screen w-screen overflow-hidden">
   <div id="root"></div>
-  <script type="text babel">
+  <script type="text/babel">
     const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, hajimeAudio }) => {
+      console.log('StartScreen rendered', { isHajimeCounterEnabled, hajimeAudio });
       const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
       const handleClick = (screen) => {
@@ -510,10 +511,19 @@
       const [selectedCategories, setSelectedCategories] = React.useState([]);
       const [selectedDefenseCategories, setSelectedDefenseCategories] = React.useState([]);
       const [isHajimeCounterEnabled, setIsHajimeCounterEnabled] = React.useState(false);
-      const [beepAudio] = React.useState(new Audio('./assets/sounds/beep.mp3'));
-      const [hajimeAudio] = React.useState(new Audio('./assets/sounds/hajime.mp3'));
+      const [beepAudio] = React.useState(() => {
+        const audio = new Audio('./assets/sounds/beep.mp3');
+        audio.preload = 'auto';
+        return audio;
+      });
+      const [hajimeAudio] = React.useState(() => {
+        const audio = new Audio('./assets/sounds/hajime.mp3');
+        audio.preload = 'auto';
+        return audio;
+      });
 
       React.useEffect(() => {
+        console.log('App initialized', { beepAudio, hajimeAudio });
         const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
         console.log(`Fetching ${dataUrl}`);
         fetch(`${dataUrl}?cacheBust=${Date.now()}`)
