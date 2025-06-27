@@ -30,7 +30,7 @@
         stroke-dashoffset: 0;
       }
       to {
-        stroke-dashoffset: 314;
+        stroke-dashoffset: 471;
       }
     }
     .timer-circle {
@@ -38,7 +38,7 @@
       transform-origin: center;
     }
     .timer-circle-path {
-      stroke-dasharray: 314;
+      stroke-dasharray: 471;
       animation: circle-timer 5s linear forwards;
     }
   </style>
@@ -46,7 +46,7 @@
 <body class="h-screen w-screen overflow-hidden">
   <div id="root"></div>
   <script type="text/babel">
-    const StartScreen = ({ setCurrentScreen }) => {
+    const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled }) => {
       const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
       const handleClick = (screen) => {
@@ -83,6 +83,12 @@
               className="w-36 h-36 rounded-full bg-light_red text-white text-lg font-semibold hover:bg-light_red-600 transition"
               onClick={() => {
                 console.log('Hajime button clicked');
+                const hajimeAudio = new Audio('./assets/sounds/hajime.mp3');
+                if (!isHajimeCounterEnabled) {
+                  hajimeAudio.play()
+                    .then(() => console.log('Hajime audio played successfully'))
+                    .catch(e => console.error('Hajime audio error:', e.message));
+                }
                 handleClick('hajime');
               }}
             >
@@ -443,18 +449,18 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
             <div className="relative flex items-center justify-center">
-              <svg width="200" height="200" className="timer-circle">
+              <svg width="300" height="300" className="timer-circle">
                 <circle
-                  cx="100"
-                  cy="100"
-                  r="50"
+                  cx="150"
+                  cy="150"
+                  r="75"
                   stroke="#f7fff7"
                   strokeWidth="4"
                   fill="none"
                   className="timer-circle-path"
                 />
               </svg>
-              <div className="absolute text-6xl font-bold">{timer}</div>
+              <div className="absolute text-8xl font-bold">{timer}</div>
             </div>
           </div>
         );
@@ -560,7 +566,9 @@
 
       return (
         <div className="h-screen w-screen">
-          {currentScreen === 'start' && <StartScreen setCurrentScreen={setCurrentScreen} />}
+          {currentScreen === 'start' && (
+            <StartScreen setCurrentScreen={setCurrentScreen} isHajimeCounterEnabled={isHajimeCounterEnabled} />
+          )}
           {currentScreen === 'info' && <InfoScreen setCurrentScreen={setCurrentScreen} />}
           {currentScreen === 'attacks' && (
             <AttacksScreen
