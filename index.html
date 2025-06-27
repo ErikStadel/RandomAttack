@@ -280,7 +280,7 @@
           setTimer((prev) => {
             if (prev <= 1) {
               clearInterval(interval);
-              setCurrentScreen('attacks');
+              setCurrentScreen('uke');
               return 0;
             }
             return prev - 1;
@@ -319,7 +319,7 @@
           setTimer((prev) => {
             if (prev <= 1) {
               clearInterval(interval);
-              setCurrentScreen('defense');
+              setCurrentScreen('tori');
               return 0;
             }
             return prev - 1;
@@ -411,7 +411,7 @@
       );
     };
 
-    const AttacksScreen = ({ categories, selectedCategories, setSelectedCategories, setCurrentScreen, isAutoModeEnabled }) => {
+    const AttacksScreen = ({ categories, selectedCategories, setSelectedCategories, setCurrentScreen }) => {
       const toggleCategory = (category) => {
         setSelectedCategories((prev) =>
           prev.includes(category)
@@ -445,8 +445,8 @@
           <button
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
-              console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Attacks');
-              setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
+              console.log('Navigating to start from Attacks');
+              setCurrentScreen('start');
             }}
           >
             X
@@ -455,7 +455,7 @@
       );
     };
 
-    const DefenseScreen = ({ defenseCategories, selectedDefenseCategories, setSelectedDefenseCategories, setCurrentScreen, isAutoModeEnabled }) => {
+    const DefenseScreen = ({ defenseCategories, selectedDefenseCategories, setSelectedDefenseCategories, setCurrentScreen }) => {
       const toggleCategory = (category) => {
         setSelectedDefenseCategories((prev) =>
           prev.includes(category)
@@ -489,8 +489,8 @@
           <button
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
-              console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Defense');
-              setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
+              console.log('Navigating to start from Defense');
+              setCurrentScreen('start');
             }}
           >
             X
@@ -499,7 +499,7 @@
       );
     };
 
-    const UkeScreen = ({ attacks, selectedCategories, setCurrentScreen, setLastAttack }) => {
+    const UkeScreen = ({ attacks, selectedCategories, setCurrentScreen, setLastAttack, isAutoModeEnabled }) => {
       if (!attacks || attacks.length === 0) {
         console.log('No attacks loaded');
         return (
@@ -551,8 +551,8 @@
           <button
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
-              console.log('Navigating to start from Uke');
-              setCurrentScreen('start');
+              console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Uke');
+              setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
               setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
             }}
           >
@@ -562,7 +562,7 @@
       );
     };
 
-    const ToriScreen = ({ techniques, selectedDefenseCategories, setCurrentScreen, setLastTechnique }) => {
+    const ToriScreen = ({ techniques, selectedDefenseCategories, setCurrentScreen, setLastTechnique, isAutoModeEnabled }) => {
       if (!techniques || techniques.length === 0) {
         console.log('No techniques loaded');
         return (
@@ -613,8 +613,8 @@
           <button
             className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
             onClick={() => {
-              console.log('Navigating to start from Tori');
-              setCurrentScreen('start');
+              console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Tori');
+              setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
               setRandomTechnique(filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]);
             }}
           >
@@ -624,12 +624,12 @@
       );
     };
 
-    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, playSound, beepBuffer, hajimeBuffer }) => {
+    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer }) => {
       const [timer, setTimer] = React.useState(5);
-      const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled);
+      const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
 
       React.useEffect(() => {
-        if (!isHajimeCounterEnabled) {
+        if (!isHajimeCounterEnabled || isAutoModeEnabled) {
           setShowTimer(false);
           return;
         }
@@ -650,7 +650,7 @@
         }, 1000);
 
         return () => clearInterval(interval);
-      }, [isHajimeCounterEnabled, playSound, beepBuffer, hajimeBuffer]);
+      }, [isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
 
       if (showTimer) {
         return (
@@ -864,7 +864,6 @@
               selectedCategories={selectedCategories}
               setSelectedCategories={setSelectedCategories}
               setCurrentScreen={setCurrentScreen}
-              isAutoModeEnabled={isAutoModeEnabled}
             />
           )}
           {currentScreen === 'defense' && (
@@ -873,7 +872,6 @@
               selectedDefenseCategories={selectedDefenseCategories}
               setSelectedDefenseCategories={setSelectedDefenseCategories}
               setCurrentScreen={setCurrentScreen}
-              isAutoModeEnabled={isAutoModeEnabled}
             />
           )}
           {currentScreen === 'settings' && (
@@ -891,6 +889,7 @@
               selectedCategories={selectedCategories}
               setCurrentScreen={setCurrentScreen}
               setLastAttack={setLastAttack}
+              isAutoModeEnabled={isAutoModeEnabled}
             />
           )}
           {currentScreen === 'tori' && (
@@ -899,6 +898,7 @@
               selectedDefenseCategories={selectedDefenseCategories}
               setCurrentScreen={setCurrentScreen}
               setLastTechnique={setLastTechnique}
+              isAutoModeEnabled={isAutoModeEnabled}
             />
           )}
           {currentScreen === 'hajime' && (
@@ -907,6 +907,7 @@
               lastTechnique={lastTechnique}
               setCurrentScreen={setCurrentScreen}
               isHajimeCounterEnabled={isHajimeCounterEnabled}
+              isAutoModeEnabled={isAutoModeEnabled}
               playSound={playSound}
               beepBuffer={beepBuffer}
               hajimeBuffer={hajimeBuffer}
