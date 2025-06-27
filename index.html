@@ -84,11 +84,9 @@
               onClick={() => {
                 console.log('Hajime button clicked');
                 const hajimeAudio = new Audio('./assets/sounds/hajime.mp3');
-                if (!isHajimeCounterEnabled) {
-                  hajimeAudio.play()
-                    .then(() => console.log('Hajime audio played successfully'))
-                    .catch(e => console.error('Hajime audio error:', e.message));
-                }
+                hajimeAudio.play()
+                  .then(() => console.log('Hajime audio played successfully'))
+                  .catch(e => console.error('Hajime audio error:', e.message));
                 handleClick('hajime');
               }}
             >
@@ -434,6 +432,8 @@
               return 0;
             }
             if (prev <= 4) {
+              beepAudio.pause();
+              beepAudio.currentTime = 0;
               beepAudio.play()
                 .then(() => console.log('Beep audio played successfully'))
                 .catch(e => console.error('Beep audio error:', e.message));
