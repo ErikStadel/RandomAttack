@@ -83,10 +83,12 @@
               className="w-36 h-36 rounded-full bg-light_red text-white text-lg font-semibold hover:bg-light_red-600 transition"
               onClick={() => {
                 console.log('Hajime button clicked');
-                const hajimeAudio = new Audio('./assets/sounds/hajime.mp3');
-                hajimeAudio.play()
-                  .then(() => console.log('Hajime audio played successfully'))
-                  .catch(e => console.error('Hajime audio error:', e.message));
+                if (!isHajimeCounterEnabled) {
+                  const hajimeAudio = new Audio('./assets/sounds/hajime.mp3');
+                  hajimeAudio.play()
+                    .then(() => console.log('Hajime audio played successfully'))
+                    .catch(e => console.error('Hajime audio error:', e.message));
+                }
                 handleClick('hajime');
               }}
             >
