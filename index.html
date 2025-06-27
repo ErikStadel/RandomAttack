@@ -45,8 +45,8 @@
 </head>
 <body class="h-screen w-screen overflow-hidden">
   <div id="root"></div>
-  <script type="text/babel">
-    const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled }) => {
+  <script type="text babel">
+    const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, hajimeAudio }) => {
       const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
 
       const handleClick = (screen) => {
@@ -84,7 +84,6 @@
               onClick={() => {
                 console.log('Hajime button clicked');
                 if (!isHajimeCounterEnabled) {
-                  const hajimeAudio = new Audio('./assets/sounds/hajime.mp3');
                   hajimeAudio.play()
                     .then(() => console.log('Hajime audio played successfully'))
                     .catch(e => console.error('Hajime audio error:', e.message));
@@ -410,7 +409,7 @@
       );
     };
 
-    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled }) => {
+    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, beepAudio, hajimeAudio }) => {
       const [timer, setTimer] = React.useState(5);
       const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled);
 
@@ -419,9 +418,6 @@
           setShowTimer(false);
           return;
         }
-
-        const beepAudio = new Audio('./assets/sounds/beep.mp3');
-        const hajimeAudio = new Audio('./assets/sounds/hajime.mp3');
 
         const interval = setInterval(() => {
           setTimer((prev) => {
@@ -445,7 +441,7 @@
         }, 1000);
 
         return () => clearInterval(interval);
-      }, [isHajimeCounterEnabled]);
+      }, [isHajimeCounterEnabled, beepAudio, hajimeAudio]);
 
       if (showTimer) {
         return (
@@ -514,6 +510,8 @@
       const [selectedCategories, setSelectedCategories] = React.useState([]);
       const [selectedDefenseCategories, setSelectedDefenseCategories] = React.useState([]);
       const [isHajimeCounterEnabled, setIsHajimeCounterEnabled] = React.useState(false);
+      const [beepAudio] = React.useState(new Audio('./assets/sounds/beep.mp3'));
+      const [hajimeAudio] = React.useState(new Audio('./assets/sounds/hajime.mp3'));
 
       React.useEffect(() => {
         const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
@@ -569,7 +567,11 @@
       return (
         <div className="h-screen w-screen">
           {currentScreen === 'start' && (
-            <StartScreen setCurrentScreen={setCurrentScreen} isHajimeCounterEnabled={isHajimeCounterEnabled} />
+            <StartScreen
+              setCurrentScreen={setCurrentScreen}
+              isHajimeCounterEnabled={isHajimeCounterEnabled}
+              hajimeAudio={hajimeAudio}
+            />
           )}
           {currentScreen === 'info' && <InfoScreen setCurrentScreen={setCurrentScreen} />}
           {currentScreen === 'attacks' && (
@@ -617,6 +619,8 @@
               lastTechnique={lastTechnique}
               setCurrentScreen={setCurrentScreen}
               isHajimeCounterEnabled={isHajimeCounterEnabled}
+              beepAudio={beepAudio}
+              hajimeAudio={hajimeAudio}
             />
           )}
         </div>
