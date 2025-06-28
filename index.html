@@ -5,41 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <title>Random Attack</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;800&display=swap" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.2.0/umd/react.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#233d4d" />
+  <meta name="theme-color" content="#1A1A1A" />
   <style>
     body {
-      font-family: 'Lexend', sans-serif;
-      background-color: #233d4d;
-      color: #f7fff7;
+      font-family: 'Manrope', sans-serif;
+      background: linear-gradient(180deg, #1A1A1A 0%, #2D2D2D 100%);
+      color: #D1D5DB;
       margin: 0;
       overflow: hidden;
     }
     #root {
       height: 100vh;
       width: 100vw;
-      background-color: #233d4d;
     }
-    @keyframes circle-timer {
-      from {
-        stroke-dashoffset: 0;
-      }
-      to {
-        stroke-dashoffset: 471;
-      }
+    .neumorphic {
+      background: #2A2A2A;
+      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      transition: all 0.3s ease;
     }
-    @keyframes circle-timer-10s {
-      from {
-        stroke-dashoffset: 0;
-      }
-      to {
-        stroke-dashoffset: 942;
-      }
+    .neumorphic:active {
+      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.15);
+      transform: scale(0.95);
+    }
+    .x-button {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      transition: all 0.3s ease;
+    }
+    .x-button:active {
+      transform: translateX(-50%) scale(0.95);
+      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.15);
+    }
+    .liquid-glass {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      position: relative;
+      overflow: hidden;
     }
     .timer-circle {
       transform: rotate(-90deg);
@@ -52,6 +64,14 @@
     .timer-circle-path-10s {
       stroke-dasharray: 942;
       animation: circle-timer-10s 10s linear forwards;
+    }
+    @keyframes circle-timer {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 471; }
+    }
+    @keyframes circle-timer-10s {
+      from { stroke-dashoffset: 0; }
+      to { stroke-dashoffset: 942; }
     }
   </style>
 </head>
@@ -70,59 +90,65 @@
 
       if (isAutoModeEnabled) {
         return (
-          <div className="relative flex flex-col items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">
+          <div className="relative flex flex-col items-center justify-center h-screen w-screen p-6">
+            <h1 className="text-4xl font-bold text-white mb-12">Random Attack</h1>
             <button
-              className="absolute top-4 right-4 w-8 h-8 flex flex-col justify-center items-center bg-transparent"
-              onClick={() => setIsSidebarOpen(true)}
-            >
-              <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
-              <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
-              <span className="w-6 h-1 bg-gray-800 rounded"></span>
-            </button>
-            <h1 className="text-4xl font-medium mb-12">Random Attack</h1>
-            <button
-              className="w-48 h-48 rounded-full bg-robin_egg_blue text-white text-2xl font-semibold hover:bg-robin_egg_blue-600 transition"
+              className="w-full max-w-sm py-6 neumorphic text-cyan-400 text-2xl font-semibold transition-all duration-300"
               onClick={() => handleClick('attacker')}
+              aria-label="Auto Modus starten"
             >
               Start
             </button>
+            <button
+              className="absolute top-4 right-4 p-3 rounded-full neumorphic transition-all duration-300"
+              onClick={() => setIsSidebarOpen(true)}
+              aria-label="Menü öffnen"
+            >
+              <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+              </svg>
+            </button>
             <div
-              className={`fixed top-0 right-0 h-full w-1/2 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-2xl transform transition-transform duration-300 ${
+              className={`fixed top-0 right-0 h-full w-3/4 liquid-glass transform transition-transform duration-300 ${
                 isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
               }`}
-              style={{ boxShadow: isSidebarOpen ? '-10px 0 15px -3px rgba(0, 0, 0, 0.5)' : 'none' }}
             >
-              <div className="flex flex-col h-full justify-between p-4">
+              <div className="flex flex-col h-full justify-between p-6">
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-2xl font-bold text-mint-cream">Menü</h2>
-                  <div
-                    className="text-lg text-mint-cream hover:underline cursor-pointer"
+                  <h2 className="text-3xl font-bold text-white mb-8">Menü</h2>
+                  <button
+                    className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                     onClick={() => handleClick('info')}
+                    aria-label="Info anzeigen"
                   >
                     Info
-                  </div>
-                  <div
-                    className="text-lg text-mint-cream hover:underline cursor-pointer"
+                  </button>
+                  <button
+                    className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                     onClick={() => handleClick('attacks')}
+                    aria-label="Angriffe anzeigen"
                   >
                     Angriffe
-                  </div>
-                  <div
-                    className="text-lg text-mint-cream hover:underline cursor-pointer"
+                  </button>
+                  <button
+                    className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                     onClick={() => handleClick('defense')}
+                    aria-label="Abwehr anzeigen"
                   >
                     Abwehr
-                  </div>
-                  <div
-                    className="text-lg text-mint-cream hover:underline cursor-pointer"
+                  </button>
+                  <button
+                    className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                     onClick={() => handleClick('settings')}
+                    aria-label="Einstellungen anzeigen"
                   >
                     Einstellungen
-                  </div>
+                  </button>
                 </div>
                 <button
-                  className="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-lg font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition self-end"
+                  className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
                   onClick={() => setIsSidebarOpen(false)}
+                  aria-label="Menü schließen"
                 >
                   X
                 </button>
@@ -133,31 +159,25 @@
       }
 
       return (
-        <div className="relative flex flex-col items-center justify-start h-screen w-screen bg-midnight-green text-mint-cream">
-          <button
-            className="absolute top-4 right-4 w-8 h-8 flex flex-col justify-center items-center bg-transparent"
-            onClick={() => setIsSidebarOpen(true)}
-          >
-            <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
-            <span className="w-6 h-1 bg-gray-800 mb-1 rounded"></span>
-            <span className="w-6 h-1 bg-gray-800 rounded"></span>
-          </button>
-          <h1 className="text-4xl font-medium mb-12 pt-12">Random Attack</h1>
-          <div className="flex flex-col gap-6">
+        <div className="relative flex flex-col items-center justify-center h-screen w-screen p-6">
+          <h1 className="text-4xl font-bold text-white mb-12">Random Attack</h1>
+          <div className="flex flex-col gap-6 w-full max-w-sm">
             <button
-              className="w-36 h-36 rounded-full bg-robin_egg_blue text-white text-lg font-semibold hover:bg-robin_egg_blue-600 transition"
+              className="w-full py-4 neumorphic text-cyan-400 text-lg font-semibold transition-all duration-300"
               onClick={() => handleClick('uke')}
+              aria-label="Uke starten"
             >
               Uke
             </button>
             <button
-              className="w-36 h-36 rounded-full bg-robin_egg_blue text-white text-lg font-semibold hover:bg-robin_egg_blue-600 transition"
+              className="w-full py-4 neumorphic text-cyan-400 text-lg font-semibold transition-all duration-300"
               onClick={() => handleClick('tori')}
+              aria-label="Tori starten"
             >
               Tori
             </button>
             <button
-              className="w-36 h-36 rounded-full bg-light_red text-white text-lg font-semibold hover:bg-light_red-600 transition"
+              className="w-full py-4 neumorphic text-cyan-400 text-lg font-semibold transition-all duration-300"
               onClick={() => {
                 console.log('Hajime button clicked');
                 if (!isHajimeCounterEnabled) {
@@ -165,47 +185,61 @@
                 }
                 handleClick('hajime');
               }}
+              aria-label="Hajime starten"
             >
               Hajime
             </button>
           </div>
+          <button
+            className="absolute top-4 right-4 p-3 rounded-full neumorphic transition-all duration-300"
+            onClick={() => setIsSidebarOpen(true)}
+            aria-label="Menü öffnen"
+          >
+            <svg className="w-6 h-6 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16m-7 6h7" />
+            </svg>
+          </button>
           <div
-            className={`fixed top-0 right-0 h-full w-1/2 bg-gray-800 bg-opacity-90 backdrop-blur-md shadow-2xl transform transition-transform duration-300 ${
+            className={`fixed top-0 right-0 h-full w-3/4 liquid-glass transform transition-transform duration-300 ${
               isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
-            style={{ boxShadow: isSidebarOpen ? '-10px 0 15px -3px rgba(0, 0, 0, 0.5)' : 'none' }}
           >
-            <div className="flex flex-col h-full justify-between p-4">
+            <div className="flex flex-col h-full justify-between p-6">
               <div className="flex flex-col gap-4">
-                <h2 className="text-2xl font-bold text-mint-cream">Menü</h2>
-                <div
-                  className="text-lg text-mint-cream hover:underline cursor-pointer"
+                <h2 className="text-3xl font-bold text-white mb-8">Menü</h2>
+                <button
+                  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                   onClick={() => handleClick('info')}
+                  aria-label="Info anzeigen"
                 >
                   Info
-                </div>
-                <div
-                  className="text-lg text-mint-cream hover:underline cursor-pointer"
+                </button>
+                <button
+                  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                   onClick={() => handleClick('attacks')}
+                  aria-label="Angriffe anzeigen"
                 >
                   Angriffe
-                </div>
-                <div
-                  className="text-lg text-mint-cream hover:underline cursor-pointer"
+                </button>
+                <button
+                  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                   onClick={() => handleClick('defense')}
+                  aria-label="Abwehr anzeigen"
                 >
                   Abwehr
-                </div>
-                <div
-                  className="text-lg text-mint-cream hover:underline cursor-pointer"
+                </button>
+                <button
+                  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                   onClick={() => handleClick('settings')}
+                  aria-label="Einstellungen anzeigen"
                 >
                   Einstellungen
-                </div>
+                </button>
               </div>
               <button
-                className="w-8 h-8 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-lg font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition self-end"
+                className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
                 onClick={() => setIsSidebarOpen(false)}
+                aria-label="Menü schließen"
               >
                 X
               </button>
@@ -225,34 +259,32 @@
       };
 
       return (
-        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4 pt-8">Einstellungen</h1>
-          <div className="flex flex-col gap-4 w-full max-w-md overflow-y-auto">
-            <div className="flex items-center justify-between">
-              <span className="text-lg">Hajime Counter</span>
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold text-white mb-8 pt-8">Einstellungen</h1>
+          <div className="flex flex-col gap-6 w-full max-w-sm">
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg text-gray-300">Hajime Counter</span>
               <button
-                className={`w-12 h-6 rounded-full p-1 flex items-center transition-colors ${
-                  isHajimeCounterEnabled ? 'bg-robin_egg_blue' : 'bg-gray-400'
-                }`}
+                className={`w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300`}
                 onClick={toggleHajimeCounter}
+                aria-label="Hajime Counter umschalten"
               >
                 <div
-                  className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
                     isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
                   }`}
                 ></div>
               </button>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-lg">Auto Modus</span>
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg text-gray-300">Auto Modus</span>
               <button
-                className={`w-12 h-6 rounded-full p-1 flex items-center transition-colors ${
-                  isAutoModeEnabled ? 'bg-robin_egg_blue' : 'bg-gray-400'
-                }`}
+                className={`w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300`}
                 onClick={toggleAutoMode}
+                aria-label="Auto Modus umschalten"
               >
                 <div
-                  className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
                     isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
                   }`}
                 ></div>
@@ -260,11 +292,12 @@
             </div>
           </div>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to start from Settings');
               setCurrentScreen('start');
             }}
+            aria-label="Zurück zum Start"
           >
             X
           </button>
@@ -291,21 +324,21 @@
       }, [setCurrentScreen]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4">Angreifer</h1>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold text-white mb-4">Angreifer</h1>
           <div className="relative flex items-center justify-center">
             <svg width="300" height="300" className="timer-circle">
               <circle
                 cx="150"
                 cy="150"
                 r="75"
-                stroke="#f7fff7"
+                stroke="#D1D5DB"
                 strokeWidth="4"
                 fill="none"
                 className="timer-circle-path"
               />
             </svg>
-            <div className="absolute text-8xl font-bold">{timer}</div>
+            <div className="absolute text-8xl font-bold text-white">{timer}</div>
           </div>
         </div>
       );
@@ -330,21 +363,21 @@
       }, [setCurrentScreen]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4">Verteidigung</h1>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold text-white mb-4">Verteidigung</h1>
           <div className="relative flex items-center justify-center">
             <svg width="300" height="300" className="timer-circle">
               <circle
                 cx="150"
                 cy="150"
                 r="75"
-                stroke="#f7fff7"
+                stroke="#D1D5DB"
                 strokeWidth="4"
                 fill="none"
                 className="timer-circle-path"
               />
             </svg>
-            <div className="absolute text-8xl font-bold">{timer}</div>
+            <div className="absolute text-8xl font-bold text-white">{timer}</div>
           </div>
         </div>
       );
@@ -373,21 +406,21 @@
       }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4">Get Ready</h1>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold text-white mb-4">Get Ready</h1>
           <div className="relative flex items-center justify-center">
             <svg width="300" height="300" className="timer-circle">
               <circle
                 cx="150"
                 cy="150"
                 r="75"
-                stroke="#f7fff7"
+                stroke="#D1D5DB"
                 strokeWidth="4"
                 fill="none"
                 className="timer-circle-path-10s"
               />
             </svg>
-            <div className="absolute text-8xl font-bold">{timer}</div>
+            <div className="absolute text-8xl font-bold text-white">{timer}</div>
           </div>
         </div>
       );
@@ -395,15 +428,16 @@
 
     const InfoScreen = ({ setCurrentScreen }) => {
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4">Info</h1>
-          <p className="text-lg text-center max-w-full">Info-Seite wird geladen...</p>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+          <h1 className="text-3xl font-bold text-white mb-4">Info</h1>
+          <p className="text-lg text-gray-300 text-center max-w-sm">Info-Seite wird geladen...</p>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to start from Info');
               setCurrentScreen('start');
             }}
+            aria-label="Zurück zum Start"
           >
             X
           </button>
@@ -421,20 +455,19 @@
       };
 
       return (
-        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4 pt-8">Angriffe</h1>
-          <div className="flex flex-col gap-4 w-full max-w-md overflow-y-auto">
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold text-white mb-8 pt-8">Angriffe</h1>
+          <div className="flex flex-col gap-4 w-full max-w-sm">
             {categories.map((category) => (
-              <div key={category} className="flex items-center justify-between">
-                <span className="text-lg">{category}</span>
+              <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg text-gray-300">{category}</span>
                 <button
-                  className={`w-12 h-6 rounded-full p-1 flex items-center transition-colors ${
-                    selectedCategories.includes(category) ? 'bg-robin_egg_blue' : 'bg-gray-400'
-                  }`}
+                  className={`w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300`}
                   onClick={() => toggleCategory(category)}
+                  aria-label={`${category} auswählen`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
                       selectedCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
                     }`}
                   ></div>
@@ -443,11 +476,12 @@
             ))}
           </div>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to start from Attacks');
               setCurrentScreen('start');
             }}
+            aria-label="Zurück zum Start"
           >
             X
           </button>
@@ -465,20 +499,19 @@
       };
 
       return (
-        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4 pt-8">Abwehr</h1>
-          <div className="flex flex-col gap-4 w-full max-w-md overflow-y-auto">
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold text-white mb-8 pt-8">Abwehr</h1>
+          <div className="flex flex-col gap-4 w-full max-w-sm">
             {defenseCategories.map((category) => (
-              <div key={category} className="flex items-center justify-between">
-                <span className="text-lg">{category}</span>
+              <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg text-gray-300">{category}</span>
                 <button
-                  className={`w-12 h-6 rounded-full p-1 flex items-center transition-colors ${
-                    selectedDefenseCategories.includes(category) ? 'bg-robin_egg_blue' : 'bg-gray-400'
-                  }`}
+                  className={`w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300`}
                   onClick={() => toggleCategory(category)}
+                  aria-label={`${category} auswählen`}
                 >
                   <div
-                    className={`w-4 h-4 rounded-full bg-white shadow-md transform transition-transform ${
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
                       selectedDefenseCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
                     }`}
                   ></div>
@@ -487,11 +520,12 @@
             ))}
           </div>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to start from Defense');
               setCurrentScreen('start');
             }}
+            aria-label="Zurück zum Start"
           >
             X
           </button>
@@ -503,9 +537,19 @@
       if (!attacks || attacks.length === 0) {
         console.log('No attacks loaded');
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">
-            <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Keine Angriffe.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Angriffe.</p>
+            <button
+              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Uke');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
           </div>
         );
       }
@@ -516,15 +560,16 @@
 
       if (filteredAttacks.length === 0) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">
-            <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Keine Angriffe in den ausgewählten Kategorien.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Angriffe in den ausgewählten Kategorien.</p>
             <button
-              className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
               onClick={() => {
                 console.log('Navigating to start from Uke');
                 setCurrentScreen('start');
               }}
+              aria-label="Zurück zum Start"
             >
               X
             </button>
@@ -544,17 +589,18 @@
       }, [selectedCategories, setLastAttack]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4">{randomAttack.category}</h1>
-          <h2 className="text-2xl font-semibold text-center mb-4">{randomAttack.attack}</h2>
-          <p className="text-lg text-center max-w-full">{randomAttack.explanation}</p>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+          <h1 className="text-3xl font-bold text-white mb-4">Angriff</h1>
+          <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
+          <p className="text-lg text-gray-300 text-center max-w-sm">{randomAttack.explanation}</p>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Uke');
               setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
               setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
             }}
+            aria-label="Zurück zum Start oder nächste Phase"
           >
             X
           </button>
@@ -566,9 +612,19 @@
       if (!techniques || techniques.length === 0) {
         console.log('No techniques loaded');
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">
-            <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+            <button
+              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Tori');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
           </div>
         );
       }
@@ -579,15 +635,16 @@
 
       if (filteredTechniques.length === 0) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">
-            <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Keine Techniken in den ausgewählten Kategorien.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Techniken in den ausgewählten Kategorien.</p>
             <button
-              className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
               onClick={() => {
                 console.log('Navigating to start from Tori');
                 setCurrentScreen('start');
               }}
+              aria-label="Zurück zum Start"
             >
               X
             </button>
@@ -607,16 +664,17 @@
       }, [selectedDefenseCategories, setLastTechnique]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <h1 className="text-3xl font-bold mb-4 text-center">{randomTechnique.category}</h1>
-          <h2 className="text-2xl font-semibold text-center mb-4">{randomTechnique.technique}</h2>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+          <h1 className="text-3xl font-bold text-white mb-4">Abwehr</h1>
+          <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Tori');
               setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
               setRandomTechnique(filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]);
             }}
+            aria-label="Zurück zum Start oder nächste Phase"
           >
             X
           </button>
@@ -654,54 +712,55 @@
 
       if (showTimer) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 bg-midnight-green text-mint-cream overflow-hidden select-none">
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="relative flex items-center justify-center">
               <svg width="300" height="300" className="timer-circle">
                 <circle
                   cx="150"
                   cy="150"
                   r="75"
-                  stroke="#f7fff7"
+                  stroke="#D1D5DB"
                   strokeWidth="4"
                   fill="none"
                   className="timer-circle-path"
                 />
               </svg>
-              <div className="absolute text-8xl font-bold">{timer}</div>
+              <div className="absolute text-8xl font-bold text-white">{timer}</div>
             </div>
           </div>
         );
       }
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-4 bg-midnight-green text-mint-cream overflow-hidden select-none">
-          <div className="flex flex-col items-center justify-center h-1/4 w-full">
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+          <div className="flex flex-col items-center justify-center h-1/3 w-full">
             {lastAttack ? (
               <>
-                <h1 className="text-3xl font-bold mb-0 text-center">{lastAttack.category}</h1>
-                <h2 className="text-2xl font-semibold text-center">{lastAttack.attack}</h2>
+                <h1 className="text-3xl font-bold text-white mb-2">Angriff</h1>
+                <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
               </>
             ) : (
-              <p className="text-lg text-center">Kein Angriff gezogen</p>
+              <p className="text-lg text-gray-300 text-center">Kein Angriff gezogen</p>
             )}
           </div>
-          <div className="w-4/5 border-t border-mint-cream my-4"></div>
-          <div className="flex flex-col items-center justify-center h-1/4 w-full">
+          <div className="w-4/5 border-t border-gray-500 my-6"></div>
+          <div className="flex flex-col items-center justify-center h-1/3 w-full">
             {lastTechnique ? (
               <>
-                <h1 className="text-3xl font-bold mb-0 text-center">{lastTechnique.category}</h1>
-                <h2 className="text-2xl font-semibold text-center">{lastTechnique.technique}</h2>
+                <h1 className="text-3xl font-bold text-white mb-2">Abwehr</h1>
+                <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
               </>
             ) : (
-              <p className="text-lg text-center">Keine Technik gezogen</p>
+              <p className="text-lg text-gray-300 text-center">Keine Technik gezogen</p>
             )}
           </div>
           <button
-            className="fixed bottom-4 left-1/2 -translate-x-1/2 w-12 h-12 rounded-full bg-gradient-to-br from-red-600 to-light_red text-mint-cream text-xl font-light flex items-center justify-center shadow-inner shadow-sm hover:shadow-inner transition"
+            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
             onClick={() => {
               console.log('Navigating to start from Hajime');
               setCurrentScreen('start');
             }}
+            aria-label="Zurück zum Start"
           >
             X
           </button>
@@ -825,19 +884,24 @@
       }, [currentScreen]);
 
       if (loading) {
-        return <div className="flex items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">Lade...</div>;
+        return (
+          <div className="flex items-center justify-center h-screen w-screen p-6">
+            <p className="text-lg text-gray-300">Lade...</p>
+          </div>
+        );
       }
 
       if (error) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen bg-midnight-green text-mint-cream">
-            <h1 className="text-3xl font-bold">Fehler</h1>
-            <p className="text-lg text-center mt-4">Fehler beim Laden der Daten: {error}</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
+            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+            <p className="text-lg text-gray-300 text-center max-w-sm">Fehler beim Laden der Daten: {error}</p>
             <button
-              className="mt-4 px-4 py-2 bg-robin_egg_blue text-white rounded hover:bg-robin_egg_blue-600"
+              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
               onClick={() => setCurrentScreen('start')}
+              aria-label="Zurück zum Start"
             >
-              Zurück
+              X
             </button>
           </div>
         );
@@ -847,7 +911,7 @@
       const defenseCategories = [...new Set(data.techniques.map((technique) => technique.category))];
 
       return (
-        <div className="h-screen w-screen">
+        <div className="h-screen w-screen relative">
           {currentScreen === 'start' && (
             <StartScreen
               setCurrentScreen={setCurrentScreen}
@@ -935,11 +999,11 @@
       theme: {
         extend: {
           colors: {
-            midnight_green: '#233d4d',
-            robin_egg_blue: '#4ecdc4',
-            mint_cream: '#f7fff7',
-            light_red: '#ff6b6b',
-            naples_yellow: '#ffe66d',
+            'dark-bg': '#1A1A1A',
+            'dark-gray': '#2A2A2A',
+            'light-gray': '#D1D5DB',
+            'cyan-accent': '#22D3EE',
+            'purple-accent': '#A78BFA',
           },
         },
       },
