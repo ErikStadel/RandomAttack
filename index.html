@@ -40,6 +40,7 @@
       left: 0;
       width: 100%;
       height: 4rem; /* h-16 */
+      background: #2A2A2A;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -162,15 +163,6 @@
                 </button>
               </div>
             </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => setIsSidebarOpen(false)}
-                aria-label="Menü schließen"
-              >
-                X
-              </button>
-            </div>
           </div>
         );
       }
@@ -261,15 +253,6 @@
                 X
               </button>
             </div>
-          </div>
-          <div className="sticky-footer">
-            <button
-              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => setCurrentScreen('start')}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
           </div>
         </div>
       );
@@ -456,9 +439,11 @@
 
     const InfoScreen = ({ setCurrentScreen }) => {
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-          <h1 className="text-3xl font-bold text-white mb-4">Info</h1>
-          <p className="text-lg text-gray-300 text-center max-w-sm">Info-Seite wird geladen...</p>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <h1 className="text-3xl font-bold text-white mb-4">Info</h1>
+            <p className="text-lg text-gray-300 text-center">Info-Seite wird geladen...</p>
+          </div>
           <div className="sticky-footer">
             <button
               className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -571,9 +556,11 @@
       if (!attacks || attacks.length === 0) {
         console.log('No attacks loaded');
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Angriffe.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+              <p className="text-lg text-gray-300 text-center">Keine Angriffe.</p>
+            </div>
             <div className="sticky-footer">
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -596,9 +583,11 @@
 
       if (filteredAttacks.length === 0) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Angriffe in den ausgewählten Kategorien.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+              <p className="text-lg text-gray-300 text-center">Keine Angriffe in den ausgewählten Kategorien.</p>
+            </div>
             <div className="sticky-footer">
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -627,10 +616,12 @@
       }, [selectedCategories, setLastAttack]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-          <h1 className="text-3xl font-bold text-white mb-4">Angriff</h1>
-          <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
-          <p className="text-lg text-gray-300 text-center max-w-sm">{randomAttack.explanation}</p>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <h1 className="text-3xl font-bold text-white mb-4">Angriff</h1>
+            <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
+            <p className="text-lg text-gray-300 text-center">{randomAttack.explanation}</p>
+          </div>
           <div className="sticky-footer">
             <button
               className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -652,9 +643,11 @@
       if (!techniques || techniques.length === 0) {
         console.log('No techniques loaded');
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+              <p className="text-lg text-gray-300 text-center">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+            </div>
             <div className="sticky-footer">
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -677,9 +670,11 @@
 
       if (filteredTechniques.length === 0) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-            <p className="text-lg text-gray-300 text-center max-w-sm">Keine Techniken in den ausgewählten Kategorien.</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+              <p className="text-lg text-gray-300 text-center">Keine Techniken in den ausgewählten Kategorien.</p>
+            </div>
             <div className="sticky-footer">
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -708,9 +703,11 @@
       }, [selectedDefenseCategories, setLastTechnique]);
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-          <h1 className="text-3xl font-bold text-white mb-4">Abwehr</h1>
-          <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <h1 className="text-3xl font-bold text-white mb-4">Abwehr</h1>
+            <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
+          </div>
           <div className="sticky-footer">
             <button
               className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
@@ -773,32 +770,46 @@
               </svg>
               <div className="absolute text-8xl font-bold text-white">{timer}</div>
             </div>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Hajime');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
           </div>
         );
       }
 
       return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-          <div className="flex flex-col items-center justify-center h-1/3 w-full">
-            {lastAttack ? (
-              <>
-                <h1 className="text-3xl font-bold text-white mb-2">Angriff</h1>
-                <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
-              </>
-            ) : (
-              <p className="text-lg text-gray-300 text-center">Kein Angriff gezogen</p>
-            )}
-          </div>
-          <div className="w-4/5 border-t border-gray-500 my-6"></div>
-          <div className="flex flex-col items-center justify-center h-1/3 w-full">
-            {lastTechnique ? (
-              <>
-                <h1 className="text-3xl font-bold text-white mb-2">Abwehr</h1>
-                <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
-              </>
-            ) : (
-              <p className="text-lg text-gray-300 text-center">Keine Technik gezogen</p>
-            )}
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <div className="flex flex-col items-center justify-center h-1/3 w-full">
+              {lastAttack ? (
+                <>
+                  <h1 className="text-3xl font-bold text-white mb-2">Angriff</h1>
+                  <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
+                </>
+              ) : (
+                <p className="text-lg text-gray-300 text-center">Kein Angriff gezogen</p>
+              )}
+            </div>
+            <div className="w-4/5 border-t border-gray-500 my-6"></div>
+            <div className="flex flex-col items-center justify-center h-1/3 w-full">
+              {lastTechnique ? (
+                <>
+                  <h1 className="text-3xl font-bold text-white mb-2">Abwehr</h1>
+                  <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
+                </>
+              ) : (
+                <p className="text-lg text-gray-300 text-center">Keine Technik gezogen</p>
+              )}
+            </div>
           </div>
           <div className="sticky-footer">
             <button
@@ -941,9 +952,11 @@
 
       if (error) {
         return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
-            <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-            <p className="text-lg text-gray-300 text-center max-w-sm">Fehler beim Laden der Daten: {error}</p>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
+              <p className="text-lg text-gray-300 text-center">Fehler beim Laden der Daten: {error}</p>
+            </div>
             <div className="sticky-footer">
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
