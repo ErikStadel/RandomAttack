@@ -129,6 +129,10 @@
     h1, h2 {
       color: var(--text-heading);
     }
+    h3 {
+      color: var(--text-heading);
+      font-weight: 600;
+    }
     p, span {
       color: var(--text-secondary);
     }
@@ -511,9 +515,23 @@
     const InfoScreen = ({ setCurrentScreen }) => {
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-            <h1 className="text-3xl font-bold mb-4">Info</h1>
-            <p className="text-lg text-center">Info-Seite wird geladen...</p>
+          <div className="flex flex-col items-start justify-center liquid-glass p-6 w-full max-w-sm">
+            <h1 className="text-3xl font-bold mb-4">Random Attack App</h1>
+            <h3 className="text-xl font-semibold mb-2">Ablauf</h3>
+            <p className="text-lg mb-4">
+              Die <strong>Random Attack App</strong> unterstützt dein Training:<br />
+              - <strong>Uke</strong>: Zieht einen zufälligen Angriff aus den gewählten Kategorien.<br />
+              - <strong>Tori</strong>: Zieht eine zufällige Abwehrtechnik aus den gewählten Kategorien.<br />
+              - <strong>Hajime</strong>: Startet den Kampf mit einem Countdown (optional) und zeigt Angriff und Abwehr an.<br />
+              - <strong>Auto-Modus</strong>: Automatischer Ablauf: Angreifer → Uke → Verteidigung → Tori → Get Ready → Hajime.
+            </p>
+            <h3 className="text-xl font-semibold mb-2">Einstellungen</h3>
+            <p className="text-lg">
+              - <strong>Hajime Counter</strong>: Aktiviert einen 5-Sekunden-Countdown vor dem Kampfstart.<br />
+              - <strong>Auto-Modus</strong>: Automatisiert den Ablauf von Angriff bis Hajime.<br />
+              - <strong>Light/Dark-Modus</strong>: Wechselt zwischen hellem und dunklem Design.<br />
+              - <strong>Angriffe/Abwehr</strong>: Wähle Kategorien für Angriffe und Abwehrtechniken aus.
+            </p>
           </div>
           <div className="sticky-footer">
             <button
