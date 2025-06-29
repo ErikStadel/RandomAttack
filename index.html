@@ -34,16 +34,16 @@
       box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.15);
       transform: scale(0.95);
     }
-    .x-button {
-      position: absolute;
-      bottom: 2rem;
-      left: 50%;
-      transform: translateX(-50%);
-      transition: all 0.3s ease;
-    }
-    .x-button:active {
-      transform: translateX(-50%) scale(0.95);
-      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.15);
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4rem; /* h-16 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-bottom: env(safe-area-inset-bottom);
     }
     .liquid-glass {
       background: rgba(255, 255, 255, 0.05);
@@ -154,13 +154,22 @@
                   </button>
                 </div>
                 <button
-                  className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium self-center"
                   onClick={() => setIsSidebarOpen(false)}
                   aria-label="Menü schließen"
                 >
                   X
                 </button>
               </div>
+            </div>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => setIsSidebarOpen(false)}
+                aria-label="Menü schließen"
+              >
+                X
+              </button>
             </div>
           </div>
         );
@@ -245,13 +254,22 @@
                 </button>
               </div>
               <button
-                className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium self-center"
                 onClick={() => setIsSidebarOpen(false)}
                 aria-label="Menü schließen"
               >
                 X
               </button>
             </div>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => setCurrentScreen('start')}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
           </div>
         </div>
       );
@@ -299,16 +317,18 @@
               </button>
             </div>
           </div>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to start from Settings');
-              setCurrentScreen('start');
-            }}
-            aria-label="Zurück zum Start"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Settings');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -439,16 +459,18 @@
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
           <h1 className="text-3xl font-bold text-white mb-4">Info</h1>
           <p className="text-lg text-gray-300 text-center max-w-sm">Info-Seite wird geladen...</p>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to start from Info');
-              setCurrentScreen('start');
-            }}
-            aria-label="Zurück zum Start"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Info');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -463,9 +485,9 @@
       };
 
       return (
-        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
           <h1 className="text-3xl font-bold text-white mb-8 pt-8">Angriffe</h1>
-          <div className="flex flex-col gap-4 w-full max-w-sm">
+          <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
             {categories.map((category) => (
               <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
                 <span className="text-lg text-gray-300">{category}</span>
@@ -483,16 +505,18 @@
               </div>
             ))}
           </div>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to start from Attacks');
-              setCurrentScreen('start');
-            }}
-            aria-label="Zurück zum Start"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Attacks');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -507,9 +531,9 @@
       };
 
       return (
-        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
           <h1 className="text-3xl font-bold text-white mb-8 pt-8">Abwehr</h1>
-          <div className="flex flex-col gap-4 w-full max-w-sm">
+          <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
             {defenseCategories.map((category) => (
               <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
                 <span className="text-lg text-gray-300">{category}</span>
@@ -527,16 +551,18 @@
               </div>
             ))}
           </div>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to start from Defense');
-              setCurrentScreen('start');
-            }}
-            aria-label="Zurück zum Start"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Defense');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -548,16 +574,18 @@
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
             <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
             <p className="text-lg text-gray-300 text-center max-w-sm">Keine Angriffe.</p>
-            <button
-              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => {
-                console.log('Navigating to start from Uke');
-                setCurrentScreen('start');
-              }}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Uke');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
           </div>
         );
       }
@@ -571,16 +599,18 @@
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
             <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
             <p className="text-lg text-gray-300 text-center max-w-sm">Keine Angriffe in den ausgewählten Kategorien.</p>
-            <button
-              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => {
-                console.log('Navigating to start from Uke');
-                setCurrentScreen('start');
-              }}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Uke');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
           </div>
         );
       }
@@ -601,17 +631,19 @@
           <h1 className="text-3xl font-bold text-white mb-4">Angriff</h1>
           <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
           <p className="text-lg text-gray-300 text-center max-w-sm">{randomAttack.explanation}</p>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Uke');
-              setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
-              setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
-            }}
-            aria-label="Zurück zum Start oder nächste Phase"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Uke');
+                setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
+                setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
+              }}
+              aria-label="Zurück zum Start oder nächste Phase"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -623,16 +655,18 @@
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
             <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
             <p className="text-lg text-gray-300 text-center max-w-sm">Keine Techniken geladen. Bitte überprüfe data.json.</p>
-            <button
-              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => {
-                console.log('Navigating to start from Tori');
-                setCurrentScreen('start');
-              }}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Tori');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
           </div>
         );
       }
@@ -646,16 +680,18 @@
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
             <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
             <p className="text-lg text-gray-300 text-center max-w-sm">Keine Techniken in den ausgewählten Kategorien.</p>
-            <button
-              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => {
-                console.log('Navigating to start from Tori');
-                setCurrentScreen('start');
-              }}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Tori');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
           </div>
         );
       }
@@ -675,17 +711,19 @@
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
           <h1 className="text-3xl font-bold text-white mb-4">Abwehr</h1>
           <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Tori');
-              setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
-              setRandomTechnique(filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]);
-            }}
-            aria-label="Zurück zum Start oder nächste Phase"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Tori');
+                setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
+                setRandomTechnique(filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]);
+              }}
+              aria-label="Zurück zum Start oder nächste Phase"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -721,21 +759,21 @@
       if (showTimer) {
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <div className="relative flex items-center justify-center">
-            <svg width="300" height="300" className="timer-circle">
-              <circle
-                cx="150"
-                cy="150"
-                r="75"
-                stroke="#D1D5DB"
-                strokeWidth="4"
-                fill="none"
-                className="timer-circle-path"
-              />
-            </svg>
-            <div className="absolute text-8xl font-bold text-white">{timer}</div>
+            <div className="relative flex items-center justify-center">
+              <svg width="300" height="300" className="timer-circle">
+                <circle
+                  cx="150"
+                  cy="150"
+                  r="75"
+                  stroke="#D1D5DB"
+                  strokeWidth="4"
+                  fill="none"
+                  className="timer-circle-path"
+                />
+              </svg>
+              <div className="absolute text-8xl font-bold text-white">{timer}</div>
+            </div>
           </div>
-        </div>
         );
       }
 
@@ -762,16 +800,18 @@
               <p className="text-lg text-gray-300 text-center">Keine Technik gezogen</p>
             )}
           </div>
-          <button
-            className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-            onClick={() => {
-              console.log('Navigating to start from Hajime');
-              setCurrentScreen('start');
-            }}
-            aria-label="Zurück zum Start"
-          >
-            X
-          </button>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Hajime');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
         </div>
       );
     };
@@ -904,13 +944,15 @@
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6 liquid-glass">
             <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
             <p className="text-lg text-gray-300 text-center max-w-sm">Fehler beim Laden der Daten: {error}</p>
-            <button
-              className="x-button w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => setCurrentScreen('start')}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => setCurrentScreen('start')}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
           </div>
         );
       }
