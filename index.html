@@ -13,10 +13,52 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1A1A1A" />
   <style>
+    :root.dark-mode {
+      /* Dark-Modus Farben */
+      --background-start: #1A1A1A;
+      --background-end: #2D2D2D;
+      --neumorphic-bg: #2A2A2A;
+      --neumorphic-shadow-out: 8px 8px 16px rgba(0, 0, 0, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.1);
+      --neumorphic-shadow-in: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.15);
+      --text-primary: #D1D5DB;
+      --text-secondary: #D1D5DB;
+      --text-heading: #FFFFFF;
+      --accent-purple: #A78BFA;
+      --accent-cyan: #22D3EE;
+      --liquid-glass-bg: rgba(255, 255, 255, 0.05);
+      --liquid-glass-border: rgba(255, 255, 255, 0.1);
+      --liquid-glass-blur: blur(8px);
+      --sidebar-glass-bg: rgba(255, 255, 255, 0.02);
+      --sidebar-glass-border: rgba(255, 255, 255, 0.1);
+      --sidebar-glass-blur: blur(6px);
+      --timer-stroke: #D1D5DB;
+    }
+
+    :root.light-mode {
+      /* Light-Modus Farben */
+      --background-start: #F5F7FA;
+      --background-end: #E2E8F0;
+      --neumorphic-bg: #EDEEF0;
+      --neumorphic-shadow-out: 6px 6px 12px rgba(0, 0, 0, 0.1), -6px -6px 12px rgba(255, 255, 255, 0.5);
+      --neumorphic-shadow-in: inset 4px 4px 8px rgba(0, 0, 0, 0.15), inset -4px -4px 8px rgba(255, 255, 255, 0.7);
+      --text-primary: #1F2937;
+      --text-secondary: #4B5563;
+      --text-heading: #111827;
+      --accent-purple: #A78BFA;
+      --accent-cyan: #22D3EE;
+      --liquid-glass-bg: rgba(255, 255, 255, 0.7);
+      --liquid-glass-border: rgba(255, 255, 255, 0.3);
+      --liquid-glass-blur: blur(10px);
+      --sidebar-glass-bg: rgba(255, 255, 255, 0.5);
+      --sidebar-glass-border: rgba(255, 255, 255, 0.3);
+      --sidebar-glass-blur: blur(8px);
+      --timer-stroke: #4B5563;
+    }
+
     body {
       font-family: 'Manrope', sans-serif;
-      background: linear-gradient(180deg, #1A1A1A 0%, #2D2D2D 100%);
-      color: #D1D5DB;
+      background: linear-gradient(180deg, var(--background-start) 0%, var(--background-end) 100%);
+      color: var(--text-primary);
       margin: 0;
       overflow: hidden;
     }
@@ -25,13 +67,13 @@
       width: 100vw;
     }
     .neumorphic {
-      background: #2A2A2A;
-      box-shadow: 8px 8px 16px rgba(0, 0, 0, 0.3), -8px -8px 16px rgba(255, 255, 255, 0.1);
+      background: var(--neumorphic-bg);
+      box-shadow: var(--neumorphic-shadow-out);
       border-radius: 16px;
       transition: all 0.3s ease;
     }
     .neumorphic:active {
-      box-shadow: inset 4px 4px 8px rgba(0, 0, 0, 0.4), inset -4px -4px 8px rgba(255, 255, 255, 0.15);
+      box-shadow: var(--neumorphic-shadow-in);
       transform: scale(0.95);
     }
     .sticky-footer {
@@ -40,24 +82,24 @@
       left: 0;
       width: 100%;
       height: 4rem; /* h-16 */
-      background: #2A2A2A;
+      background: var(--neumorphic-bg);
       display: flex;
       justify-content: center;
       align-items: center;
       padding-bottom: env(safe-area-inset-bottom);
     }
     .liquid-glass {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(8px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--liquid-glass-bg);
+      backdrop-filter: var(--liquid-glass-blur);
+      border: 1px solid var(--liquid-glass-border);
       border-radius: 16px;
       position: relative;
       overflow: hidden;
     }
     .sidebar-glass {
-      background: rgba(255, 255, 255, 0.02);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: var(--sidebar-glass-bg);
+      backdrop-filter: var(--sidebar-glass-blur);
+      border: 1px solid var(--sidebar-glass-border);
       border-radius: 0;
       position: relative;
       overflow: hidden;
@@ -67,10 +109,12 @@
       transform-origin: center;
     }
     .timer-circle-path {
+      stroke: var(--timer-stroke);
       stroke-dasharray: 471;
       animation: circle-timer 5s linear forwards;
     }
     .timer-circle-path-10s {
+      stroke: var(--timer-stroke);
       stroke-dasharray: 942;
       animation: circle-timer-10s 10s linear forwards;
     }
@@ -82,9 +126,21 @@
       from { stroke-dashoffset: 0; }
       to { stroke-dashoffset: 942; }
     }
+    h1, h2 {
+      color: var(--text-heading);
+    }
+    p, span {
+      color: var(--text-secondary);
+    }
+    .text-purple-400 {
+      color: var(--accent-purple);
+    }
+    .text-cyan-400 {
+      color: var(--accent-cyan);
+    }
   </style>
 </head>
-<body class="h-screen w-screen overflow-hidden">
+<body class="h-screen w-screen overflow-hidden dark-mode">
   <div id="root"></div>
   <script type="text/babel">
     const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, hajimeBuffer }) => {
@@ -100,7 +156,7 @@
       if (isAutoModeEnabled) {
         return (
           <div className="relative flex flex-col items-center justify-center h-screen w-screen p-6">
-            <h1 className="text-4xl font-bold text-white mb-12">Random Attack</h1>
+            <h1 className="text-4xl font-bold mb-12">Random Attack</h1>
             <button
               className="w-full max-w-sm py-6 neumorphic text-cyan-400 text-2xl font-semibold transition-all duration-300"
               onClick={() => handleClick('attacker')}
@@ -124,7 +180,7 @@
             >
               <div className="flex flex-col h-full justify-between p-6">
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-3xl font-bold text-white mb-8">Menü</h2>
+                  <h2 className="text-3xl font-bold mb-8">Menü</h2>
                   <button
                     className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                     onClick={() => handleClick('info')}
@@ -169,7 +225,7 @@
 
       return (
         <div className="relative flex flex-col items-center justify-center h-screen w-screen p-6">
-          <h1 className="text-4xl font-bold text-white mb-12">Random Attack</h1>
+          <h1 className="text-4xl font-bold mb-12">Random Attack</h1>
           <div className="flex flex-col gap-6 w-full max-w-sm">
             <button
               className="w-full py-4 neumorphic text-cyan-400 text-lg font-semibold transition-all duration-300"
@@ -215,7 +271,7 @@
           >
             <div className="flex flex-col h-full justify-between p-6">
               <div className="flex flex-col gap-4">
-                <h2 className="text-3xl font-bold text-white mb-8">Menü</h2>
+                <h2 className="text-3xl font-bold mb-8">Menü</h2>
                 <button
                   className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                   onClick={() => handleClick('info')}
@@ -258,7 +314,7 @@
       );
     };
 
-    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, isAutoModeEnabled, setIsAutoModeEnabled, setCurrentScreen }) => {
+    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen }) => {
       const toggleHajimeCounter = () => {
         setIsHajimeCounterEnabled((prev) => !prev);
       };
@@ -267,12 +323,16 @@
         setIsAutoModeEnabled((prev) => !prev);
       };
 
+      const toggleLightMode = () => {
+        setIsLightMode((prev) => !prev);
+      };
+
       return (
         <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
-          <h1 className="text-3xl font-bold text-white mb-8 pt-8">Einstellungen</h1>
+          <h1 className="text-3xl font-bold mb-8 pt-8">Einstellungen</h1>
           <div className="flex flex-col gap-6 w-full max-w-sm">
             <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-              <span className="text-lg text-gray-300">Hajime Counter</span>
+              <span className="text-lg">Hajime Counter</span>
               <button
                 className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
                 onClick={toggleHajimeCounter}
@@ -286,7 +346,7 @@
               </button>
             </div>
             <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-              <span className="text-lg text-gray-300">Auto Modus</span>
+              <span className="text-lg">Auto Modus</span>
               <button
                 className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
                 onClick={toggleAutoMode}
@@ -295,6 +355,20 @@
                 <div
                   className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
                     isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
+                  }`}
+                ></div>
+              </button>
+            </div>
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg">{isLightMode ? 'Light' : 'Dark'}</span>
+              <button
+                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                onClick={toggleLightMode}
+                aria-label="Light/Dark Modus umschalten"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
+                    isLightMode ? 'translate-x-6' : 'translate-x-0'
                   }`}
                 ></div>
               </button>
@@ -336,20 +410,19 @@
 
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <h1 className="text-3xl font-bold text-white mb-4">Angreifer</h1>
+          <h1 className="text-3xl font-bold mb-4">Angreifer</h1>
           <div className="relative flex items-center justify-center">
             <svg width="300" height="300" className="timer-circle">
               <circle
                 cx="150"
                 cy="150"
                 r="75"
-                stroke="#D1D5DB"
                 strokeWidth="4"
                 fill="none"
                 className="timer-circle-path"
               />
             </svg>
-            <div className="absolute text-8xl font-bold text-white">{timer}</div>
+            <div className="absolute text-8xl font-bold">{timer}</div>
           </div>
         </div>
       );
@@ -375,20 +448,19 @@
 
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <h1 className="text-3xl font-bold text-white mb-4">Verteidigung</h1>
+          <h1 className="text-3xl font-bold mb-4">Verteidigung</h1>
           <div className="relative flex items-center justify-center">
             <svg width="300" height="300" className="timer-circle">
               <circle
                 cx="150"
                 cy="150"
                 r="75"
-                stroke="#D1D5DB"
                 strokeWidth="4"
                 fill="none"
                 className="timer-circle-path"
               />
             </svg>
-            <div className="absolute text-8xl font-bold text-white">{timer}</div>
+            <div className="absolute text-8xl font-bold">{timer}</div>
           </div>
         </div>
       );
@@ -418,20 +490,19 @@
 
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <h1 className="text-3xl font-bold text-white mb-4">Get Ready</h1>
+          <h1 className="text-3xl font-bold mb-4">Get Ready</h1>
           <div className="relative flex items-center justify-center">
             <svg width="300" height="300" className="timer-circle">
               <circle
                 cx="150"
                 cy="150"
                 r="75"
-                stroke="#D1D5DB"
                 strokeWidth="4"
                 fill="none"
                 className="timer-circle-path-10s"
               />
             </svg>
-            <div className="absolute text-8xl font-bold text-white">{timer}</div>
+            <div className="absolute text-8xl font-bold">{timer}</div>
           </div>
         </div>
       );
@@ -441,8 +512,8 @@
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
           <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-            <h1 className="text-3xl font-bold text-white mb-4">Info</h1>
-            <p className="text-lg text-gray-300 text-center">Info-Seite wird geladen...</p>
+            <h1 className="text-3xl font-bold mb-4">Info</h1>
+            <p className="text-lg text-center">Info-Seite wird geladen...</p>
           </div>
           <div className="sticky-footer">
             <button
@@ -471,11 +542,11 @@
 
       return (
         <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
-          <h1 className="text-3xl font-bold text-white mb-8 pt-8">Angriffe</h1>
+          <h1 className="text-3xl font-bold mb-8 pt-8">Angriffe</h1>
           <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
             {categories.map((category) => (
               <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                <span className="text-lg text-gray-300">{category}</span>
+                <span className="text-lg">{category}</span>
                 <button
                   className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
                   onClick={() => toggleCategory(category)}
@@ -517,11 +588,11 @@
 
       return (
         <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
-          <h1 className="text-3xl font-bold text-white mb-8 pt-8">Abwehr</h1>
+          <h1 className="text-3xl font-bold mb-8 pt-8">Abwehr</h1>
           <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
             {defenseCategories.map((category) => (
               <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                <span className="text-lg text-gray-300">{category}</span>
+                <span className="text-lg">{category}</span>
                 <button
                   className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
                   onClick={() => toggleCategory(category)}
@@ -558,8 +629,8 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-              <p className="text-lg text-gray-300 text-center">Keine Angriffe.</p>
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Angriffe.</p>
             </div>
             <div className="sticky-footer">
               <button
@@ -585,8 +656,8 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-              <p className="text-lg text-gray-300 text-center">Keine Angriffe in den ausgewählten Kategorien.</p>
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Angriffe in den ausgewählten Kategorien.</p>
             </div>
             <div className="sticky-footer">
               <button
@@ -618,9 +689,9 @@
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
           <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-            <h1 className="text-3xl font-bold text-white mb-4">Angriff</h1>
+            <h1 className="text-3xl font-bold mb-4">Angriff</h1>
             <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
-            <p className="text-lg text-gray-300 text-center">{randomAttack.explanation}</p>
+            <p className="text-lg text-center">{randomAttack.explanation}</p>
           </div>
           <div className="sticky-footer">
             <button
@@ -645,8 +716,8 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-              <p className="text-lg text-gray-300 text-center">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Techniken geladen. Bitte überprüfe data.json.</p>
             </div>
             <div className="sticky-footer">
               <button
@@ -672,8 +743,8 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-              <p className="text-lg text-gray-300 text-center">Keine Techniken in den ausgewählten Kategorien.</p>
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Techniken in den ausgewählten Kategorien.</p>
             </div>
             <div className="sticky-footer">
               <button
@@ -705,7 +776,7 @@
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
           <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-            <h1 className="text-3xl font-bold text-white mb-4">Abwehr</h1>
+            <h1 className="text-3xl font-bold mb-4">Abwehr</h1>
             <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
           </div>
           <div className="sticky-footer">
@@ -762,13 +833,12 @@
                   cx="150"
                   cy="150"
                   r="75"
-                  stroke="#D1D5DB"
                   strokeWidth="4"
                   fill="none"
                   className="timer-circle-path"
                 />
               </svg>
-              <div className="absolute text-8xl font-bold text-white">{timer}</div>
+              <div className="absolute text-8xl font-bold">{timer}</div>
             </div>
             <div className="sticky-footer">
               <button
@@ -792,22 +862,22 @@
             <div className="flex flex-col items-center justify-center h-1/3 w-full">
               {lastAttack ? (
                 <>
-                  <h1 className="text-3xl font-bold text-white mb-2">Angriff</h1>
+                  <h1 className="text-3xl font-bold mb-2">Angriff</h1>
                   <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
                 </>
               ) : (
-                <p className="text-lg text-gray-300 text-center">Kein Angriff gezogen</p>
+                <p className="text-lg text-center">Kein Angriff gezogen</p>
               )}
             </div>
             <div className="w-4/5 border-t border-gray-500 my-6"></div>
             <div className="flex flex-col items-center justify-center h-1/3 w-full">
               {lastTechnique ? (
                 <>
-                  <h1 className="text-3xl font-bold text-white mb-2">Abwehr</h1>
+                  <h1 className="text-3xl font-bold mb-2">Abwehr</h1>
                   <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
                 </>
               ) : (
-                <p className="text-lg text-gray-300 text-center">Keine Technik gezogen</p>
+                <p className="text-lg text-center">Keine Technik gezogen</p>
               )}
             </div>
           </div>
@@ -846,9 +916,17 @@
       const [isAutoModeEnabled, setIsAutoModeEnabled] = React.useState(
         localStorage.getItem('autoModeEnabled') === 'true'
       );
+      const [isLightMode, setIsLightMode] = React.useState(
+        localStorage.getItem('lightModeEnabled') === 'true'
+      );
       const [audioContext, setAudioContext] = React.useState(null);
       const [beepBuffer, setBeepBuffer] = React.useState(null);
       const [hajimeBuffer, setHajimeBuffer] = React.useState(null);
+
+      React.useEffect(() => {
+        document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';
+        localStorage.setItem('lightModeEnabled', isLightMode);
+      }, [isLightMode]);
 
       const playSound = (buffer, soundName) => {
         if (!audioContext || !buffer) {
@@ -945,7 +1023,7 @@
       if (loading) {
         return (
           <div className="flex items-center justify-center h-screen w-screen p-6">
-            <p className="text-lg text-gray-300">Lade...</p>
+            <p className="text-lg">Lade...</p>
           </div>
         );
       }
@@ -954,8 +1032,8 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-white mb-4">Fehler</h1>
-              <p className="text-lg text-gray-300 text-center">Fehler beim Laden der Daten: {error}</p>
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Fehler beim Laden der Daten: {error}</p>
             </div>
             <div className="sticky-footer">
               <button
@@ -1007,6 +1085,8 @@
               setIsHajimeCounterEnabled={setIsHajimeCounterEnabled}
               isAutoModeEnabled={isAutoModeEnabled}
               setIsAutoModeEnabled={setIsAutoModeEnabled}
+              isLightMode={isLightMode}
+              setIsLightMode={setIsLightMode}
               setCurrentScreen={setCurrentScreen}
             />
           )}
