@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v3'; // Cache-Namen erhöhen, um alten Cache zu löschen
+const CACHE_NAME = 'random-attack-v4'; // Cache-Namen erhöhen, um alten Cache zu löschen
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',
