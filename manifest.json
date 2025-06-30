@@ -2,7 +2,7 @@
   "name": "Random Attack",
   "short_name": "Random Attack",
   "description": "Eine Progressive Web App für zufällige Angriffs- und Abwehrübungen",
-  "start_url": "https://erikstadel.github.io/RandomAttack/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "scope": "/",
   "background_color": "#1A1A1A",
