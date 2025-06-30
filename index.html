@@ -10,8 +10,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.2.0/umd/react-dom.production.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js"></script>
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="theme-color" content="#1A1A1A" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" id="theme-color" content="#1A1A1A" />
   <link rel="manifest" href="./manifest.json" />
   <style>
     :root.dark-mode {
@@ -82,11 +82,12 @@
       bottom: 0;
       left: 0;
       width: 100%;
-      height: 4rem; /* h-16 */
-      background: var(--neumorphic-bg);
+      height: 4rem; /* Kompakter Footer */
+      background: var(--background-start); /* Synchron mit Theme */
       display: flex;
       justify-content: center;
-      align-items: center;
+      align-items: flex-start; /* Button oben ausrichten */
+      padding-top: 1rem; /* Button höher setzen */
       padding-bottom: env(safe-area-inset-bottom);
     }
     .liquid-glass {
@@ -329,7 +330,12 @@
       };
 
       const toggleLightMode = () => {
-        setIsLightMode((prev) => !prev);
+        setIsLightMode((prev) => {
+          const newMode = !prev;
+          // Dynamisch theme-color für Statusleiste anpassen
+          document.getElementById('theme-color').setAttribute('content', newMode ? '#F5F7FA' : '#1A1A1A');
+          return newMode;
+        });
       };
 
       return (
@@ -541,6 +547,7 @@
                 console.log('Navigating to start from Info');
                 setCurrentScreen('start');
               }}
+得意
               aria-label="Zurück zum Start"
             >
               X
@@ -945,6 +952,8 @@
       React.useEffect(() => {
         document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';
         localStorage.setItem('lightModeEnabled', isLightMode);
+        // Synchronisiere theme-color beim Laden
+        document.getElementById('theme-color').setAttribute('content', isLightMode ? '#F5F7FA' : '#1A1A1A');
       }, [isLightMode]);
 
       const playSound = (buffer, soundName) => {
