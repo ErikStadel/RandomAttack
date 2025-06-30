@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v1';
+const CACHE_NAME = 'random-attack-v3'; // Cache-Namen erhöhen, um alten Cache zu löschen
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',
@@ -8,9 +8,12 @@ const urlsToCache = [
   'https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.2/babel.min.js',
   '/assets/sounds/beep.mp3',
   '/assets/sounds/hajime.mp3',
-  'https://erikstadel.github.io/RandomAttack/data.json'
+  'https://erikstadel.github.io/RandomAttack/data.json',
+  '/assets/icons/icon-192x192.png', // Neue Pfade
+  '/assets/icons/icon-512x512.png'
 ];
 
+// Rest des Service Worker-Codes bleibt unverändert
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
