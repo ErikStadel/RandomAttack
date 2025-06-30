@@ -716,7 +716,7 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold mb-4">Angriff</h1>
+              <h1 className="text-3xl font-bold mb-4">{randomAttack.category}</h1>
               <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
               <p className="text-lg text-center">{randomAttack.explanation}</p>
             </div>
@@ -803,7 +803,7 @@
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold mb-4">Abwehr</h1>
+              <h1 className="text-3xl font-bold mb-4">{randomTechnique.category}</h1>
               <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
             </div>
             <div className="sticky-footer">
