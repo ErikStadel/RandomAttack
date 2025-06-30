@@ -12,6 +12,7 @@
   <meta name="mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="theme-color" content="#1A1A1A" />
+  <link rel="manifest" href="/manifest.json" />
   <style>
     :root.dark-mode {
       /* Dark-Modus Farben */
@@ -1037,6 +1038,21 @@
       React.useEffect(() => {
         console.log('Current screen:', currentScreen);
       }, [currentScreen]);
+
+      React.useEffect(() => {
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker
+              .register('/sw.js')
+              .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+              })
+              .catch((error) => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
+        }
+      }, []);
 
       if (loading) {
         return (
