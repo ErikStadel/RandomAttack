@@ -15,45 +15,64 @@ const urlsToCache = [
 
 // Rest des Service Worker-Codes bleibt unverändert
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log('Caching files');
-      return cache.addAll(urlsToCache);
-    })
-  );
+    event.waitUntil(
+        caches.open(CACHE_NAME).then((cache) => {
+            console.log('Caching files');
+            return cache.addAll(urlsToCache).catch((err) => {
+                console.error('Failed to cache:', err);
+            });
+        })
+    );
 });
 
 self.addEventListener('fetch', (event) => {
-  event.respondWith(
-    caches.match(event.request).then((response) => {
-      if (response) {
-        return response;
-      }
-      return fetch(event.request).then((response) => {
-        if (!response || response.status !== 200 || response.type !== 'basic') {
-          return response;
-        }
-        const responseToCache = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseToCache);
-        });
-        return response;
-      });
-    })
-  );
+    if (event.request.url.includes('data.json')) {
+        event.respondWith(
+            fetch(event.request)
+                .then((response) => {
+                    if (!response || response.status !== 200 || response.type !== 'basic') {
+                        return caches.match(event.request);
+                    }
+                    const responseToCache = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+                    return response;
+                })
+                .catch(() => caches.match(event.request))
+        );
+    } else {
+        event.respondWith(
+            caches.match(event.request).then((response) => {
+                if (response) {
+                    return response;
+                }
+                return fetch(event.request).then((response) => {
+                    if (!response || response.status !== 200 || response.type !== 'basic') {
+                        return response;
+                    }
+                    const responseToCache = response.clone();
+                    caches.open(CACHE_NAME).then((cache) => {
+                        cache.put(event.request, responseToCache);
+                    });
+                    return response;
+                });
+            })
+        );
+    }
 });
 
 self.addEventListener('activate', (event) => {
-  event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((name) => {
-          if (name !== CACHE_NAME) {
-            console.log('Deleting old cache:', name);
-            return caches.delete(name);
-          }
-        })
-      );
-    })
-  );
+    event.waitUntil(
+        caches.keys().then((cacheNames) => {
+            return Promise.all(
+                cacheNames.map((name) => {
+                    if (name !== CACHE_NAME) {
+                        console.log('Deleting old cache:', name);
+                        return caches.delete(name);
+                    }
+                })
+            );
+        }).then(() => self.clients.claim())
+    );
 });
