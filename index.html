@@ -1072,6 +1072,7 @@
       const [hajimeCounterDuration, setHajimeCounterDuration] = React.useState(
         parseInt(localStorage.getItem('hajimeCounterDuration')) || 5
       );
+      console.log('hajimeCounterDuration:', hajimeCounterDuration, 'isHajimeCounterEnabled:', isHajimeCounterEnabled);
 
       React.useEffect(() => {
         document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';

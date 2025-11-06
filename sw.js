@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v5.21'; // Einstellbarer Hajime Timer
+const CACHE_NAME = 'random-attack-v5.22'; // Einstellbarer Hajime Timer
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',
