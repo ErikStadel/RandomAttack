@@ -348,123 +348,120 @@
     };
 
     const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, hajimeCounterDuration, setHajimeCounterDuration, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
-  const toggleHajimeCounter = () => {
-    setIsHajimeCounterEnabled((prev) => !prev);
-  };
+      const toggleHajimeCounter = () => {
+        setIsHajimeCounterEnabled((prev) => !prev);
+      };
 
-  const toggleAutoMode = () => {
-    setIsAutoModeEnabled((prev) => !prev);
-  };
+      const toggleAutoMode = () => {
+        setIsAutoModeEnabled((prev) => !prev);
+      };
 
-  const toggleLightMode = () => {
-    setIsLightMode((prev) => {
-      const newMode = !prev;
-      document.getElementById('theme-color').setAttribute('content', newMode ? '#F5F7FA' : '#1A1A1A');
-      return newMode;
-    });
-  };
+      const toggleLightMode = () => {
+        setIsLightMode((prev) => {
+          const newMode = !prev;
+          document.getElementById('theme-color').setAttribute('content', newMode ? '#F5F7FA' : '#1A1A1A');
+          return newMode;
+        });
+      };
 
-  const handleSliderChange = (e) => {
-    setHajimeCounterDuration(parseInt(e.target.value));
-  };
+      const handleSliderChange = (e) => {
+        setHajimeCounterDuration(parseInt(e.target.value));
+      };
 
-  return (
-    <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
-      <h1 className="text-3xl font-bold mb-8 pt-8">Einstellungen</h1>
-      <div className="flex flex-col gap-6 w-full max-w-sm pb-24">
-        <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-            <span className="text-lg">Hajime Counter</span>
-            <button
-              className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-              onClick={toggleHajimeCounter}
-              aria-label="Hajime Counter umschalten"
-            >
-              <div
-                className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                  isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
-                }`}
-              ></div>
-            </button>
-          </div>
-          <div 
-            className="overflow-hidden transition-all duration-300"
-            style={{ 
-              maxHeight: isHajimeCounterEnabled ? '200px' : '0px',
-              opacity: isHajimeCounterEnabled ? 1 : 0
-            }}
-          >
-            <div className="neumorphic p-4 rounded-xl">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm opacity-70">Countdown-Dauer</span>
-                <span className="text-lg font-semibold text-purple-400">{hajimeCounterDuration}s</span>
+      return (
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
+          <h1 className="text-3xl font-bold mb-8 pt-8">Einstellungen</h1>
+          <div className="flex flex-col gap-6 w-full max-w-sm pb-24">
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg">Hajime Counter</span>
+                <button
+                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                  onClick={toggleHajimeCounter}
+                  aria-label="Hajime Counter umschalten"
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
+                      }`}
+                  ></div>
+                </button>
               </div>
-              <input
-                type="range"
-                min="3"
-                max="10"
-                step="1"
-                value={hajimeCounterDuration}
-                onChange={handleSliderChange}
-                className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+              <div
+                className="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
                 style={{
-                  background: `linear-gradient(to right, var(--accent-purple) 0%, var(--accent-purple) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) 100%)`,
-                  outline: 'none'
+                  maxHeight: isHajimeCounterEnabled ? '200px' : '0px',
+                  opacity: isHajimeCounterEnabled ? 1 : 0
                 }}
-                aria-label="Hajime Counter Dauer einstellen"
-              />
-              <div className="flex justify-between text-xs opacity-50 mt-2">
-                <span>3s</span>
-                <span>10s</span>
+              >
+                <div className="neumorphic p-4 rounded-xl">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm opacity-70">Countdown-Dauer</span>
+                    <span className="text-lg font-semibold text-purple-400">{hajimeCounterDuration}s</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="3"
+                    max="10"
+                    step="1"
+                    value={hajimeCounterDuration}
+                    onChange={handleSliderChange}
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, var(--accent-purple) 0%, var(--accent-purple) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) 100%)`,
+                      outline: 'none'
+                    }}
+                    aria-label="Hajime Counter Dauer einstellen"
+                  />
+                  <div className="flex justify-between text-xs opacity-50 mt-2">
+                    <span>3s</span>
+                    <span>10s</span>
+                  </div>
+                </div>
               </div>
             </div>
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg">Auto Modus</span>
+              <button
+                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                onClick={toggleAutoMode}
+                aria-label="Auto Modus umschalten"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                ></div>
+              </button>
+            </div>
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg">{isLightMode ? 'Light' : 'Dark'}</span>
+              <button
+                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                onClick={toggleLightMode}
+                aria-label="Light/Dark Modus umschalten"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isLightMode ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                ></div>
+              </button>
+            </div>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start with sidebar open from Settings');
+                setCurrentScreen('start');
+                setIsSidebarOpen(true);
+              }}
+              aria-label="Zurück zum Start mit Menü"
+            >
+              X
+            </button>
           </div>
         </div>
-        <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-          <span className="text-lg">Auto Modus</span>
-          <button
-            className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-            onClick={toggleAutoMode}
-            aria-label="Auto Modus umschalten"
-          >
-            <div
-              className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
-              }`}
-            ></div>
-          </button>
-        </div>
-        <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-          <span className="text-lg">{isLightMode ? 'Light' : 'Dark'}</span>
-          <button
-            className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-            onClick={toggleLightMode}
-            aria-label="Light/Dark Modus umschalten"
-          >
-            <div
-              className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                isLightMode ? 'translate-x-6' : 'translate-x-0'
-              }`}
-            ></div>
-          </button>
-        </div>
-      </div>
-      <div className="sticky-footer">
-        <button
-          className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-          onClick={() => {
-            console.log('Navigating to start with sidebar open from Settings');
-            setCurrentScreen('start');
-            setIsSidebarOpen(true);
-          }}
-          aria-label="Zurück zum Start mit Menü"
-        >
-          X
-        </button>
-      </div>
-    </div>
-  );
-};
+      );
+    };
 
     const AttackerScreen = ({ setCurrentScreen }) => {
       const [timer, setTimer] = React.useState(5);
