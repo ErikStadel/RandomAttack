@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v5.1'; // Verbesserte Soundwiedergabe
+const CACHE_NAME = 'random-attack-v5.2'; // Einstellbarer Hajime Timer
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',

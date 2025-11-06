@@ -347,7 +347,7 @@
       );
     };
 
-    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
+    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, hajimeCounterDuration, setHajimeCounterDuration, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
       const toggleHajimeCounter = () => {
         setIsHajimeCounterEnabled((prev) => !prev);
       };
@@ -364,22 +364,52 @@
         });
       };
 
+      const handleSliderChange = (e) => {
+        setHajimeCounterDuration(parseInt(e.target.value));
+      };
+
       return (
         <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
           <h1 className="text-3xl font-bold mb-8 pt-8">Einstellungen</h1>
           <div className="flex flex-col gap-6 w-full max-w-sm">
-            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-              <span className="text-lg">Hajime Counter</span>
-              <button
-                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                onClick={toggleHajimeCounter}
-                aria-label="Hajime Counter umschalten"
-              >
-                <div
-                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
-                    }`}
-                ></div>
-              </button>
+            <div className="flex flex-col">
+              <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg">Hajime Counter</span>
+                <button
+                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                  onClick={toggleHajimeCounter}
+                  aria-label="Hajime Counter umschalten"
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
+                      }`}
+                  ></div>
+                </button>
+              </div>
+              {isHajimeCounterEnabled && (
+                <div className="neumorphic p-4 rounded-xl mt-2 transition-all duration-300">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-sm opacity-70">Countdown-Dauer</span>
+                    <span className="text-lg font-semibold text-purple-400">{hajimeCounterDuration}s</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="3"
+                    max="10"
+                    value={hajimeCounterDuration}
+                    onChange={handleSliderChange}
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, var(--accent-purple) 0%, var(--accent-purple) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) 100%)`
+                    }}
+                    aria-label="Hajime Counter Dauer einstellen"
+                  />
+                  <div className="flex justify-between text-xs opacity-50 mt-1">
+                    <span>3s</span>
+                    <span>10s</span>
+                  </div>
+                </div>
+              )}
             </div>
             <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
               <span className="text-lg">Auto Modus</span>
@@ -885,8 +915,8 @@
       );
     };
 
-    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer }) => {
-      const [timer, setTimer] = React.useState(5);
+    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, hajimeCounterDuration, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer }) => {
+      const [timer, setTimer] = React.useState(hajimeCounterDuration);
       const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
 
       React.useEffect(() => {
@@ -895,15 +925,22 @@
           return;
         }
 
-        let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+        const beepTimeouts = [];
+        const totalDuration = hajimeCounterDuration * 1000;
 
-        beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 1000);
-        beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 2000);
-        beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 3000);
-        hajimeTimeout = setTimeout(() => {
+        // Beeps bei den letzten 3 Sekunden
+        for (let i = 3; i >= 1; i--) {
+          if (hajimeCounterDuration >= i) {
+            beepTimeouts.push(
+              setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - (i * 1000))
+            );
+          }
+        }
+
+        const hajimeTimeout = setTimeout(() => {
           playSound(hajimeBuffer, 'hajime');
           setShowTimer(false);
-        }, 5000);
+        }, totalDuration);
 
         const interval = setInterval(() => {
           setTimer((prev) => {
@@ -917,12 +954,10 @@
 
         return () => {
           clearInterval(interval);
-          clearTimeout(beepTimeout1);
-          clearTimeout(beepTimeout2);
-          clearTimeout(beepTimeout3);
+          beepTimeouts.forEach(timeout => clearTimeout(timeout));
           clearTimeout(hajimeTimeout);
         };
-      }, [isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
+      }, [isHajimeCounterEnabled, hajimeCounterDuration, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
 
       if (showTimer) {
         return (
@@ -1023,6 +1058,9 @@
       const [audioContext, setAudioContext] = React.useState(null);
       const [beepBuffer, setBeepBuffer] = React.useState(null);
       const [hajimeBuffer, setHajimeBuffer] = React.useState(null);
+      const [hajimeCounterDuration, setHajimeCounterDuration] = React.useState(
+        parseInt(localStorage.getItem('hajimeCounterDuration')) || 5
+      );
 
       React.useEffect(() => {
         document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';
@@ -1159,6 +1197,10 @@
       }, [currentScreen]);
 
       React.useEffect(() => {
+        localStorage.setItem('hajimeCounterDuration', hajimeCounterDuration);
+      }, [hajimeCounterDuration]);
+
+      React.useEffect(() => {
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
             navigator.serviceWorker
@@ -1249,6 +1291,8 @@
             <SettingsScreen
               isHajimeCounterEnabled={isHajimeCounterEnabled}
               setIsHajimeCounterEnabled={setIsHajimeCounterEnabled}
+              hajimeCounterDuration={hajimeCounterDuration}
+              setHajimeCounterDuration={setHajimeCounterDuration}
               isAutoModeEnabled={isAutoModeEnabled}
               setIsAutoModeEnabled={setIsAutoModeEnabled}
               isLightMode={isLightMode}
@@ -1281,6 +1325,7 @@
               lastTechnique={lastTechnique}
               setCurrentScreen={setCurrentScreen}
               isHajimeCounterEnabled={isHajimeCounterEnabled}
+              hajimeCounterDuration={hajimeCounterDuration}
               isAutoModeEnabled={isAutoModeEnabled}
               playSound={playSound}
               beepBuffer={beepBuffer}
