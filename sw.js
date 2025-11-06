@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v4'; // Cache-Namen erhöhen, um alten Cache zu löschen
+const CACHE_NAME = 'random-attack-v5.1'; // Verbesserte Soundwiedergabe
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',

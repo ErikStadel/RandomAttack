@@ -480,23 +480,35 @@
         const [timer, setTimer] = React.useState(10);
 
         React.useEffect(() => {
-          const interval = setInterval(() => {
-            setTimer((prev) => {
-              if (prev <= 1) {
-                clearInterval(interval);
-                playSound(hajimeBuffer, 'hajime');
-                setCurrentScreen('hajime');
-                return 0;
-              }
-              if (prev <= 4) {
-                playSound(beepBuffer, 'beep');
-              }
-              return prev - 1;
-            });
-          }, 1000);
+  let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+  
+  // Beeps bei 3, 2, 1 Sekunden
+  beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 7000);
+  beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 8000);
+  beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 9000);
+  hajimeTimeout = setTimeout(() => {
+    playSound(hajimeBuffer, 'hajime');
+    setCurrentScreen('hajime');
+  }, 10000);
 
-          return () => clearInterval(interval);
-        }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer]);
+  const interval = setInterval(() => {
+    setTimer((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+    clearTimeout(beepTimeout1);
+    clearTimeout(beepTimeout2);
+    clearTimeout(beepTimeout3);
+    clearTimeout(hajimeTimeout);
+  };
+}, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer]);
 
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
@@ -828,28 +840,39 @@
         const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
 
         React.useEffect(() => {
-          if (!isHajimeCounterEnabled || isAutoModeEnabled) {
-            setShowTimer(false);
-            return;
-          }
+  if (!isHajimeCounterEnabled || isAutoModeEnabled) {
+    setShowTimer(false);
+    return;
+  }
 
-          const interval = setInterval(() => {
-            setTimer((prev) => {
-              if (prev <= 1) {
-                clearInterval(interval);
-                playSound(hajimeBuffer, 'hajime');
-                setShowTimer(false);
-                return 0;
-              }
-              if (prev <= 4) {
-                playSound(beepBuffer, 'beep');
-              }
-              return prev - 1;
-            });
-          }, 1000);
+  let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+  
+  beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 1000);
+  beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 2000);
+  beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 3000);
+  hajimeTimeout = setTimeout(() => {
+    playSound(hajimeBuffer, 'hajime');
+    setShowTimer(false);
+  }, 5000);
 
-          return () => clearInterval(interval);
-        }, [isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
+  const interval = setInterval(() => {
+    setTimer((prev) => {
+      if (prev <= 1) {
+        clearInterval(interval);
+        return 0;
+      }
+      return prev - 1;
+    });
+  }, 1000);
+
+  return () => {
+    clearInterval(interval);
+    clearTimeout(beepTimeout1);
+    clearTimeout(beepTimeout2);
+    clearTimeout(beepTimeout3);
+    clearTimeout(hajimeTimeout);
+  };
+}, [isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
 
         if (showTimer) {
           return (
@@ -958,44 +981,80 @@
         }, [isLightMode]);
 
         const playSound = (buffer, soundName) => {
-          if (!audioContext || !buffer) {
-            console.warn(`Cannot play ${soundName}: AudioContext or buffer not ready`);
-            return;
-          }
-          const source = audioContext.createBufferSource();
-          source.buffer = buffer;
-          source.connect(audioContext.destination);
-          source.start(0);
-          console.log(`${soundName} audio played successfully`);
-          source.onended = () => {
-            console.log(`${soundName} audio ended`);
-          };
-        };
+  if (!audioContext || !buffer) {
+    console.warn(`Cannot play ${soundName}: AudioContext or buffer not ready`);
+    return;
+  }
+  
+  // AudioContext resume für iOS
+  if (audioContext.state === 'suspended') {
+    audioContext.resume().then(() => {
+      console.log('AudioContext resumed');
+      playAudioBuffer();
+    });
+  } else {
+    playAudioBuffer();
+  }
+
+  function playAudioBuffer() {
+    try {
+      const source = audioContext.createBufferSource();
+      source.buffer = buffer;
+      source.connect(audioContext.destination);
+      source.start(0);
+      console.log(`${soundName} audio played successfully`);
+      source.onended = () => {
+        console.log(`${soundName} audio ended`);
+      };
+    } catch (e) {
+      console.error(`Error playing ${soundName}:`, e);
+    }
+  }
+};
 
         React.useEffect(() => {
-          const ctx = new (window.AudioContext || window.webkitAudioContext)();
-          setAudioContext(ctx);
+  // AudioContext wird erst nach User-Interaktion initialisiert
+  const initAudio = () => {
+    if (!audioContext) {
+      const ctx = new (window.AudioContext || window.webkitAudioContext)();
+      setAudioContext(ctx);
 
-          const loadAudio = async (url, setBuffer) => {
-            try {
-              const response = await fetch(url);
-              if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
-              const arrayBuffer = await response.arrayBuffer();
-              const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
-              setBuffer(audioBuffer);
-              console.log(`Loaded ${url} into buffer`);
-            } catch (e) {
-              console.error(`Error loading ${url}:`, e.message);
-            }
-          };
+      const loadAudio = async (url, setBuffer) => {
+        try {
+          const response = await fetch(url);
+          if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
+          const arrayBuffer = await response.arrayBuffer();
+          const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+          setBuffer(audioBuffer);
+          console.log(`Loaded ${url} into buffer`);
+        } catch (e) {
+          console.error(`Error loading ${url}:`, e.message);
+        }
+      };
 
-          loadAudio('./assets/sounds/beep.mp3', setBeepBuffer);
-          loadAudio('./assets/sounds/hajime.mp3', setHajimeBuffer);
+      loadAudio('./assets/sounds/beep.mp3', setBeepBuffer);
+      loadAudio('./assets/sounds/hajime.mp3', setHajimeBuffer);
+    }
+  };
 
-          return () => {
-            ctx.close().then(() => console.log('AudioContext closed'));
-          };
-        }, []);
+  // Initialisierung bei erster User-Interaktion
+  const handleFirstInteraction = () => {
+    initAudio();
+    document.removeEventListener('touchstart', handleFirstInteraction);
+    document.removeEventListener('click', handleFirstInteraction);
+  };
+
+  document.addEventListener('touchstart', handleFirstInteraction);
+  document.addEventListener('click', handleFirstInteraction);
+
+  return () => {
+    document.removeEventListener('touchstart', handleFirstInteraction);
+    document.removeEventListener('click', handleFirstInteraction);
+    if (audioContext) {
+      audioContext.close().then(() => console.log('AudioContext closed'));
+    }
+  };
+}, [audioContext]);
 
         React.useEffect(() => {
           console.log('App initialized', { audioContext, beepBuffer, hajimeBuffer });
