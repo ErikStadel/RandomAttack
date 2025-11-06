@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
@@ -63,20 +64,24 @@
       margin: 0;
       overflow: hidden;
     }
+
     #root {
       height: 100vh;
       width: 100vw;
     }
+
     .neumorphic {
       background: var(--neumorphic-bg);
       box-shadow: var(--neumorphic-shadow-out);
       border-radius: 16px;
       transition: all 0.3s ease;
     }
+
     .neumorphic:active {
       box-shadow: var(--neumorphic-shadow-in);
       transform: scale(0.95);
     }
+
     .sticky-footer {
       position: fixed;
       bottom: 0;
@@ -90,6 +95,7 @@
       padding-top: 0.5rem;
       padding-bottom: env(safe-area-inset-bottom);
     }
+
     .liquid-glass {
       background: var(--liquid-glass-bg);
       backdrop-filter: var(--liquid-glass-blur);
@@ -98,6 +104,7 @@
       position: relative;
       overflow: hidden;
     }
+
     .sidebar-glass {
       background: var(--sidebar-glass-bg);
       backdrop-filter: var(--sidebar-glass-blur);
@@ -106,46 +113,69 @@
       position: relative;
       overflow: hidden;
     }
+
     .timer-circle {
       transform: rotate(-90deg);
       transform-origin: center;
     }
+
     .timer-circle-path {
       stroke: var(--timer-stroke);
       stroke-dasharray: 471;
       animation: circle-timer 5s linear forwards;
     }
+
     .timer-circle-path-10s {
       stroke: var(--timer-stroke);
       stroke-dasharray: 942;
       animation: circle-timer-10s 10s linear forwards;
     }
+
     @keyframes circle-timer {
-      from { stroke-dashoffset: 0; }
-      to { stroke-dashoffset: 471; }
+      from {
+        stroke-dashoffset: 0;
+      }
+
+      to {
+        stroke-dashoffset: 471;
+      }
     }
+
     @keyframes circle-timer-10s {
-      from { stroke-dashoffset: 0; }
-      to { stroke-dashoffset: 942; }
+      from {
+        stroke-dashoffset: 0;
+      }
+
+      to {
+        stroke-dashoffset: 942;
+      }
     }
-    h1, h2 {
+
+    h1,
+    h2 {
       color: var(--text-heading);
     }
+
     h3 {
       color: var(--text-heading);
       font-weight: 600;
     }
-    p, span {
+
+    p,
+    span {
       color: var(--text-secondary);
     }
+
     .text-purple-400 {
       color: var(--accent-purple);
     }
+
     .text-cyan-400 {
       color: var(--accent-cyan);
     }
   </style>
 </head>
+
 <body class="h-screen w-screen overflow-hidden dark-mode">
   <div id="root"></div>
   <script type="text/babel">
@@ -179,9 +209,8 @@
               </svg>
             </button>
             <div
-              className={`fixed top-0 right-0 h-full w-3/4 sidebar-glass transform transition-transform duration-300 ${
-                isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-              }`}
+              className={`fixed top-0 right-0 h-full w-3/4 sidebar-glass transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+                }`}
             >
               <div className="flex flex-col h-full justify-between p-6">
                 <div className="flex flex-col gap-4">
@@ -270,9 +299,8 @@
             </svg>
           </button>
           <div
-            className={`fixed top-0 right-0 h-full w-3/4 sidebar-glass transform transition-transform duration-300 ${
-              isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
-            }`}
+            className={`fixed top-0 right-0 h-full w-3/4 sidebar-glass transform transition-transform duration-300 ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+              }`}
           >
             <div className="flex flex-col h-full justify-between p-6">
               <div className="flex flex-col gap-4">
@@ -288,139 +316,617 @@
                   className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
                   onClick={() => handleClick('attacks')}
                   aria-label="Angriffe anzeigen"
-                  >
-                    Angriffe
-                  </button>
-                  <button
-                    className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
-                    onClick={() => handleClick('defense')}
-                    aria-label="Abwehr anzeigen"
-                  >
-                    Abwehr
-                  </button>
-                  <button
-                    className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
-                    onClick={() => handleClick('settings')}
-                    aria-label="Einstellungen anzeigen"
-                  >
-                    Einstellungen
-                  </button>
-                </div>
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium self-center"
-                  onClick={() => setIsSidebarOpen(false)}
-                  aria-label="Menü schließen"
                 >
-                  X
+                  Angriffe
+                </button>
+                <button
+                  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
+                  onClick={() => handleClick('defense')}
+                  aria-label="Abwehr anzeigen"
+                >
+                  Abwehr
+                </button>
+                <button
+                  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
+                  onClick={() => handleClick('settings')}
+                  aria-label="Einstellungen anzeigen"
+                >
+                  Einstellungen
                 </button>
               </div>
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium self-center"
+                onClick={() => setIsSidebarOpen(false)}
+                aria-label="Menü schließen"
+              >
+                X
+              </button>
             </div>
           </div>
-        );
+        </div>
+      );
+    };
+
+    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
+      const toggleHajimeCounter = () => {
+        setIsHajimeCounterEnabled((prev) => !prev);
       };
 
-      const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
-        const toggleHajimeCounter = () => {
-          setIsHajimeCounterEnabled((prev) => !prev);
-        };
+      const toggleAutoMode = () => {
+        setIsAutoModeEnabled((prev) => !prev);
+      };
 
-        const toggleAutoMode = () => {
-          setIsAutoModeEnabled((prev) => !prev);
-        };
+      const toggleLightMode = () => {
+        setIsLightMode((prev) => {
+          const newMode = !prev;
+          document.getElementById('theme-color').setAttribute('content', newMode ? '#F5F7FA' : '#1A1A1A');
+          return newMode;
+        });
+      };
 
-        const toggleLightMode = () => {
-          setIsLightMode((prev) => {
-            const newMode = !prev;
-            document.getElementById('theme-color').setAttribute('content', newMode ? '#F5F7FA' : '#1A1A1A');
-            return newMode;
+      return (
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold mb-8 pt-8">Einstellungen</h1>
+          <div className="flex flex-col gap-6 w-full max-w-sm">
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg">Hajime Counter</span>
+              <button
+                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                onClick={toggleHajimeCounter}
+                aria-label="Hajime Counter umschalten"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                ></div>
+              </button>
+            </div>
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg">Auto Modus</span>
+              <button
+                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                onClick={toggleAutoMode}
+                aria-label="Auto Modus umschalten"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                ></div>
+              </button>
+            </div>
+            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+              <span className="text-lg">{isLightMode ? 'Light' : 'Dark'}</span>
+              <button
+                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                onClick={toggleLightMode}
+                aria-label="Light/Dark Modus umschalten"
+              >
+                <div
+                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isLightMode ? 'translate-x-6' : 'translate-x-0'
+                    }`}
+                ></div>
+              </button>
+            </div>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start with sidebar open from Settings');
+                setCurrentScreen('start');
+                setIsSidebarOpen(true);
+              }}
+              aria-label="Zurück zum Start mit Menü"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const AttackerScreen = ({ setCurrentScreen }) => {
+      const [timer, setTimer] = React.useState(5);
+
+      React.useEffect(() => {
+        const interval = setInterval(() => {
+          setTimer((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              setCurrentScreen('uke');
+              return 0;
+            }
+            return prev - 1;
           });
-        };
+        }, 1000);
 
+        return () => clearInterval(interval);
+      }, [setCurrentScreen]);
+
+      const handleScreenClick = () => {
+        setCurrentScreen('uke');
+      };
+
+      return (
+        <div
+          className="flex flex-col items-center justify-center h-screen w-screen p-6 cursor-pointer"
+          onClick={handleScreenClick}
+        >
+          <h1 className="text-3xl font-bold mb-4">Angreifer</h1>
+          <div className="relative flex items-center justify-center">
+            <svg width="300" height="300" className="timer-circle">
+              <circle
+                cx="150"
+                cy="150"
+                r="75"
+                strokeWidth="4"
+                fill="none"
+                className="timer-circle-path"
+              />
+            </svg>
+            <div className="absolute text-8xl font-bold">{timer}</div>
+          </div>
+          <p className="text-lg mt-8 text-center opacity-70">Tippe zum Überspringen</p>
+        </div>
+      );
+    };
+
+    const DefensePrepScreen = ({ setCurrentScreen }) => {
+      const [timer, setTimer] = React.useState(5);
+
+      React.useEffect(() => {
+        const interval = setInterval(() => {
+          setTimer((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              setCurrentScreen('tori');
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+
+        return () => clearInterval(interval);
+      }, [setCurrentScreen]);
+
+      const handleScreenClick = () => {
+        setCurrentScreen('tori');
+      };
+
+      return (
+        <div
+          className="flex flex-col items-center justify-center h-screen w-screen p-6 cursor-pointer"
+          onClick={handleScreenClick}
+        >
+          <h1 className="text-3xl font-bold mb-4">Verteidigung</h1>
+          <div className="relative flex items-center justify-center">
+            <svg width="300" height="300" className="timer-circle">
+              <circle
+                cx="150"
+                cy="150"
+                r="75"
+                strokeWidth="4"
+                fill="none"
+                className="timer-circle-path"
+              />
+            </svg>
+            <div className="absolute text-8xl font-bold">{timer}</div>
+          </div>
+          <p className="text-lg mt-8 text-center opacity-70">Tippe zum Überspringen</p>
+        </div>
+      );
+    };
+
+    const GetReadyScreen = ({ setCurrentScreen, playSound, beepBuffer, hajimeBuffer }) => {
+      const [timer, setTimer] = React.useState(10);
+
+      React.useEffect(() => {
+        let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+
+        beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 7000);
+        beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 8000);
+        beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 9000);
+        hajimeTimeout = setTimeout(() => {
+          playSound(hajimeBuffer, 'hajime');
+          setCurrentScreen('hajime');
+        }, 10000);
+
+        const interval = setInterval(() => {
+          setTimer((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+
+        return () => {
+          clearInterval(interval);
+          clearTimeout(beepTimeout1);
+          clearTimeout(beepTimeout2);
+          clearTimeout(beepTimeout3);
+          clearTimeout(hajimeTimeout);
+        };
+      }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer]);
+
+      return (
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <h1 className="text-3xl font-bold mb-4">Get Ready</h1>
+          <div className="relative flex items-center justify-center">
+            <svg width="300" height="300" className="timer-circle">
+              <circle
+                cx="150"
+                cy="150"
+                r="75"
+                strokeWidth="4"
+                fill="none"
+                className="timer-circle-path-10s"
+              />
+            </svg>
+            <div className="absolute text-8xl font-bold">{timer}</div>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from GetReady');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const InfoScreen = ({ setCurrentScreen, setIsSidebarOpen }) => {
+      return (
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
+          <div className="flex flex-col items-start liquid-glass p-6 w-full max-w-sm pb-16 overflow-y-auto max-h-[calc(100vh-8rem)]">
+            <h1 className="text-3xl font-bold mb-4 pt-8">Random Attack App</h1>
+            <h3 className="text-xl font-semibold mb-2">Ablauf</h3>
+            <p className="text-lg mb-4">
+              Mit der <strong>Random Attack App</strong> kannst du effektiv spontane Abwehrkombinationen trainieren:<br />
+              - <strong>Uke</strong>: Zieht einen zufälligen Angriff aus den gewählten Kategorien.<br />
+              - <strong>Tori</strong>: Zieht eine zufällige Abwehrtechnik aus den gewählten Kategorien, die er in die Abwehrkombination einbauen muss.<br />
+              - <strong>Hajime</strong>: Startet den Angriff mit einem Countdown (optional) und zeigt Angriff und Abwehr an.<br />
+              - <strong>Auto-Modus</strong>: Automatischer Ablauf: Uke → Tori → Get Ready 10 Sek. → Hajime.
+            </p>
+            <h3 className="text-xl font-semibold mb-2">Einstellungen</h3>
+            <p className="text-lg">
+              - <strong>Hajime Counter</strong>: Aktiviert einen 5-Sekunden-Countdown vor dem Angriffssignal.<br />
+              - <strong>Auto-Modus</strong>: Automatisiert den Ablauf von Angriff bis Hajime.<br />
+              - <strong>Light/Dark-Modus</strong>: Wechselt zwischen hellem und dunklem Design.<br />
+              - <strong>Angriffe/Abwehr</strong>: Wähle Kategorien für Angriffe und Abwehrtechniken aus.
+            </p>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start with sidebar open from Info');
+                setCurrentScreen('start');
+                setIsSidebarOpen(true);
+              }}
+              aria-label="Zurück zum Start mit Menü"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const AttacksScreen = ({ categories, selectedCategories, setSelectedCategories, setCurrentScreen, setIsSidebarOpen }) => {
+      const toggleCategory = (category) => {
+        setSelectedCategories((prev) =>
+          prev.includes(category)
+            ? prev.filter((c) => c !== category)
+            : [...prev, category]
+        );
+      };
+
+      return (
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
+          <h1 className="text-3xl font-bold mb-8 pt-8">Angriffe</h1>
+          <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
+            {categories.map((category) => (
+              <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg">{category}</span>
+                <button
+                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                  onClick={() => toggleCategory(category)}
+                  aria-label={`${category} auswählen`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${selectedCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
+                      }`}
+                  ></div>
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start with sidebar open from Attacks');
+                setCurrentScreen('start');
+                setIsSidebarOpen(true);
+              }}
+              aria-label="Zurück zum Start mit Menü"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const DefenseScreen = ({ defenseCategories, selectedDefenseCategories, setSelectedDefenseCategories, setCurrentScreen, setIsSidebarOpen }) => {
+      const toggleCategory = (category) => {
+        setSelectedDefenseCategories((prev) =>
+          prev.includes(category)
+            ? prev.filter((c) => c !== category)
+            : [...prev, category]
+        );
+      };
+
+      return (
+        <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
+          <h1 className="text-3xl font-bold mb-8 pt-8">Abwehr</h1>
+          <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
+            {defenseCategories.map((category) => (
+              <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg">{category}</span>
+                <button
+                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                  onClick={() => toggleCategory(category)}
+                  aria-label={`${category} auswählen`}
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${selectedDefenseCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
+                      }`}
+                  ></div>
+                </button>
+              </div>
+            ))}
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start with sidebar open from Defense');
+                setCurrentScreen('start');
+                setIsSidebarOpen(true);
+              }}
+              aria-label="Zurück zum Start mit Menü"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const UkeScreen = ({ attacks, selectedCategories, setCurrentScreen, setLastAttack, isAutoModeEnabled }) => {
+      if (!attacks || attacks.length === 0) {
+        console.log('No attacks loaded');
         return (
-          <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
-            <h1 className="text-3xl font-bold mb-8 pt-8">Einstellungen</h1>
-            <div className="flex flex-col gap-6 w-full max-w-sm">
-              <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                <span className="text-lg">Hajime Counter</span>
-                <button
-                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                  onClick={toggleHajimeCounter}
-                  aria-label="Hajime Counter umschalten"
-                >
-                  <div
-                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                      isHajimeCounterEnabled ? 'translate-x-6' : 'translate-x-0'
-                    }`}
-                  ></div>
-                </button>
-              </div>
-              <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                <span className="text-lg">Auto Modus</span>
-                <button
-                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                  onClick={toggleAutoMode}
-                  aria-label="Auto Modus umschalten"
-                >
-                  <div
-                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                      isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
-                    }`}
-                  ></div>
-                </button>
-              </div>
-              <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                <span className="text-lg">{isLightMode ? 'Light' : 'Dark'}</span>
-                <button
-                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                  onClick={toggleLightMode}
-                  aria-label="Light/Dark Modus umschalten"
-                >
-                  <div
-                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                      isLightMode ? 'translate-x-6' : 'translate-x-0'
-                    }`}
-                  ></div>
-                </button>
-              </div>
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Angriffe.</p>
             </div>
             <div className="sticky-footer">
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
                 onClick={() => {
-                  console.log('Navigating to start with sidebar open from Settings');
+                  console.log('Navigating to start from Uke');
                   setCurrentScreen('start');
-                  setIsSidebarOpen(true);
                 }}
-                aria-label="Zurück zum Start mit Menü"
+                aria-label="Zurück zum Start"
               >
                 X
               </button>
             </div>
           </div>
         );
-      };
+      }
 
-      const AttackerScreen = ({ setCurrentScreen }) => {
-        const [timer, setTimer] = React.useState(5);
+      const filteredAttacks = attacks.filter((attack) =>
+        selectedCategories.includes(attack.category)
+      );
 
-        React.useEffect(() => {
-          const interval = setInterval(() => {
-            setTimer((prev) => {
-              if (prev <= 1) {
-                clearInterval(interval);
-                setCurrentScreen('uke');
-                return 0;
-              }
-              return prev - 1;
-            });
-          }, 1000);
-
-          return () => clearInterval(interval);
-        }, [setCurrentScreen]);
-
+      if (filteredAttacks.length === 0) {
         return (
           <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <h1 className="text-3xl font-bold mb-4">Angreifer</h1>
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Angriffe in den ausgewählten Kategorien.</p>
+            </div>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Uke');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      const [randomAttack, setRandomAttack] = React.useState(
+        filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]
+      );
+
+      React.useEffect(() => {
+        const newRandomAttack = filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)];
+        setRandomAttack(newRandomAttack);
+        setLastAttack(newRandomAttack);
+        console.log('Updated lastAttack:', newRandomAttack);
+      }, [selectedCategories, setLastAttack]);
+
+      return (
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <h1 className="text-3xl font-bold text-center mb-4">{randomAttack.category}</h1>
+            <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
+            <p className="text-lg text-center">{randomAttack.explanation}</p>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Uke');
+                setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
+                setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
+              }}
+              aria-label="Zurück zum Start oder nächste Phase"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const ToriScreen = ({ techniques, selectedDefenseCategories, setCurrentScreen, setLastTechnique, isAutoModeEnabled }) => {
+      if (!techniques || techniques.length === 0) {
+        console.log('No techniques loaded');
+        return (
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Techniken geladen. Bitte überprüfe data.json.</p>
+            </div>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Tori');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      const filteredTechniques = techniques.filter((technique) =>
+        selectedDefenseCategories.includes(technique.category)
+      );
+
+      if (filteredTechniques.length === 0) {
+        return (
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Keine Techniken in den ausgewählten Kategorien.</p>
+            </div>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start from Tori');
+                  setCurrentScreen('start');
+                }}
+                aria-label="Zurück zum Start"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      const [randomTechnique, setRandomTechnique] = React.useState(
+        filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]
+      );
+
+      React.useEffect(() => {
+        const newRandomTechnique = filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)];
+        setRandomTechnique(newRandomTechnique);
+        setLastTechnique(newRandomTechnique);
+        console.log('Updated lastTechnique:', newRandomTechnique);
+      }, [selectedDefenseCategories, setLastTechnique]);
+
+      return (
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <h1 className="text-3xl font-bold text-center mb-4">{randomTechnique.category}</h1>
+            <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Tori');
+                setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
+                setRandomTechnique(filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]);
+              }}
+              aria-label="Zurück zum Start oder nächste Phase"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
+
+    const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer }) => {
+      const [timer, setTimer] = React.useState(5);
+      const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
+
+      React.useEffect(() => {
+        if (!isHajimeCounterEnabled || isAutoModeEnabled) {
+          setShowTimer(false);
+          return;
+        }
+
+        let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+
+        beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 1000);
+        beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 2000);
+        beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 3000);
+        hajimeTimeout = setTimeout(() => {
+          playSound(hajimeBuffer, 'hajime');
+          setShowTimer(false);
+        }, 5000);
+
+        const interval = setInterval(() => {
+          setTimer((prev) => {
+            if (prev <= 1) {
+              clearInterval(interval);
+              return 0;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+
+        return () => {
+          clearInterval(interval);
+          clearTimeout(beepTimeout1);
+          clearTimeout(beepTimeout2);
+          clearTimeout(beepTimeout3);
+          clearTimeout(hajimeTimeout);
+        };
+      }, [isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
+
+      if (showTimer) {
+        return (
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
             <div className="relative flex items-center justify-center">
               <svg width="300" height="300" className="timer-circle">
                 <circle
@@ -433,503 +939,6 @@
                 />
               </svg>
               <div className="absolute text-8xl font-bold">{timer}</div>
-            </div>
-          </div>
-        );
-      };
-
-      const DefensePrepScreen = ({ setCurrentScreen }) => {
-        const [timer, setTimer] = React.useState(5);
-
-        React.useEffect(() => {
-          const interval = setInterval(() => {
-            setTimer((prev) => {
-              if (prev <= 1) {
-                clearInterval(interval);
-                setCurrentScreen('tori');
-                return 0;
-              }
-              return prev - 1;
-            });
-          }, 1000);
-
-          return () => clearInterval(interval);
-        }, [setCurrentScreen]);
-
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <h1 className="text-3xl font-bold mb-4">Verteidigung</h1>
-            <div className="relative flex items-center justify-center">
-              <svg width="300" height="300" className="timer-circle">
-                <circle
-                  cx="150"
-                  cy="150"
-                  r="75"
-                  strokeWidth="4"
-                  fill="none"
-                  className="timer-circle-path"
-                />
-              </svg>
-              <div className="absolute text-8xl font-bold">{timer}</div>
-            </div>
-          </div>
-        );
-      };
-
-      const GetReadyScreen = ({ setCurrentScreen, playSound, beepBuffer, hajimeBuffer }) => {
-        const [timer, setTimer] = React.useState(10);
-
-        React.useEffect(() => {
-  let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
-  
-  // Beeps bei 3, 2, 1 Sekunden
-  beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 7000);
-  beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 8000);
-  beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 9000);
-  hajimeTimeout = setTimeout(() => {
-    playSound(hajimeBuffer, 'hajime');
-    setCurrentScreen('hajime');
-  }, 10000);
-
-  const interval = setInterval(() => {
-    setTimer((prev) => {
-      if (prev <= 1) {
-        clearInterval(interval);
-        return 0;
-      }
-      return prev - 1;
-    });
-  }, 1000);
-
-  return () => {
-    clearInterval(interval);
-    clearTimeout(beepTimeout1);
-    clearTimeout(beepTimeout2);
-    clearTimeout(beepTimeout3);
-    clearTimeout(hajimeTimeout);
-  };
-}, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer]);
-
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <h1 className="text-3xl font-bold mb-4">Get Ready</h1>
-            <div className="relative flex items-center justify-center">
-              <svg width="300" height="300" className="timer-circle">
-                <circle
-                  cx="150"
-                  cy="150"
-                  r="75"
-                  strokeWidth="4"
-                  fill="none"
-                  className="timer-circle-path-10s"
-                />
-              </svg>
-              <div className="absolute text-8xl font-bold">{timer}</div>
-            </div>
-          </div>
-        );
-      };
-
-      const InfoScreen = ({ setCurrentScreen, setIsSidebarOpen }) => {
-        return (
-          <div className="flex flex-col items-center justify-start h-screen w-screen p-6">
-            <div className="flex flex-col items-start liquid-glass p-6 w-full max-w-sm pb-16 overflow-y-auto max-h-[calc(100vh-8rem)]">
-              <h1 className="text-3xl font-bold mb-4 pt-8">Random Attack App</h1>
-              <h3 className="text-xl font-semibold mb-2">Ablauf</h3>
-              <p className="text-lg mb-4">
-                Mit der <strong>Random Attack App</strong> kannst du effektiv spontane Abwehrkombinationen trainieren:<br />
-                - <strong>Uke</strong>: Zieht einen zufälligen Angriff aus den gewählten Kategorien.<br />
-                - <strong>Tori</strong>: Zieht eine zufällige Abwehrtechnik aus den gewählten Kategorien, die er in die Abwehrkombination einbauen muss.<br />
-                - <strong>Hajime</strong>: Startet den Angriff mit einem Countdown (optional) und zeigt Angriff und Abwehr an.<br />
-                - <strong>Auto-Modus</strong>: Automatischer Ablauf: Uke → Tori → Get Ready 10 Sek. → Hajime.
-              </p>
-              <h3 className="text-xl font-semibold mb-2">Einstellungen</h3>
-              <p className="text-lg">
-                - <strong>Hajime Counter</strong>: Aktiviert einen 5-Sekunden-Countdown vor dem Angriffssignal.<br />
-                - <strong>Auto-Modus</strong>: Automatisiert den Ablauf von Angriff bis Hajime.<br />
-                - <strong>Light/Dark-Modus</strong>: Wechselt zwischen hellem und dunklem Design.<br />
-                - <strong>Angriffe/Abwehr</strong>: Wähle Kategorien für Angriffe und Abwehrtechniken aus.
-              </p>
-            </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => {
-                  console.log('Navigating to start with sidebar open from Info');
-                  setCurrentScreen('start');
-                  setIsSidebarOpen(true);
-                }}
-                aria-label="Zurück zum Start mit Menü"
-              >
-                X
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      const AttacksScreen = ({ categories, selectedCategories, setSelectedCategories, setCurrentScreen, setIsSidebarOpen }) => {
-        const toggleCategory = (category) => {
-          setSelectedCategories((prev) =>
-            prev.includes(category)
-              ? prev.filter((c) => c !== category)
-              : [...prev, category]
-          );
-        };
-
-        return (
-          <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
-            <h1 className="text-3xl font-bold mb-8 pt-8">Angriffe</h1>
-            <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
-              {categories.map((category) => (
-                <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                  <span className="text-lg">{category}</span>
-                  <button
-                    className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                    onClick={() => toggleCategory(category)}
-                    aria-label={`${category} auswählen`}
-                  >
-                    <div
-                      className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                        selectedCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
-                      }`}
-                    ></div>
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => {
-                  console.log('Navigating to start with sidebar open from Attacks');
-                  setCurrentScreen('start');
-                  setIsSidebarOpen(true);
-                }}
-                aria-label="Zurück zum Start mit Menü"
-              >
-                X
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      const DefenseScreen = ({ defenseCategories, selectedDefenseCategories, setSelectedDefenseCategories, setCurrentScreen, setIsSidebarOpen }) => {
-        const toggleCategory = (category) => {
-          setSelectedDefenseCategories((prev) =>
-            prev.includes(category)
-              ? prev.filter((c) => c !== category)
-              : [...prev, category]
-          );
-        };
-
-        return (
-          <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
-            <h1 className="text-3xl font-bold mb-8 pt-8">Abwehr</h1>
-            <div className="flex flex-col gap-4 w-full max-w-sm pb-16">
-              {defenseCategories.map((category) => (
-                <div key={category} className="flex items-center justify-between neumorphic p-4 rounded-xl">
-                  <span className="text-lg">{category}</span>
-                  <button
-                    className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                    onClick={() => toggleCategory(category)}
-                    aria-label={`${category} auswählen`}
-                  >
-                    <div
-                      className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${
-                        selectedDefenseCategories.includes(category) ? 'translate-x-6' : 'translate-x-0'
-                      }`}
-                    ></div>
-                  </button>
-                </div>
-              ))}
-            </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => {
-                  console.log('Navigating to start with sidebar open from Defense');
-                  setCurrentScreen('start');
-                  setIsSidebarOpen(true);
-                }}
-                aria-label="Zurück zum Start mit Menü"
-              >
-                X
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      const UkeScreen = ({ attacks, selectedCategories, setCurrentScreen, setLastAttack, isAutoModeEnabled }) => {
-        if (!attacks || attacks.length === 0) {
-          console.log('No attacks loaded');
-          return (
-            <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-              <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-                <h1 className="text-3xl font-bold mb-4">Fehler</h1>
-                <p className="text-lg text-center">Keine Angriffe.</p>
-              </div>
-              <div className="sticky-footer">
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                  onClick={() => {
-                    console.log('Navigating to start from Uke');
-                    setCurrentScreen('start');
-                  }}
-                  aria-label="Zurück zum Start"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        const filteredAttacks = attacks.filter((attack) =>
-          selectedCategories.includes(attack.category)
-        );
-
-        if (filteredAttacks.length === 0) {
-          return (
-            <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-              <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-                <h1 className="text-3xl font-bold mb-4">Fehler</h1>
-                <p className="text-lg text-center">Keine Angriffe in den ausgewählten Kategorien.</p>
-              </div>
-              <div className="sticky-footer">
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                  onClick={() => {
-                    console.log('Navigating to start from Uke');
-                    setCurrentScreen('start');
-                  }}
-                  aria-label="Zurück zum Start"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        const [randomAttack, setRandomAttack] = React.useState(
-          filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]
-        );
-
-        React.useEffect(() => {
-          const newRandomAttack = filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)];
-          setRandomAttack(newRandomAttack);
-          setLastAttack(newRandomAttack);
-          console.log('Updated lastAttack:', newRandomAttack);
-        }, [selectedCategories, setLastAttack]);
-
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-center mb-4">{randomAttack.category}</h1>
-              <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomAttack.attack}</h2>
-              <p className="text-lg text-center">{randomAttack.explanation}</p>
-            </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => {
-                  console.log('Navigating to', isAutoModeEnabled ? 'defensePrep' : 'start', 'from Uke');
-                  setCurrentScreen(isAutoModeEnabled ? 'defensePrep' : 'start');
-                  setRandomAttack(filteredAttacks[Math.floor(Math.random() * filteredAttacks.length)]);
-                }}
-                aria-label="Zurück zum Start oder nächste Phase"
-              >
-                X
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      const ToriScreen = ({ techniques, selectedDefenseCategories, setCurrentScreen, setLastTechnique, isAutoModeEnabled }) => {
-        if (!techniques || techniques.length === 0) {
-          console.log('No techniques loaded');
-          return (
-            <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-              <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-                <h1 className="text-3xl font-bold mb-4">Fehler</h1>
-                <p className="text-lg text-center">Keine Techniken geladen. Bitte überprüfe data.json.</p>
-              </div>
-              <div className="sticky-footer">
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                  onClick={() => {
-                    console.log('Navigating to start from Tori');
-                    setCurrentScreen('start');
-                  }}
-                  aria-label="Zurück zum Start"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        const filteredTechniques = techniques.filter((technique) =>
-          selectedDefenseCategories.includes(technique.category)
-        );
-
-        if (filteredTechniques.length === 0) {
-          return (
-            <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-              <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-                <h1 className="text-3xl font-bold mb-4">Fehler</h1>
-                <p className="text-lg text-center">Keine Techniken in den ausgewählten Kategorien.</p>
-              </div>
-              <div className="sticky-footer">
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                  onClick={() => {
-                    console.log('Navigating to start from Tori');
-                    setCurrentScreen('start');
-                  }}
-                  aria-label="Zurück zum Start"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        const [randomTechnique, setRandomTechnique] = React.useState(
-          filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]
-        );
-
-        React.useEffect(() => {
-          const newRandomTechnique = filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)];
-          setRandomTechnique(newRandomTechnique);
-          setLastTechnique(newRandomTechnique);
-          console.log('Updated lastTechnique:', newRandomTechnique);
-        }, [selectedDefenseCategories, setLastTechnique]);
-
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <h1 className="text-3xl font-bold text-center mb-4">{randomTechnique.category}</h1>
-              <h2 className="text-2xl font-semibold text-purple-400 text-center mb-4">{randomTechnique.technique}</h2>
-            </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => {
-                  console.log('Navigating to', isAutoModeEnabled ? 'getReady' : 'start', 'from Tori');
-                  setCurrentScreen(isAutoModeEnabled ? 'getReady' : 'start');
-                  setRandomTechnique(filteredTechniques[Math.floor(Math.random() * filteredTechniques.length)]);
-                }}
-                aria-label="Zurück zum Start oder nächste Phase"
-              >
-                X
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer }) => {
-        const [timer, setTimer] = React.useState(5);
-        const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
-
-        React.useEffect(() => {
-  if (!isHajimeCounterEnabled || isAutoModeEnabled) {
-    setShowTimer(false);
-    return;
-  }
-
-  let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
-  
-  beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 1000);
-  beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 2000);
-  beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 3000);
-  hajimeTimeout = setTimeout(() => {
-    playSound(hajimeBuffer, 'hajime');
-    setShowTimer(false);
-  }, 5000);
-
-  const interval = setInterval(() => {
-    setTimer((prev) => {
-      if (prev <= 1) {
-        clearInterval(interval);
-        return 0;
-      }
-      return prev - 1;
-    });
-  }, 1000);
-
-  return () => {
-    clearInterval(interval);
-    clearTimeout(beepTimeout1);
-    clearTimeout(beepTimeout2);
-    clearTimeout(beepTimeout3);
-    clearTimeout(hajimeTimeout);
-  };
-}, [isHajimeCounterEnabled, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
-
-        if (showTimer) {
-          return (
-            <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-              <div className="relative flex items-center justify-center">
-                <svg width="300" height="300" className="timer-circle">
-                  <circle
-                    cx="150"
-                    cy="150"
-                    r="75"
-                    strokeWidth="4"
-                    fill="none"
-                    className="timer-circle-path"
-                  />
-                </svg>
-                <div className="absolute text-8xl font-bold">{timer}</div>
-              </div>
-              <div className="sticky-footer">
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                  onClick={() => {
-                    console.log('Navigating to start from Hajime');
-                    setCurrentScreen('start');
-                  }}
-                  aria-label="Zurück zum Start"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
-        }
-
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-              <div className="flex flex-col items-center justify-center h-1/3 w-full">
-                {lastAttack ? (
-                  <>
-                    <h1 className="text-3xl font-bold mb-2">Angriff</h1>
-                    <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
-                  </>
-                ) : (
-                  <p className="text-lg text-center">Kein Angriff gezogen</p>
-                )}
-              </div>
-              <div className="w-4/5 border-t border-gray-500 my-6"></div>
-              <div className="flex flex-col items-center justify-center h-1/3 w-full">
-                {lastTechnique ? (
-                  <>
-                    <h1 className="text-3xl font-bold mb-2">Abwehr</h1>
-                    <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
-                  </>
-                ) : (
-                  <p className="text-lg text-center">Keine Technik gezogen</p>
-                )}
-              </div>
             </div>
             <div className="sticky-footer">
               <button
@@ -945,332 +954,374 @@
             </div>
           </div>
         );
-      };
+      }
 
-      const App = () => {
-        const [currentScreen, setCurrentScreen] = React.useState('start');
-        const [data, setData] = React.useState({ attacks: [], techniques: [] });
-        const [lastAttack, setLastAttack] = React.useState(null);
-        const [lastTechnique, setLastTechnique] = React.useState(null);
-        const [loading, setLoading] = React.useState(true);
-        const [error, setError] = React.useState(null);
-        const [selectedCategories, setSelectedCategories] = React.useState(
-          JSON.parse(localStorage.getItem('selectedCategories')) || []
-        );
-        const [selectedDefenseCategories, setSelectedDefenseCategories] = React.useState(
-          JSON.parse(localStorage.getItem('selectedDefenseCategories')) || []
-        );
-        const [isHajimeCounterEnabled, setIsHajimeCounterEnabled] = React.useState(
-          localStorage.getItem('hajimeCounterEnabled') === 'true'
-        );
-        const [isAutoModeEnabled, setIsAutoModeEnabled] = React.useState(
-          localStorage.getItem('autoModeEnabled') === 'true'
-        );
-        const [isLightMode, setIsLightMode] = React.useState(
-          localStorage.getItem('lightModeEnabled') === 'true'
-        );
-        const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
-        const [audioContext, setAudioContext] = React.useState(null);
-        const [beepBuffer, setBeepBuffer] = React.useState(null);
-        const [hajimeBuffer, setHajimeBuffer] = React.useState(null);
+      return (
+        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+            <div className="flex flex-col items-center justify-center h-1/3 w-full">
+              {lastAttack ? (
+                <>
+                  <h1 className="text-3xl font-bold mb-2">Angriff</h1>
+                  <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
+                </>
+              ) : (
+                <p className="text-lg text-center">Kein Angriff gezogen</p>
+              )}
+            </div>
+            <div className="w-4/5 border-t border-gray-500 my-6"></div>
+            <div className="flex flex-col items-center justify-center h-1/3 w-full">
+              {lastTechnique ? (
+                <>
+                  <h1 className="text-3xl font-bold mb-2">Abwehr</h1>
+                  <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
+                </>
+              ) : (
+                <p className="text-lg text-center">Keine Technik gezogen</p>
+              )}
+            </div>
+          </div>
+          <div className="sticky-footer">
+            <button
+              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+              onClick={() => {
+                console.log('Navigating to start from Hajime');
+                setCurrentScreen('start');
+              }}
+              aria-label="Zurück zum Start"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      );
+    };
 
-        React.useEffect(() => {
-          document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';
-          localStorage.setItem('lightModeEnabled', isLightMode);
-          document.getElementById('theme-color').setAttribute('content', isLightMode ? '#F5F7FA' : '#1A1A1A');
-        }, [isLightMode]);
+    const App = () => {
+      const [currentScreen, setCurrentScreen] = React.useState('start');
+      const [data, setData] = React.useState({ attacks: [], techniques: [] });
+      const [lastAttack, setLastAttack] = React.useState(null);
+      const [lastTechnique, setLastTechnique] = React.useState(null);
+      const [loading, setLoading] = React.useState(true);
+      const [error, setError] = React.useState(null);
+      const [selectedCategories, setSelectedCategories] = React.useState(
+        JSON.parse(localStorage.getItem('selectedCategories')) || []
+      );
+      const [selectedDefenseCategories, setSelectedDefenseCategories] = React.useState(
+        JSON.parse(localStorage.getItem('selectedDefenseCategories')) || []
+      );
+      const [isHajimeCounterEnabled, setIsHajimeCounterEnabled] = React.useState(
+        localStorage.getItem('hajimeCounterEnabled') === 'true'
+      );
+      const [isAutoModeEnabled, setIsAutoModeEnabled] = React.useState(
+        localStorage.getItem('autoModeEnabled') === 'true'
+      );
+      const [isLightMode, setIsLightMode] = React.useState(
+        localStorage.getItem('lightModeEnabled') === 'true'
+      );
+      const [isSidebarOpen, setIsSidebarOpen] = React.useState(false);
+      const [audioContext, setAudioContext] = React.useState(null);
+      const [beepBuffer, setBeepBuffer] = React.useState(null);
+      const [hajimeBuffer, setHajimeBuffer] = React.useState(null);
 
-        const playSound = (buffer, soundName) => {
-  if (!audioContext || !buffer) {
-    console.warn(`Cannot play ${soundName}: AudioContext or buffer not ready`);
-    return;
-  }
-  
-  // AudioContext resume für iOS
-  if (audioContext.state === 'suspended') {
-    audioContext.resume().then(() => {
-      console.log('AudioContext resumed');
-      playAudioBuffer();
-    });
-  } else {
-    playAudioBuffer();
-  }
+      React.useEffect(() => {
+        document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';
+        localStorage.setItem('lightModeEnabled', isLightMode);
+        document.getElementById('theme-color').setAttribute('content', isLightMode ? '#F5F7FA' : '#1A1A1A');
+      }, [isLightMode]);
 
-  function playAudioBuffer() {
-    try {
-      const source = audioContext.createBufferSource();
-      source.buffer = buffer;
-      source.connect(audioContext.destination);
-      source.start(0);
-      console.log(`${soundName} audio played successfully`);
-      source.onended = () => {
-        console.log(`${soundName} audio ended`);
-      };
-    } catch (e) {
-      console.error(`Error playing ${soundName}:`, e);
-    }
-  }
-};
-
-        React.useEffect(() => {
-  // AudioContext wird erst nach User-Interaktion initialisiert
-  const initAudio = () => {
-    if (!audioContext) {
-      const ctx = new (window.AudioContext || window.webkitAudioContext)();
-      setAudioContext(ctx);
-
-      const loadAudio = async (url, setBuffer) => {
-        try {
-          const response = await fetch(url);
-          if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
-          const arrayBuffer = await response.arrayBuffer();
-          const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
-          setBuffer(audioBuffer);
-          console.log(`Loaded ${url} into buffer`);
-        } catch (e) {
-          console.error(`Error loading ${url}:`, e.message);
+      const playSound = (buffer, soundName) => {
+        if (!audioContext || !buffer) {
+          console.warn(`Cannot play ${soundName}: AudioContext or buffer not ready`);
+          return;
         }
-      };
 
-      loadAudio('./assets/sounds/beep.mp3', setBeepBuffer);
-      loadAudio('./assets/sounds/hajime.mp3', setHajimeBuffer);
-    }
-  };
+        // AudioContext resume für iOS
+        if (audioContext.state === 'suspended') {
+          audioContext.resume().then(() => {
+            console.log('AudioContext resumed');
+            playAudioBuffer();
+          });
+        } else {
+          playAudioBuffer();
+        }
 
-  // Initialisierung bei erster User-Interaktion
-  const handleFirstInteraction = () => {
-    initAudio();
-    document.removeEventListener('touchstart', handleFirstInteraction);
-    document.removeEventListener('click', handleFirstInteraction);
-  };
-
-  document.addEventListener('touchstart', handleFirstInteraction);
-  document.addEventListener('click', handleFirstInteraction);
-
-  return () => {
-    document.removeEventListener('touchstart', handleFirstInteraction);
-    document.removeEventListener('click', handleFirstInteraction);
-    if (audioContext) {
-      audioContext.close().then(() => console.log('AudioContext closed'));
-    }
-  };
-}, [audioContext]);
-
-        React.useEffect(() => {
-          console.log('App initialized', { audioContext, beepBuffer, hajimeBuffer });
-          const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
-          console.log(`Fetching ${dataUrl}`);
-          fetch(`${dataUrl}?cacheBust=${Date.now()}`)
-            .then(response => {
-              console.log('Response status:', response.status);
-              if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
-              return response.json();
-            })
-            .then(data => {
-              console.log('Data loaded:', data);
-              setData(data);
-              const attackCategories = [...new Set(data.attacks.map((attack) => attack.category))];
-              const defenseCategories = [...new Set(data.techniques.map((technique) => technique.category))];
-              setSelectedCategories((prev) => {
-                const saved = JSON.parse(localStorage.getItem('selectedCategories'));
-                return saved && saved.length > 0 ? saved : attackCategories;
-              });
-              setSelectedDefenseCategories((prev) => {
-                const saved = JSON.parse(localStorage.getItem('selectedDefenseCategories'));
-                return saved && saved.length > 0 ? saved : defenseCategories;
-              });
-              setLoading(false);
-            })
-            .catch(error => {
-              console.error('Error loading data:', error);
-              setError(error.message);
-              setLoading(false);
-            });
-        }, []);
-
-        React.useEffect(() => {
-          localStorage.setItem('hajimeCounterEnabled', isHajimeCounterEnabled);
-        }, [isHajimeCounterEnabled]);
-
-        React.useEffect(() => {
-          localStorage.setItem('autoModeEnabled', isAutoModeEnabled);
-        }, [isAutoModeEnabled]);
-
-        React.useEffect(() => {
-          localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
-        }, [selectedCategories]);
-
-        React.useEffect(() => {
-          localStorage.setItem('selectedDefenseCategories', JSON.stringify(selectedDefenseCategories));
-        }, [selectedDefenseCategories]);
-
-        React.useEffect(() => {
-          console.log('Current screen:', currentScreen);
-        }, [currentScreen]);
-
-        React.useEffect(() => {
-          if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-              navigator.serviceWorker
-                .register('./sw.js')
-                .then((registration) => {
-                  console.log('Service Worker registered with scope:', registration.scope);
-                })
-                .catch((error) => {
-                  console.error('Service Worker registration failed:', error);
-                });
-            });
+        function playAudioBuffer() {
+          try {
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            source.connect(audioContext.destination);
+            source.start(0);
+            console.log(`${soundName} audio played successfully`);
+            source.onended = () => {
+              console.log(`${soundName} audio ended`);
+            };
+          } catch (e) {
+            console.error(`Error playing ${soundName}:`, e);
           }
-        }, []);
-
-        if (loading) {
-          return (
-            <div className="flex items-center justify-center h-screen w-screen p-6">
-              <p className="text-lg">Lade...</p>
-            </div>
-          );
         }
+      };
 
-        if (error) {
-          return (
-            <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-              <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-                <h1 className="text-3xl font-bold mb-4">Fehler</h1>
-                <p className="text-lg text-center">Fehler beim Laden der Daten: {error}</p>
-              </div>
-              <div className="sticky-footer">
-                <button
-                  className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                  onClick={() => {
-                    console.log('Navigating to start with sidebar open from Error');
-                    setCurrentScreen('start');
-                    setIsSidebarOpen(true);
-                  }}
-                  aria-label="Zurück zum Start mit Menü"
-                >
-                  X
-                </button>
-              </div>
-            </div>
-          );
+      React.useEffect(() => {
+        // AudioContext wird erst nach User-Interaktion initialisiert
+        const initAudio = () => {
+          if (!audioContext) {
+            const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            setAudioContext(ctx);
+
+            const loadAudio = async (url, setBuffer) => {
+              try {
+                const response = await fetch(url);
+                if (!response.ok) throw new Error(`Failed to fetch ${url}: ${response.status}`);
+                const arrayBuffer = await response.arrayBuffer();
+                const audioBuffer = await ctx.decodeAudioData(arrayBuffer);
+                setBuffer(audioBuffer);
+                console.log(`Loaded ${url} into buffer`);
+              } catch (e) {
+                console.error(`Error loading ${url}:`, e.message);
+              }
+            };
+
+            loadAudio('./assets/sounds/beep.mp3', setBeepBuffer);
+            loadAudio('./assets/sounds/hajime.mp3', setHajimeBuffer);
+          }
+        };
+
+        // Initialisierung bei erster User-Interaktion
+        const handleFirstInteraction = () => {
+          initAudio();
+          document.removeEventListener('touchstart', handleFirstInteraction);
+          document.removeEventListener('click', handleFirstInteraction);
+        };
+
+        document.addEventListener('touchstart', handleFirstInteraction);
+        document.addEventListener('click', handleFirstInteraction);
+
+        return () => {
+          document.removeEventListener('touchstart', handleFirstInteraction);
+          document.removeEventListener('click', handleFirstInteraction);
+          if (audioContext) {
+            audioContext.close().then(() => console.log('AudioContext closed'));
+          }
+        };
+      }, [audioContext]);
+
+      React.useEffect(() => {
+        console.log('App initialized', { audioContext, beepBuffer, hajimeBuffer });
+        const dataUrl = 'https://erikstadel.github.io/RandomAttack/data.json';
+        console.log(`Fetching ${dataUrl}`);
+        fetch(`${dataUrl}?cacheBust=${Date.now()}`)
+          .then(response => {
+            console.log('Response status:', response.status);
+            if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+            return response.json();
+          })
+          .then(data => {
+            console.log('Data loaded:', data);
+            setData(data);
+            const attackCategories = [...new Set(data.attacks.map((attack) => attack.category))];
+            const defenseCategories = [...new Set(data.techniques.map((technique) => technique.category))];
+            setSelectedCategories((prev) => {
+              const saved = JSON.parse(localStorage.getItem('selectedCategories'));
+              return saved && saved.length > 0 ? saved : attackCategories;
+            });
+            setSelectedDefenseCategories((prev) => {
+              const saved = JSON.parse(localStorage.getItem('selectedDefenseCategories'));
+              return saved && saved.length > 0 ? saved : defenseCategories;
+            });
+            setLoading(false);
+          })
+          .catch(error => {
+            console.error('Error loading data:', error);
+            setError(error.message);
+            setLoading(false);
+          });
+      }, []);
+
+      React.useEffect(() => {
+        localStorage.setItem('hajimeCounterEnabled', isHajimeCounterEnabled);
+      }, [isHajimeCounterEnabled]);
+
+      React.useEffect(() => {
+        localStorage.setItem('autoModeEnabled', isAutoModeEnabled);
+      }, [isAutoModeEnabled]);
+
+      React.useEffect(() => {
+        localStorage.setItem('selectedCategories', JSON.stringify(selectedCategories));
+      }, [selectedCategories]);
+
+      React.useEffect(() => {
+        localStorage.setItem('selectedDefenseCategories', JSON.stringify(selectedDefenseCategories));
+      }, [selectedDefenseCategories]);
+
+      React.useEffect(() => {
+        console.log('Current screen:', currentScreen);
+      }, [currentScreen]);
+
+      React.useEffect(() => {
+        if ('serviceWorker' in navigator) {
+          window.addEventListener('load', () => {
+            navigator.serviceWorker
+              .register('./sw.js')
+              .then((registration) => {
+                console.log('Service Worker registered with scope:', registration.scope);
+              })
+              .catch((error) => {
+                console.error('Service Worker registration failed:', error);
+              });
+          });
         }
+      }, []);
 
-        const attackCategories = [...new Set(data.attacks.map((attack) => attack.category))];
-        const defenseCategories = [...new Set(data.techniques.map((technique) => technique.category))];
-
+      if (loading) {
         return (
-          <div className="h-screen w-screen relative">
-            {currentScreen === 'start' && (
-              <StartScreen
-                setCurrentScreen={setCurrentScreen}
-                isHajimeCounterEnabled={isHajimeCounterEnabled}
-                isAutoModeEnabled={isAutoModeEnabled}
-                playSound={playSound}
-                hajimeBuffer={hajimeBuffer}
-                isSidebarOpen={isSidebarOpen}
-                setIsSidebarOpen={setIsSidebarOpen}
-              />
-            )}
-            {currentScreen === 'info' && (
-              <InfoScreen
-                setCurrentScreen={setCurrentScreen}
-                setIsSidebarOpen={setIsSidebarOpen}
-              />
-            )}
-            {currentScreen === 'attacks' && (
-              <AttacksScreen
-                categories={attackCategories}
-                selectedCategories={selectedCategories}
-                setSelectedCategories={setSelectedCategories}
-                setCurrentScreen={setCurrentScreen}
-                setIsSidebarOpen={setIsSidebarOpen}
-              />
-            )}
-            {currentScreen === 'defense' && (
-              <DefenseScreen
-                defenseCategories={defenseCategories}
-                selectedDefenseCategories={selectedDefenseCategories}
-                setSelectedDefenseCategories={setSelectedDefenseCategories}
-                setCurrentScreen={setCurrentScreen}
-                setIsSidebarOpen={setIsSidebarOpen}
-              />
-            )}
-            {currentScreen === 'settings' && (
-              <SettingsScreen
-                isHajimeCounterEnabled={isHajimeCounterEnabled}
-                setIsHajimeCounterEnabled={setIsHajimeCounterEnabled}
-                isAutoModeEnabled={isAutoModeEnabled}
-                setIsAutoModeEnabled={setIsAutoModeEnabled}
-                isLightMode={isLightMode}
-                setIsLightMode={setIsLightMode}
-                setCurrentScreen={setCurrentScreen}
-                setIsSidebarOpen={setIsSidebarOpen}
-              />
-            )}
-            {currentScreen === 'uke' && (
-              <UkeScreen
-                attacks={data.attacks}
-                selectedCategories={selectedCategories}
-                setCurrentScreen={setCurrentScreen}
-                setLastAttack={setLastAttack}
-                isAutoModeEnabled={isAutoModeEnabled}
-              />
-            )}
-            {currentScreen === 'tori' && (
-              <ToriScreen
-                techniques={data.techniques}
-                selectedDefenseCategories={selectedDefenseCategories}
-                setCurrentScreen={setCurrentScreen}
-                setLastTechnique={setLastTechnique}
-                isAutoModeEnabled={isAutoModeEnabled}
-              />
-            )}
-            {currentScreen === 'hajime' && (
-              <HajimeScreen
-                lastAttack={lastAttack}
-                lastTechnique={lastTechnique}
-                setCurrentScreen={setCurrentScreen}
-                isHajimeCounterEnabled={isHajimeCounterEnabled}
-                isAutoModeEnabled={isAutoModeEnabled}
-                playSound={playSound}
-                beepBuffer={beepBuffer}
-                hajimeBuffer={hajimeBuffer}
-              />
-            )}
-            {currentScreen === 'attacker' && (
-              <AttackerScreen setCurrentScreen={setCurrentScreen} />
-            )}
-            {currentScreen === 'defensePrep' && (
-              <DefensePrepScreen setCurrentScreen={setCurrentScreen} />
-            )}
-            {currentScreen === 'getReady' && (
-              <GetReadyScreen
-                setCurrentScreen={setCurrentScreen}
-                playSound={playSound}
-                beepBuffer={beepBuffer}
-                hajimeBuffer={hajimeBuffer}
-              />
-            )}
+          <div className="flex items-center justify-center h-screen w-screen p-6">
+            <p className="text-lg">Lade...</p>
           </div>
         );
-      };
+      }
 
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              'dark-bg': '#1A1A1A',
-              'dark-gray': '#2A2A2A',
-              'light-gray': '#D1D5DB',
-              'cyan-accent': '#22D3EE',
-              'purple-accent': '#A78BFA',
-            },
+      if (error) {
+        return (
+          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+            <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+              <h1 className="text-3xl font-bold mb-4">Fehler</h1>
+              <p className="text-lg text-center">Fehler beim Laden der Daten: {error}</p>
+            </div>
+            <div className="sticky-footer">
+              <button
+                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+                onClick={() => {
+                  console.log('Navigating to start with sidebar open from Error');
+                  setCurrentScreen('start');
+                  setIsSidebarOpen(true);
+                }}
+                aria-label="Zurück zum Start mit Menü"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        );
+      }
+
+      const attackCategories = [...new Set(data.attacks.map((attack) => attack.category))];
+      const defenseCategories = [...new Set(data.techniques.map((technique) => technique.category))];
+
+      return (
+        <div className="h-screen w-screen relative">
+          {currentScreen === 'start' && (
+            <StartScreen
+              setCurrentScreen={setCurrentScreen}
+              isHajimeCounterEnabled={isHajimeCounterEnabled}
+              isAutoModeEnabled={isAutoModeEnabled}
+              playSound={playSound}
+              hajimeBuffer={hajimeBuffer}
+              isSidebarOpen={isSidebarOpen}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+          {currentScreen === 'info' && (
+            <InfoScreen
+              setCurrentScreen={setCurrentScreen}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+          {currentScreen === 'attacks' && (
+            <AttacksScreen
+              categories={attackCategories}
+              selectedCategories={selectedCategories}
+              setSelectedCategories={setSelectedCategories}
+              setCurrentScreen={setCurrentScreen}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+          {currentScreen === 'defense' && (
+            <DefenseScreen
+              defenseCategories={defenseCategories}
+              selectedDefenseCategories={selectedDefenseCategories}
+              setSelectedDefenseCategories={setSelectedDefenseCategories}
+              setCurrentScreen={setCurrentScreen}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+          {currentScreen === 'settings' && (
+            <SettingsScreen
+              isHajimeCounterEnabled={isHajimeCounterEnabled}
+              setIsHajimeCounterEnabled={setIsHajimeCounterEnabled}
+              isAutoModeEnabled={isAutoModeEnabled}
+              setIsAutoModeEnabled={setIsAutoModeEnabled}
+              isLightMode={isLightMode}
+              setIsLightMode={setIsLightMode}
+              setCurrentScreen={setCurrentScreen}
+              setIsSidebarOpen={setIsSidebarOpen}
+            />
+          )}
+          {currentScreen === 'uke' && (
+            <UkeScreen
+              attacks={data.attacks}
+              selectedCategories={selectedCategories}
+              setCurrentScreen={setCurrentScreen}
+              setLastAttack={setLastAttack}
+              isAutoModeEnabled={isAutoModeEnabled}
+            />
+          )}
+          {currentScreen === 'tori' && (
+            <ToriScreen
+              techniques={data.techniques}
+              selectedDefenseCategories={selectedDefenseCategories}
+              setCurrentScreen={setCurrentScreen}
+              setLastTechnique={setLastTechnique}
+              isAutoModeEnabled={isAutoModeEnabled}
+            />
+          )}
+          {currentScreen === 'hajime' && (
+            <HajimeScreen
+              lastAttack={lastAttack}
+              lastTechnique={lastTechnique}
+              setCurrentScreen={setCurrentScreen}
+              isHajimeCounterEnabled={isHajimeCounterEnabled}
+              isAutoModeEnabled={isAutoModeEnabled}
+              playSound={playSound}
+              beepBuffer={beepBuffer}
+              hajimeBuffer={hajimeBuffer}
+            />
+          )}
+          {currentScreen === 'attacker' && (
+            <AttackerScreen setCurrentScreen={setCurrentScreen} />
+          )}
+          {currentScreen === 'defensePrep' && (
+            <DefensePrepScreen setCurrentScreen={setCurrentScreen} />
+          )}
+          {currentScreen === 'getReady' && (
+            <GetReadyScreen
+              setCurrentScreen={setCurrentScreen}
+              playSound={playSound}
+              beepBuffer={beepBuffer}
+              hajimeBuffer={hajimeBuffer}
+            />
+          )}
+        </div>
+      );
+    };
+
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            'dark-bg': '#1A1A1A',
+            'dark-gray': '#2A2A2A',
+            'light-gray': '#D1D5DB',
+            'cyan-accent': '#22D3EE',
+            'purple-accent': '#A78BFA',
           },
         },
-      };
+      },
+    };
 
-      const root = ReactDOM.createRoot(document.getElementById('root'));
-      root.render(<App />);
-    </script>
-  </body>
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+
 </html>
