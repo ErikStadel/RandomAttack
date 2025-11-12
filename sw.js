@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v5.3'; // Einstellbarer Get Ready Timer Auto Modus
+const CACHE_NAME = 'random-attack-v5.3.1'; // Einstellbarer Get Ready Timer Auto Modus
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',

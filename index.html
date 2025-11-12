@@ -179,6 +179,9 @@
 <body class="h-screen w-screen overflow-hidden dark-mode">
   <div id="root"></div>
   <script type="text/babel">
+
+    const APP_VERSION = 'Random Attack 5.3.1';
+
     const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, hajimeBuffer, isSidebarOpen, setIsSidebarOpen }) => {
       console.log('StartScreen rendered', { isHajimeCounterEnabled, isAutoModeEnabled, isSidebarOpen });
 
@@ -343,6 +346,9 @@
               </button>
             </div>
           </div>
+          <div className="absolute bottom-4 left-0 right-0 text-center text-sm opacity-50">
+        v{APP_VERSION}
+      </div>
         </div>
       );
     };
