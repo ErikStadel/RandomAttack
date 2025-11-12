@@ -347,7 +347,7 @@
       );
     };
 
-    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, hajimeCounterDuration, setHajimeCounterDuration, isAutoModeEnabled, setIsAutoModeEnabled, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
+    const SettingsScreen = ({ isHajimeCounterEnabled, setIsHajimeCounterEnabled, hajimeCounterDuration, setHajimeCounterDuration, isAutoModeEnabled, setIsAutoModeEnabled, getReadyDuration, setGetReadyDuration, isLightMode, setIsLightMode, setCurrentScreen, setIsSidebarOpen }) => {
       const toggleHajimeCounter = () => {
         setIsHajimeCounterEnabled((prev) => !prev);
       };
@@ -364,8 +364,12 @@
         });
       };
 
-      const handleSliderChange = (e) => {
+      const handleHajimeSliderChange = (e) => {
         setHajimeCounterDuration(parseInt(e.target.value));
+      };
+
+      const handleGetReadySliderChange = (e) => {
+        setGetReadyDuration(parseInt(e.target.value));
       };
 
       return (
@@ -387,7 +391,7 @@
                 </button>
               </div>
               <div
-                className="overflow-hidden transition-[max-height,opacity] duration-300 ease-in-out"
+                className="overflow-hidden transition-all duration-300"
                 style={{
                   maxHeight: isHajimeCounterEnabled ? '200px' : '0px',
                   opacity: isHajimeCounterEnabled ? 1 : 0
@@ -404,7 +408,7 @@
                     max="10"
                     step="1"
                     value={hajimeCounterDuration}
-                    onChange={handleSliderChange}
+                    onChange={handleHajimeSliderChange}
                     className="w-full h-2 rounded-lg appearance-none cursor-pointer"
                     style={{
                       background: `linear-gradient(to right, var(--accent-purple) 0%, var(--accent-purple) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) ${((hajimeCounterDuration - 3) / 7) * 100}%, var(--neumorphic-bg) 100%)`,
@@ -419,18 +423,52 @@
                 </div>
               </div>
             </div>
-            <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
-              <span className="text-lg">Auto Modus</span>
-              <button
-                className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
-                onClick={toggleAutoMode}
-                aria-label="Auto Modus umschalten"
+            <div className="flex flex-col gap-2">
+              <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
+                <span className="text-lg">Auto Modus</span>
+                <button
+                  className="w-12 h-6 rounded-full neumorphic p-1 flex items-center transition-all duration-300"
+                  onClick={toggleAutoMode}
+                  aria-label="Auto Modus umschalten"
+                >
+                  <div
+                    className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
+                      }`}
+                  ></div>
+                </button>
+              </div>
+              <div
+                className="overflow-hidden transition-all duration-300"
+                style={{
+                  maxHeight: isAutoModeEnabled ? '200px' : '0px',
+                  opacity: isAutoModeEnabled ? 1 : 0
+                }}
               >
-                <div
-                  className={`w-4 h-4 rounded-full bg-purple-400 shadow-md transform transition-transform duration-300 ${isAutoModeEnabled ? 'translate-x-6' : 'translate-x-0'
-                    }`}
-                ></div>
-              </button>
+                <div className="neumorphic p-4 rounded-xl">
+                  <div className="flex items-center justify-between mb-3">
+                    <span className="text-sm opacity-70">Get Ready Dauer</span>
+                    <span className="text-lg font-semibold text-purple-400">{getReadyDuration}s</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="5"
+                    max="10"
+                    step="1"
+                    value={getReadyDuration}
+                    onChange={handleGetReadySliderChange}
+                    className="w-full h-2 rounded-lg appearance-none cursor-pointer"
+                    style={{
+                      background: `linear-gradient(to right, var(--accent-purple) 0%, var(--accent-purple) ${((getReadyDuration - 5) / 5) * 100}%, var(--neumorphic-bg) ${((getReadyDuration - 5) / 5) * 100}%, var(--neumorphic-bg) 100%)`,
+                      outline: 'none'
+                    }}
+                    aria-label="Get Ready Dauer einstellen"
+                  />
+                  <div className="flex justify-between text-xs opacity-50 mt-2">
+                    <span>5s</span>
+                    <span>10s</span>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="flex items-center justify-between neumorphic p-4 rounded-xl">
               <span className="text-lg">{isLightMode ? 'Light' : 'Dark'}</span>
@@ -555,19 +593,21 @@
       );
     };
 
-    const GetReadyScreen = ({ setCurrentScreen, playSound, beepBuffer, hajimeBuffer }) => {
-      const [timer, setTimer] = React.useState(10);
+    const GetReadyScreen = ({ setCurrentScreen, playSound, beepBuffer, hajimeBuffer, getReadyDuration }) => {
+      const [timer, setTimer] = React.useState(getReadyDuration);
 
       React.useEffect(() => {
         let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
 
-        beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), 7000);
-        beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), 8000);
-        beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), 9000);
+        const totalDuration = getReadyDuration * 1000;
+
+        beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 3000);
+        beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 2000);
+        beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 1000);
         hajimeTimeout = setTimeout(() => {
           playSound(hajimeBuffer, 'hajime');
           setCurrentScreen('hajime');
-        }, 10000);
+        }, totalDuration);
 
         const interval = setInterval(() => {
           setTimer((prev) => {
@@ -586,7 +626,7 @@
           clearTimeout(beepTimeout3);
           clearTimeout(hajimeTimeout);
         };
-      }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer]);
+      }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer, getReadyDuration]);
 
       return (
         <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
@@ -1069,7 +1109,10 @@
       const [hajimeCounterDuration, setHajimeCounterDuration] = React.useState(
         parseInt(localStorage.getItem('hajimeCounterDuration')) || 5
       );
-      console.log('hajimeCounterDuration:', hajimeCounterDuration, 'isHajimeCounterEnabled:', isHajimeCounterEnabled);
+      const [getReadyDuration, setGetReadyDuration] = React.useState(
+        parseInt(localStorage.getItem('getReadyDuration')) || 10
+      );
+
 
       React.useEffect(() => {
         document.documentElement.className = isLightMode ? 'light-mode' : 'dark-mode';
@@ -1210,6 +1253,10 @@
       }, [hajimeCounterDuration]);
 
       React.useEffect(() => {
+        localStorage.setItem('getReadyDuration', getReadyDuration);
+      }, [getReadyDuration]);
+
+      React.useEffect(() => {
         if ('serviceWorker' in navigator) {
           window.addEventListener('load', () => {
             navigator.serviceWorker
@@ -1304,6 +1351,8 @@
               setHajimeCounterDuration={setHajimeCounterDuration}
               isAutoModeEnabled={isAutoModeEnabled}
               setIsAutoModeEnabled={setIsAutoModeEnabled}
+              getReadyDuration={getReadyDuration}
+              setGetReadyDuration={setGetReadyDuration}
               isLightMode={isLightMode}
               setIsLightMode={setIsLightMode}
               setCurrentScreen={setCurrentScreen}
@@ -1353,6 +1402,7 @@
               playSound={playSound}
               beepBuffer={beepBuffer}
               hajimeBuffer={hajimeBuffer}
+              getReadyDuration={getReadyDuration}
             />
           )}
         </div>
