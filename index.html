@@ -180,7 +180,7 @@
   <div id="root"></div>
   <script type="text/babel">
 
-    const APP_VERSION = 'Random Attack 5.3.1';
+    const APP_VERSION = 'Random Attack 5.4.0';
 
     const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, hajimeBuffer, isSidebarOpen, setIsSidebarOpen }) => {
       console.log('StartScreen rendered', { isHajimeCounterEnabled, isAutoModeEnabled, isSidebarOpen });
@@ -347,7 +347,7 @@
             </div>
           </div>
           <div className="absolute bottom-4 left-0 right-0 text-center text-sm opacity-50">
-        v{APP_VERSION}
+        {APP_VERSION}
       </div>
         </div>
       );
@@ -600,71 +600,88 @@
     };
 
     const GetReadyScreen = ({ setCurrentScreen, playSound, beepBuffer, hajimeBuffer, getReadyDuration }) => {
-      const [timer, setTimer] = React.useState(getReadyDuration);
+  const [timer, setTimer] = React.useState(getReadyDuration);
+  const [animationKey, setAnimationKey] = React.useState(0);
 
-      React.useEffect(() => {
-        let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+  React.useEffect(() => {
+    setAnimationKey(prev => prev + 1);
+    
+    let beepTimeout1, beepTimeout2, beepTimeout3, hajimeTimeout;
+    
+    const totalDuration = getReadyDuration * 1000;
+    
+    beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 3000);
+    beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 2000);
+    beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 1000);
+    hajimeTimeout = setTimeout(() => {
+      playSound(hajimeBuffer, 'hajime');
+      setCurrentScreen('hajime');
+    }, totalDuration);
 
-        const totalDuration = getReadyDuration * 1000;
-
-        beepTimeout1 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 3000);
-        beepTimeout2 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 2000);
-        beepTimeout3 = setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - 1000);
-        hajimeTimeout = setTimeout(() => {
-          playSound(hajimeBuffer, 'hajime');
-          setCurrentScreen('hajime');
-        }, totalDuration);
-
-        const interval = setInterval(() => {
-          setTimer((prev) => {
-            if (prev <= 1) {
-              clearInterval(interval);
-              return 0;
-            }
-            return prev - 1;
-          });
-        }, 1000);
-
-        return () => {
+    const interval = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
           clearInterval(interval);
-          clearTimeout(beepTimeout1);
-          clearTimeout(beepTimeout2);
-          clearTimeout(beepTimeout3);
-          clearTimeout(hajimeTimeout);
-        };
-      }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer, getReadyDuration]);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
 
-      return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <h1 className="text-3xl font-bold mb-4">Get Ready</h1>
-          <div className="relative flex items-center justify-center">
-            <svg width="300" height="300" className="timer-circle">
-              <circle
-                cx="150"
-                cy="150"
-                r="75"
-                strokeWidth="4"
-                fill="none"
-                className="timer-circle-path-10s"
-              />
-            </svg>
-            <div className="absolute text-8xl font-bold">{timer}</div>
-          </div>
-          <div className="sticky-footer">
-            <button
-              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => {
-                console.log('Navigating to start from GetReady');
-                setCurrentScreen('start');
-              }}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
-          </div>
-        </div>
-      );
+    return () => {
+      clearInterval(interval);
+      clearTimeout(beepTimeout1);
+      clearTimeout(beepTimeout2);
+      clearTimeout(beepTimeout3);
+      clearTimeout(hajimeTimeout);
     };
+  }, [setCurrentScreen, playSound, beepBuffer, hajimeBuffer, getReadyDuration]);
+
+  const circumference = 2 * Math.PI * 75; // 75 ist der Radius
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+      <h1 className="text-3xl font-bold mb-4">Get Ready</h1>
+      <div className="relative flex items-center justify-center">
+        <svg width="300" height="300" className="timer-circle">
+          <circle
+            key={animationKey}
+            cx="150"
+            cy="150"
+            r="75"
+            strokeWidth="4"
+            fill="none"
+            style={{
+              stroke: 'var(--timer-stroke)',
+              strokeDasharray: circumference,
+              strokeDashoffset: 0,
+              animation: `circle-timer-getready ${getReadyDuration}s linear forwards`
+            }}
+          />
+        </svg>
+        <div className="absolute text-8xl font-bold">{timer}</div>
+      </div>
+      <div className="sticky-footer">
+        <button
+          className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+          onClick={() => {
+            console.log('Navigating to start from GetReady');
+            setCurrentScreen('start');
+          }}
+          aria-label="Zurück zum Start"
+        >
+          X
+        </button>
+      </div>
+      <style>{`
+        @keyframes circle-timer-getready {
+          from { stroke-dashoffset: 0; }
+          to { stroke-dashoffset: ${circumference}; }
+        }
+      `}</style>
+    </div>
+  );
+};
 
     const InfoScreen = ({ setCurrentScreen, setIsSidebarOpen }) => {
       return (
@@ -970,121 +987,138 @@
     };
 
     const HajimeScreen = ({ lastAttack, lastTechnique, setCurrentScreen, isHajimeCounterEnabled, hajimeCounterDuration, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer }) => {
-      const [timer, setTimer] = React.useState(hajimeCounterDuration);
-      const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
+  const [timer, setTimer] = React.useState(hajimeCounterDuration);
+  const [showTimer, setShowTimer] = React.useState(isHajimeCounterEnabled && !isAutoModeEnabled);
+  const [animationKey, setAnimationKey] = React.useState(0);
 
-      React.useEffect(() => {
-        if (!isHajimeCounterEnabled || isAutoModeEnabled) {
-          setShowTimer(false);
-          return;
-        }
+  React.useEffect(() => {
+    if (!isHajimeCounterEnabled || isAutoModeEnabled) {
+      setShowTimer(false);
+      return;
+    }
 
-        const beepTimeouts = [];
-        const totalDuration = hajimeCounterDuration * 1000;
+    setAnimationKey(prev => prev + 1);
 
-        // Beeps bei den letzten 3 Sekunden
-        for (let i = 3; i >= 1; i--) {
-          if (hajimeCounterDuration >= i) {
-            beepTimeouts.push(
-              setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - (i * 1000))
-            );
-          }
-        }
-
-        const hajimeTimeout = setTimeout(() => {
-          playSound(hajimeBuffer, 'hajime');
-          setShowTimer(false);
-        }, totalDuration);
-
-        const interval = setInterval(() => {
-          setTimer((prev) => {
-            if (prev <= 1) {
-              clearInterval(interval);
-              return 0;
-            }
-            return prev - 1;
-          });
-        }, 1000);
-
-        return () => {
-          clearInterval(interval);
-          beepTimeouts.forEach(timeout => clearTimeout(timeout));
-          clearTimeout(hajimeTimeout);
-        };
-      }, [isHajimeCounterEnabled, hajimeCounterDuration, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
-
-      if (showTimer) {
-        return (
-          <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-            <div className="relative flex items-center justify-center">
-              <svg width="300" height="300" className="timer-circle">
-                <circle
-                  cx="150"
-                  cy="150"
-                  r="75"
-                  strokeWidth="4"
-                  fill="none"
-                  className="timer-circle-path"
-                />
-              </svg>
-              <div className="absolute text-8xl font-bold">{timer}</div>
-            </div>
-            <div className="sticky-footer">
-              <button
-                className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-                onClick={() => {
-                  console.log('Navigating to start from Hajime');
-                  setCurrentScreen('start');
-                }}
-                aria-label="Zurück zum Start"
-              >
-                X
-              </button>
-            </div>
-          </div>
+    const beepTimeouts = [];
+    const totalDuration = hajimeCounterDuration * 1000;
+    
+    // Beeps bei den letzten 3 Sekunden
+    for (let i = 3; i >= 1; i--) {
+      if (hajimeCounterDuration >= i) {
+        beepTimeouts.push(
+          setTimeout(() => playSound(beepBuffer, 'beep'), totalDuration - (i * 1000))
         );
       }
+    }
 
-      return (
-        <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
-          <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
-            <div className="flex flex-col items-center justify-center h-1/3 w-full">
-              {lastAttack ? (
-                <>
-                  <h1 className="text-3xl font-bold mb-2">Angriff</h1>
-                  <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
-                </>
-              ) : (
-                <p className="text-lg text-center">Kein Angriff gezogen</p>
-              )}
-            </div>
-            <div className="w-4/5 border-t border-gray-500 my-6"></div>
-            <div className="flex flex-col items-center justify-center h-1/3 w-full">
-              {lastTechnique ? (
-                <>
-                  <h1 className="text-3xl font-bold mb-2">Abwehr</h1>
-                  <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
-                </>
-              ) : (
-                <p className="text-lg text-center">Keine Technik gezogen</p>
-              )}
-            </div>
-          </div>
-          <div className="sticky-footer">
-            <button
-              className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
-              onClick={() => {
-                console.log('Navigating to start from Hajime');
-                setCurrentScreen('start');
-              }}
-              aria-label="Zurück zum Start"
-            >
-              X
-            </button>
-          </div>
-        </div>
-      );
+    const hajimeTimeout = setTimeout(() => {
+      playSound(hajimeBuffer, 'hajime');
+      setShowTimer(false);
+    }, totalDuration);
+
+    const interval = setInterval(() => {
+      setTimer((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+      beepTimeouts.forEach(timeout => clearTimeout(timeout));
+      clearTimeout(hajimeTimeout);
     };
+  }, [isHajimeCounterEnabled, hajimeCounterDuration, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
+
+  if (showTimer) {
+    const circumference = 2 * Math.PI * 75; // 75 ist der Radius
+    
+    return (
+      <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+        <div className="relative flex items-center justify-center">
+          <svg width="300" height="300" className="timer-circle">
+            <circle
+              key={animationKey}
+              cx="150"
+              cy="150"
+              r="75"
+              strokeWidth="4"
+              fill="none"
+              style={{
+                stroke: 'var(--timer-stroke)',
+                strokeDasharray: circumference,
+                strokeDashoffset: 0,
+                animation: `circle-timer-custom ${hajimeCounterDuration}s linear forwards`
+              }}
+            />
+          </svg>
+          <div className="absolute text-8xl font-bold">{timer}</div>
+        </div>
+        <div className="sticky-footer">
+          <button
+            className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+            onClick={() => {
+              console.log('Navigating to start from Hajime');
+              setCurrentScreen('start');
+            }}
+            aria-label="Zurück zum Start"
+          >
+            X
+          </button>
+        </div>
+        <style>{`
+          @keyframes circle-timer-custom {
+            from { stroke-dashoffset: 0; }
+            to { stroke-dashoffset: ${circumference}; }
+          }
+        `}</style>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex flex-col items-center justify-center h-screen w-screen p-6">
+      <div className="flex flex-col items-center justify-center liquid-glass p-6 w-full max-w-sm">
+        <div className="flex flex-col items-center justify-center h-1/3 w-full">
+          {lastAttack ? (
+            <>
+              <h1 className="text-3xl font-bold mb-2">Angriff</h1>
+              <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastAttack.attack}</h2>
+            </>
+          ) : (
+            <p className="text-lg text-center">Kein Angriff gezogen</p>
+          )}
+        </div>
+        <div className="w-4/5 border-t border-gray-500 my-6"></div>
+        <div className="flex flex-col items-center justify-center h-1/3 w-full">
+          {lastTechnique ? (
+            <>
+              <h1 className="text-3xl font-bold mb-2">Abwehr</h1>
+              <h2 className="text-2xl font-semibold text-purple-400 text-center">{lastTechnique.technique}</h2>
+            </>
+          ) : (
+            <p className="text-lg text-center">Keine Technik gezogen</p>
+          )}
+        </div>
+      </div>
+      <div className="sticky-footer">
+        <button
+          className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+          onClick={() => {
+            console.log('Navigating to start from Hajime');
+            setCurrentScreen('start');
+          }}
+          aria-label="Zurück zum Start"
+        >
+          X
+        </button>
+      </div>
+    </div>
+  );
+};
 
     const App = () => {
       const [currentScreen, setCurrentScreen] = React.useState('start');
