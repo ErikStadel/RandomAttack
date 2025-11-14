@@ -180,7 +180,7 @@
   <div id="root"></div>
   <script type="text/babel">
 
-    const APP_VERSION = 'Random Attack 5.4.0';
+    const APP_VERSION = 'Random Attack 5.5.0';
 
     const StartScreen = ({ setCurrentScreen, isHajimeCounterEnabled, isAutoModeEnabled, playSound, hajimeBuffer, isSidebarOpen, setIsSidebarOpen }) => {
       console.log('StartScreen rendered', { isHajimeCounterEnabled, isAutoModeEnabled, isSidebarOpen });
@@ -246,6 +246,16 @@
                   >
                     Einstellungen
                   </button>
+                  <button
+  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
+  onClick={() => {
+    setCurrentScreen('stats');
+    setIsSidebarOpen(false);
+  }}
+  aria-label="Statistik anzeigen"
+>
+  Statistik
+</button>
                 </div>
                 <button
                   className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium self-center"
@@ -336,6 +346,16 @@
                 >
                   Einstellungen
                 </button>
+                <button
+  className="w-full py-3 neumorphic text-purple-400 text-lg font-medium transition-all duration-300"
+  onClick={() => {
+    setCurrentScreen('stats');
+    setIsSidebarOpen(false);
+  }}
+  aria-label="Statistik anzeigen"
+>
+  Statistik
+</button>
               </div>
               <button
                 className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium self-center"
@@ -1033,6 +1053,28 @@
     };
   }, [isHajimeCounterEnabled, hajimeCounterDuration, isAutoModeEnabled, playSound, beepBuffer, hajimeBuffer]);
 
+  React.useEffect(() => {
+  // Statistik aktualisieren wenn HajimeScreen angezeigt wird
+  if (lastAttack && lastTechnique) {
+    setStats(prevStats => {
+      const newStats = {
+        viewedAttacks: new Set(prevStats.viewedAttacks),
+        viewedTechniques: new Set(prevStats.viewedTechniques)
+      };
+      newStats.viewedAttacks.add(lastAttack.id);
+      newStats.viewedTechniques.add(lastTechnique.id);
+      
+      // Persistent speichern
+      localStorage.setItem('trainingStats', JSON.stringify({
+        viewedAttacks: Array.from(newStats.viewedAttacks),
+        viewedTechniques: Array.from(newStats.viewedTechniques)
+      }));
+      
+      return newStats;
+    });
+  }
+}, [lastAttack, lastTechnique]);
+
   if (showTimer) {
     const circumference = 2 * Math.PI * 75; // 75 ist der Radius
     
@@ -1120,6 +1162,143 @@
   );
 };
 
+const StatsScreen = ({ stats, setStats, setCurrentScreen, setIsSidebarOpen, data }) => {
+  const [expandedCategory, setExpandedCategory] = React.useState(null);
+
+  const totalAttacks = data.attacks.length;
+  const totalTechniques = data.techniques.length;
+  const viewedAttacksCount = stats.viewedAttacks.size;
+  const viewedTechniquesCount = stats.viewedTechniques.size;
+
+  // Kategorien-Statistiken berechnen
+  const attackStats = React.useMemo(() => {
+    const categories = {};
+    data.attacks.forEach(attack => {
+      if (!categories[attack.category]) {
+        categories[attack.category] = { total: 0, viewed: 0 };
+      }
+      categories[attack.category].total++;
+      if (stats.viewedAttacks.has(attack.id)) {
+        categories[attack.category].viewed++;
+      }
+    });
+    return categories;
+  }, [data.attacks, stats.viewedAttacks]);
+
+  const techniqueStats = React.useMemo(() => {
+    const categories = {};
+    data.techniques.forEach(technique => {
+      if (!categories[technique.category]) {
+        categories[technique.category] = { total: 0, viewed: 0 };
+      }
+      categories[technique.category].total++;
+      if (stats.viewedTechniques.has(technique.id)) {
+        categories[technique.category].viewed++;
+      }
+    });
+    return categories;
+  }, [data.techniques, stats.viewedTechniques]);
+
+  const handleResetStats = () => {
+    if (confirm('Möchtest du die Statistik wirklich zurücksetzen?')) {
+      const resetStats = { viewedAttacks: new Set(), viewedTechniques: new Set() };
+      setStats(resetStats);
+      localStorage.setItem('trainingStats', JSON.stringify({ viewedAttacks: [], viewedTechniques: [] }));
+    }
+  };
+
+  const StatCard = ({ title, current, total, category, isExpanded, onToggle }) => (
+    <div className="w-full">
+      <button
+        onClick={onToggle}
+        className="w-full neumorphic p-6 rounded-xl transition-all duration-300 flex flex-col gap-4"
+      >
+        <div className="flex justify-between items-center">
+          <h2 className="text-2xl font-semibold">{title}</h2>
+          <svg
+            className={`w-6 h-6 text-purple-400 transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+        </div>
+        <div className="text-4xl font-bold text-cyan-400">
+          {current}/{total}
+        </div>
+        <div className="w-full bg-opacity-20 rounded-full h-2" style={{ background: 'rgba(34, 211, 238, 0.2)' }}>
+          <div
+            className="h-full rounded-full bg-cyan-400 transition-all duration-500"
+            style={{ width: `${total > 0 ? (current / total) * 100 : 0}%` }}
+          ></div>
+        </div>
+      </button>
+
+      {isExpanded && (
+        <div className="mt-4 flex flex-col gap-3 animate-in fade-in duration-300">
+          {Object.entries(category).map(([catName, stats]) => (
+            <div key={catName} className="neumorphic p-4 rounded-xl">
+              <div className="flex justify-between items-center mb-2">
+                <span className="font-medium text-lg">{catName}</span>
+                <span className="text-purple-400 font-semibold">{stats.viewed}/{stats.total}</span>
+              </div>
+              <div className="w-full bg-opacity-20 rounded-full h-1.5" style={{ background: 'rgba(167, 139, 250, 0.2)' }}>
+                <div
+                  className="h-full rounded-full bg-purple-400 transition-all duration-500"
+                  style={{ width: `${stats.total > 0 ? (stats.viewed / stats.total) * 100 : 0}%` }}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <div className="flex flex-col items-center justify-start h-screen w-screen p-6 overflow-y-auto">
+      <h1 className="text-3xl font-bold mb-8 pt-8">Statistik</h1>
+      <div className="flex flex-col gap-6 w-full max-w-sm pb-24">
+        <StatCard
+          title="Angriffe"
+          current={viewedAttacksCount}
+          total={totalAttacks}
+          category={attackStats}
+          isExpanded={expandedCategory === 'attacks'}
+          onToggle={() => setExpandedCategory(expandedCategory === 'attacks' ? null : 'attacks')}
+        />
+        <StatCard
+          title="Abwehrtechniken"
+          current={viewedTechniquesCount}
+          total={totalTechniques}
+          category={techniqueStats}
+          isExpanded={expandedCategory === 'techniques'}
+          onToggle={() => setExpandedCategory(expandedCategory === 'techniques' ? null : 'techniques')}
+        />
+        <button
+          onClick={handleResetStats}
+          className="w-full neumorphic p-4 rounded-xl text-purple-400 font-semibold text-lg transition-all duration-300 hover:opacity-80"
+        >
+          Statistik zurücksetzen
+        </button>
+      </div>
+      <div className="sticky-footer">
+        <button
+          className="w-12 h-12 rounded-full neumorphic text-purple-400 text-xl font-medium"
+          onClick={() => {
+            setCurrentScreen('start');
+            setIsSidebarOpen(true);
+          }}
+          aria-label="Zurück zum Start mit Menü"
+        >
+          X
+        </button>
+      </div>
+    </div>
+  );
+};
+
     const App = () => {
       const [currentScreen, setCurrentScreen] = React.useState('start');
       const [data, setData] = React.useState({ attacks: [], techniques: [] });
@@ -1152,6 +1331,10 @@
       const [getReadyDuration, setGetReadyDuration] = React.useState(
         parseInt(localStorage.getItem('getReadyDuration')) || 10
       );
+      const [stats, setStats] = React.useState(() => {
+  const saved = localStorage.getItem('trainingStats');
+  return saved ? JSON.parse(saved) : { viewedAttacks: new Set(), viewedTechniques: new Set() };
+});
 
 
       React.useEffect(() => {
@@ -1399,6 +1582,15 @@
               setIsSidebarOpen={setIsSidebarOpen}
             />
           )}
+          {currentScreen === 'stats' && (
+  <StatsScreen
+    stats={stats}
+    setStats={setStats}
+    setCurrentScreen={setCurrentScreen}
+    setIsSidebarOpen={setIsSidebarOpen}
+    data={data}
+  />
+)}
           {currentScreen === 'uke' && (
             <UkeScreen
               attacks={data.attacks}
