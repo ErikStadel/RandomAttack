@@ -1,4 +1,4 @@
-const CACHE_NAME = 'random-attack-v5.5.0'; // StatsScreen hinzugefügt
+const CACHE_NAME = 'random-attack-v5.4.0'; // Timeranimation dynamisch nach Dauer
 const urlsToCache = [
   '/index.html',
   'https://cdn.tailwindcss.com',

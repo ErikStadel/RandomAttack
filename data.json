@@ -3,948 +3,779 @@
     {
       "category": "Hand/Armfassen",
       "attack": "Griff am Handgelenk (gleichseitig)",
-      "explanation": "Angreifer greift mit seiner rechten Hand das rechte Handgelenk des Verteidigers (oder links auf links).",
-      "id": "attack_1"
+      "explanation": "Angreifer greift mit seiner rechten Hand das rechte Handgelenk des Verteidigers (oder links auf links)."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff am Handgelenk (diagonal)",
-      "explanation": "Angreifer greift mit seiner rechten Hand das linke Handgelenk des Verteidigers (oder umgekehrt).",
-      "id": "attack_2"
+      "explanation": "Angreifer greift mit seiner rechten Hand das linke Handgelenk des Verteidigers (oder umgekehrt)."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Zweihandgriff am Handgelenk",
-      "explanation": "Angreifer greift ein Handgelenk des Verteidigers mit beiden Händen.",
-      "id": "attack_3"
+      "explanation": "Angreifer greift ein Handgelenk des Verteidigers mit beiden Händen."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Einhandgriff am Unterarm",
-      "explanation": "Angreifer fasst den Unterarm des Verteidigers, z. B. um zu ziehen oder zu kontrollieren.",
-      "id": "attack_4"
+      "explanation": "Angreifer fasst den Unterarm des Verteidigers, z. B. um zu ziehen oder zu kontrollieren."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Einhandgriff am Oberarm",
-      "explanation": "Angreifer greift den Oberarm des Verteidigers, oft um zu halten oder zu schieben.",
-      "id": "attack_5"
+      "explanation": "Angreifer greift den Oberarm des Verteidigers, oft um zu halten oder zu schieben."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff an beiden Handgelenken",
-      "explanation": "Angreifer greift beide Handgelenke des Verteidigers.",
-      "id": "attack_6"
+      "explanation": "Angreifer greift beide Handgelenke des Verteidigers."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Zweihandgriff an einem Arm",
-      "explanation": "Angreifer verwendet beide Hände, um einen Arm des Verteidigers zu greifen (z. B. Handgelenk und Oberarm).",
-      "id": "attack_7"
+      "explanation": "Angreifer verwendet beide Hände, um einen Arm des Verteidigers zu greifen (z. B. Handgelenk und Oberarm)."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Ziehender Griff am Handgelenk",
-      "explanation": "Angreifer greift ein Handgelenk und zieht den Verteidiger zu sich.",
-      "id": "attack_8"
+      "explanation": "Angreifer greift ein Handgelenk und zieht den Verteidiger zu sich."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Schiebender Griff am Arm",
-      "explanation": "Angreifer greift einen Arm (z. B. Oberarm oder Handgelenk) und schiebt den Verteidiger weg.",
-      "id": "attack_9"
+      "explanation": "Angreifer greift einen Arm (z. B. Oberarm oder Handgelenk) und schiebt den Verteidiger weg."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff mit Halten und Ziehen an zwei Armen",
-      "explanation": "Angreifer greift beide Arme des Verteidigers (z. B. an den Handgelenken oder Unterarmen) und versucht, ihn zu kontrollieren oder zu bewegen.",
-      "id": "attack_10"
+      "explanation": "Angreifer greift beide Arme des Verteidigers (z. B. an den Handgelenken oder Unterarmen) und versucht, ihn zu kontrollieren oder zu bewegen."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff am Handgelenk von hinten",
-      "explanation": "Angreifer greift von hinten ein Handgelenk des Verteidigers (z. B. rechte Hand greift rechtes Handgelenk).",
-      "id": "attack_11"
+      "explanation": "Angreifer greift von hinten ein Handgelenk des Verteidigers (z. B. rechte Hand greift rechtes Handgelenk)."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff am Handgelenk mit Ziehen von hinten",
-      "explanation": "Angreifer greift von hinten ein Handgelenk und zieht den Verteidiger nach hinten.",
-      "id": "attack_12"
+      "explanation": "Angreifer greift von hinten ein Handgelenk und zieht den Verteidiger nach hinten."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Zweihandgriff an einem Handgelenk von hinten",
-      "explanation": "Angreifer greift von hinten ein Handgelenk des Verteidigers mit beiden Händen, um es zu fixieren.",
-      "id": "attack_13"
+      "explanation": "Angreifer greift von hinten ein Handgelenk des Verteidigers mit beiden Händen, um es zu fixieren."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Einhandgriff am Oberarm von hinten",
-      "explanation": "Angreifer greift von hinten den Oberarm des Verteidigers, um ihn zu kontrollieren oder zurückzuhalten.",
-      "id": "attack_14"
+      "explanation": "Angreifer greift von hinten den Oberarm des Verteidigers, um ihn zu kontrollieren oder zurückzuhalten."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff an beiden Handgelenken von hinten",
-      "explanation": "Angreifer greift von hinten beide Handgelenke des Verteidigers, um die Arme zu fixieren.",
-      "id": "attack_15"
+      "explanation": "Angreifer greift von hinten beide Handgelenke des Verteidigers, um die Arme zu fixieren."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Zweihandgriff an einem Arm von hinten",
-      "explanation": "Angreifer greift von hinten einen Arm (z. B. Handgelenk und Oberarm) mit beiden Händen.",
-      "id": "attack_16"
+      "explanation": "Angreifer greift von hinten einen Arm (z. B. Handgelenk und Oberarm) mit beiden Händen."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff an beiden Oberarmen von hinten",
-      "explanation": "Angreifer fasst von hinten beide Oberarme des Verteidigers, um ihn zu immobilisieren.",
-      "id": "attack_17"
+      "explanation": "Angreifer fasst von hinten beide Oberarme des Verteidigers, um ihn zu immobilisieren."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Handgelenkgriff mit Armhebel von hinten",
-      "explanation": "Angreifer greift von hinten ein Handgelenk und dreht den Arm des Verteidigers nach oben oder zur Seite (ähnlich einem Polizeigriff).",
-      "id": "attack_18"
+      "explanation": "Angreifer greift von hinten ein Handgelenk und dreht den Arm des Verteidigers nach oben oder zur Seite (ähnlich einem Polizeigriff)."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Griff an Handgelenk und Schulter von hinten",
-      "explanation": "Angreifer greift von hinten ein Handgelenk und gleichzeitig die Schulter, um den Verteidiger zu drehen oder zu kontrollieren.",
-      "id": "attack_19"
+      "explanation": "Angreifer greift von hinten ein Handgelenk und gleichzeitig die Schulter, um den Verteidiger zu drehen oder zu kontrollieren."
     },
     {
       "category": "Hand/Armfassen",
       "attack": "Ziehender Griff an beiden Armen von hinten",
-      "explanation": "Angreifer greift von hinten beide Handgelenke oder Unterarme und zieht den Verteidiger rückwärts.",
-      "id": "attack_20"
+      "explanation": "Angreifer greift von hinten beide Handgelenke oder Unterarme und zieht den Verteidiger rückwärts."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Griff am Revers (vorne gleichseitig)",
-      "explanation": "Angreifer greift mit einer Hand den Kragen des Verteidigers in Brusthöhe gleichseitig, um zu kontrollieren oder zu ziehen.",
-      "id": "attack_21"
+      "explanation": "Angreifer greift mit einer Hand den Kragen des Verteidigers in Brusthöhe gleichseitig, um zu kontrollieren oder zu ziehen."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Griff am Revers (vorne diagonal)",
-      "explanation": "Angreifer greift mit einer Hand den Kragen des Verteidigers in Brusthöhe diagonal, um zu kontrollieren oder zu ziehen.",
-      "id": "attack_22"
+      "explanation": "Angreifer greift mit einer Hand den Kragen des Verteidigers in Brusthöhe diagonal, um zu kontrollieren oder zu ziehen."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Zweihandgriff am Revers (vorne)",
-      "explanation": "Angreifer greift mit beiden Händen den Kragen des Verteidigers (z. B. links und rechts am Revers).",
-      "id": "attack_23"
+      "explanation": "Angreifer greift mit beiden Händen den Kragen des Verteidigers (z. B. links und rechts am Revers)."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Griff am Revers mit Ziehen (vorne)",
-      "explanation": "Angreifer greift mit einer Hand den Kragen und zieht den Verteidiger nach vorne.",
-      "id": "attack_24"
+      "explanation": "Angreifer greift mit einer Hand den Kragen und zieht den Verteidiger nach vorne."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Zweihandgriff am Revers mit Schieben (vorne)",
-      "explanation": "Angreifer greift mit beiden Händen den Kragen und schiebt den Verteidiger nach hinten.",
-      "id": "attack_25"
+      "explanation": "Angreifer greift mit beiden Händen den Kragen und schiebt den Verteidiger nach hinten."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Griff am Kragen (hinten)",
-      "explanation": "Angreifer greift von hinten mit einer Hand den Kragen des Verteidigers (z. B. am Nackenbereich), um ihn zurückzuhalten oder zu ziehen.",
-      "id": "attack_26"
+      "explanation": "Angreifer greift von hinten mit einer Hand den Kragen des Verteidigers (z. B. am Nackenbereich), um ihn zurückzuhalten oder zu ziehen."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Zweihandgriff am Kragen (hinten)",
-      "explanation": "Angreifer greift von hinten mit beiden Händen den Kragen, um den Verteidiger zu fixieren oder nach hinten zu ziehen.",
-      "id": "attack_27"
+      "explanation": "Angreifer greift von hinten mit beiden Händen den Kragen, um den Verteidiger zu fixieren oder nach hinten zu ziehen."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Kragengriff mit gleichzeitiger Schlagvorbereitung (vorne)",
-      "explanation": "Angreifer greift mit einer Hand den Kragen und hebt die andere Hand, um einen Schlag auszuführen.",
-      "id": "attack_28"
+      "explanation": "Angreifer greift mit einer Hand den Kragen und hebt die andere Hand, um einen Schlag auszuführen."
     },
     {
       "category": "Revers/Kragenfassen",
       "attack": "Kragengriff von hinten mit Ziehen und Hebel",
-      "explanation": "Angreifer greift von hinten den Kragen und versucht, den Arm des Verteidigers zu hebeln oder zu kontrollieren.",
-      "id": "attack_29"
+      "explanation": "Angreifer greift von hinten den Kragen und versucht, den Arm des Verteidigers zu hebeln oder zu kontrollieren."
     },
     {
       "category": "Haarefassen",
       "attack": "Einhandgriff an den Haaren von vorne",
-      "explanation": "Angreifer greift mit einer Hand (z. B. rechts) die Haare des Verteidigers an der Stirn oder im oberen Kopfbereich, um zu ziehen oder zu kontrollieren.",
-      "id": "attack_30"
+      "explanation": "Angreifer greift mit einer Hand (z. B. rechts) die Haare des Verteidigers an der Stirn oder im oberen Kopfbereich, um zu ziehen oder zu kontrollieren."
     },
     {
       "category": "Haarefassen",
       "attack": "Zweihandgriff an den Haaren von vorne",
-      "explanation": "Angreifer greift mit beiden Händen die Haare des Verteidigers, z. B. an beiden Seiten des Kopfes, um den Kopf zu fixieren.",
-      "id": "attack_31"
+      "explanation": "Angreifer greift mit beiden Händen die Haare des Verteidigers, z. B. an beiden Seiten des Kopfes, um den Kopf zu fixieren."
     },
     {
       "category": "Haarefassen",
       "attack": "Einhandgriff an den Haaren von hinten",
-      "explanation": "Angreifer greift von hinten mit einer Hand die Haare im Nackenbereich oder am Hinterkopf, um den Verteidiger nach hinten zu ziehen.",
-      "id": "attack_32"
+      "explanation": "Angreifer greift von hinten mit einer Hand die Haare im Nackenbereich oder am Hinterkopf, um den Verteidiger nach hinten zu ziehen."
     },
     {
       "category": "Haarefassen",
       "attack": "Einhandgriff an den Haaren von der Seite",
-      "explanation": "Angreifer greift von der Seite (z. B. rechts) die Haare des Verteidigers, um den Kopf zur Seite zu ziehen oder zu drehen.",
-      "id": "attack_33"
+      "explanation": "Angreifer greift von der Seite (z. B. rechts) die Haare des Verteidigers, um den Kopf zur Seite zu ziehen oder zu drehen."
     },
     {
       "category": "Haarefassen",
       "attack": "Haarefassen mit Ziehen nach unten (vorne)",
-      "explanation": "Angreifer greift die Haare von vorne und zieht den Kopf des Verteidigers nach unten, z. B. um ihn zu Boden zu bringen.",
-      "id": "attack_34"
+      "explanation": "Angreifer greift die Haare von vorne und zieht den Kopf des Verteidigers nach unten, z. B. um ihn zu Boden zu bringen."
     },
     {
       "category": "Haarefassen",
       "attack": "Haarefassen mit Ziehen nach hinten (von hinten)",
-      "explanation": "Angreifer greift die Haare von hinten und zieht den Kopf des Verteidigers nach hinten, um ihn aus dem Gleichgewicht zu bringen.",
-      "id": "attack_35"
+      "explanation": "Angreifer greift die Haare von hinten und zieht den Kopf des Verteidigers nach hinten, um ihn aus dem Gleichgewicht zu bringen."
     },
     {
       "category": "Haarefassen",
       "attack": "Haarefassen mit Schlagvorbereitung (vorne)",
-      "explanation": "Angreifer greift mit einer Hand die Haare von vorne und hebt die andere Hand, um einen Schlag auszuführen.",
-      "id": "attack_36"
+      "explanation": "Angreifer greift mit einer Hand die Haare von vorne und hebt die andere Hand, um einen Schlag auszuführen."
     },
     {
       "category": "Haarefassen",
       "attack": "Zweihandgriff an den Haaren von hinten",
-      "explanation": "Angreifer greift von hinten mit beiden Händen die Haare, um den Verteidiger zu fixieren oder nach hinten zu ziehen.",
-      "id": "attack_37"
+      "explanation": "Angreifer greift von hinten mit beiden Händen die Haare, um den Verteidiger zu fixieren oder nach hinten zu ziehen."
     },
     {
       "category": "Würgen",
       "attack": "Einhand-Würgegriff von vorne",
-      "explanation": "Angreifer greift mit einer Hand (z. B. rechts) den Hals des Verteidigers, um zuzudrücken oder zu kontrollieren.",
-      "id": "attack_38"
+      "explanation": "Angreifer greift mit einer Hand (z. B. rechts) den Hals des Verteidigers, um zuzudrücken oder zu kontrollieren."
     },
     {
       "category": "Würgen",
       "attack": "Zweihand-Würgegriff von vorne",
-      "explanation": "Angreifer greift mit beiden Händen den Hals des Verteidigers (z.B. Daumen auf der Luftröhre oder seitlicher Druck), um zu würgen.",
-      "id": "attack_39"
+      "explanation": "Angreifer greift mit beiden Händen den Hals des Verteidigers (z.B. Daumen auf der Luftröhre oder seitlicher Druck), um zu würgen."
     },
     {
       "category": "Würgen",
       "attack": "Würgegriff von hinten (einarmig)",
-      "explanation": "Angreifer legt von hinten einen Arm um den Hals des Verteidigers, um zu würgen.",
-      "id": "attack_40"
+      "explanation": "Angreifer legt von hinten einen Arm um den Hals des Verteidigers, um zu würgen."
     },
     {
       "category": "Würgen",
       "attack": "Würgegriff von hinten mit Unterarm und Hand",
-      "explanation": "Angreifer legt von hinten den Unterarm um den Hals und verstärkt den Griff mit der anderen Hand, um Druck auszuüben (Rear Naked Choke).",
-      "id": "attack_41"
+      "explanation": "Angreifer legt von hinten den Unterarm um den Hals und verstärkt den Griff mit der anderen Hand, um Druck auszuüben (Rear Naked Choke)."
     },
     {
       "category": "Würgen",
       "attack": "Würgegriff von der Seite",
-      "explanation": "Angreifer greift von der Seite den Hals des Verteidigers, um zu würgen.",
-      "id": "attack_42"
+      "explanation": "Angreifer greift von der Seite den Hals des Verteidigers, um zu würgen."
     },
     {
       "category": "Würgen",
       "attack": "Würgegriff mit Seil/Schal von vorne",
-      "explanation": "Angreifer verwendet ein Hilfsmittel (z. B. Seil, Schal, Gürtel), um von vorne den Hals des Verteidigers zu umschlingen und zuzuziehen.",
-      "id": "attack_43"
+      "explanation": "Angreifer verwendet ein Hilfsmittel (z. B. Seil, Schal, Gürtel), um von vorne den Hals des Verteidigers zu umschlingen und zuzuziehen."
     },
     {
       "category": "Würgen",
       "attack": "Würgegriff mit Seil/Schal von hinten",
-      "explanation": "Angreifer legt von hinten ein Hilfsmittel um den Hals des Verteidigers und zieht es zu, um zu würgen.",
-      "id": "attack_44"
+      "explanation": "Angreifer legt von hinten ein Hilfsmittel um den Hals des Verteidigers und zieht es zu, um zu würgen."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von vorne (unter den Armen)",
-      "explanation": "Angreifer umschlingt den Oberkörper des Verteidigers von vorne, lässt aber die Arme des Verteidigers frei, um den Rumpf zu fixieren.",
-      "id": "attack_45"
+      "explanation": "Angreifer umschlingt den Oberkörper des Verteidigers von vorne, lässt aber die Arme des Verteidigers frei, um den Rumpf zu fixieren."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von vorne (über den Armen)",
-      "explanation": "Angreifer umschlingt den Oberkörper des Verteidigers von vorne und fixiert beide Arme des Verteidigers eng am Körper.",
-      "id": "attack_46"
+      "explanation": "Angreifer umschlingt den Oberkörper des Verteidigers von vorne und fixiert beide Arme des Verteidigers eng am Körper."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von hinten (unter den Armen)",
-      "explanation": "Angreifer umschlingt von hinten den Oberkörper des Verteidigers, lässt die Arme frei, um den Rumpf zu kontrollieren.",
-      "id": "attack_47"
+      "explanation": "Angreifer umschlingt von hinten den Oberkörper des Verteidigers, lässt die Arme frei, um den Rumpf zu kontrollieren."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von hinten (über den Armen)",
-      "explanation": "Angreifer umschlingt von hinten den Oberkörper des Verteidigers und fixiert beide Arme eng am Körper.",
-      "id": "attack_48"
+      "explanation": "Angreifer umschlingt von hinten den Oberkörper des Verteidigers und fixiert beide Arme eng am Körper."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von der Seite (ein Arm frei)",
-      "explanation": "Angreifer umschlingt den Oberkörper des Verteidigers von der Seite (z. B. rechts), lässt die Arme frei, um zu kontrollieren.",
-      "id": "attack_49"
+      "explanation": "Angreifer umschlingt den Oberkörper des Verteidigers von der Seite (z. B. rechts), lässt die Arme frei, um zu kontrollieren."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von der Seite (über den Armen)",
-      "explanation": "Angreifer umschlingt den Oberkörper von der Seite und fixiert einen Arm des Verteidigers.",
-      "id": "attack_50"
+      "explanation": "Angreifer umschlingt den Oberkörper von der Seite und fixiert einen Arm des Verteidigers."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von hinten mit Ziehen",
-      "explanation": "Angreifer umschlingt den Oberkörper von hinten (Arme frei oder eingeschlossen) und zieht den Verteidiger nach hinten, um ihn aus dem Gleichgewicht zu bringen.",
-      "id": "attack_51"
+      "explanation": "Angreifer umschlingt den Oberkörper von hinten (Arme frei oder eingeschlossen) und zieht den Verteidiger nach hinten, um ihn aus dem Gleichgewicht zu bringen."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von hinten mit Heben",
-      "explanation": "Angreifer umschlingt den Oberkörper von hinten (Arme frei oder eingeschlossen) und versucht, den Verteidiger anzuheben.",
-      "id": "attack_52"
+      "explanation": "Angreifer umschlingt den Oberkörper von hinten (Arme frei oder eingeschlossen) und versucht, den Verteidiger anzuheben."
     },
     {
       "category": "Brustumklammerung",
       "attack": "Brustumklammerung von vorne mit Heben",
-      "explanation": "Angreifer umschlingt den Oberkörper von vorne (Arme frei oder eingeschlossen) und versucht, den Verteidiger anzuheben.",
-      "id": "attack_53"
+      "explanation": "Angreifer umschlingt den Oberkörper von vorne (Arme frei oder eingeschlossen) und versucht, den Verteidiger anzuheben."
     },
     {
       "category": "Kopfumklammerung",
       "attack": "Kopfumklammerung von vorne (Guillotine)",
-      "explanation": "Angreifer legt einen Arm (z. B. rechts) um den Hals oder Kopf des Verteidigers von vorne (Guillotine), um ihn zu fixieren oder zu ziehen.",
-      "id": "attack_54"
+      "explanation": "Angreifer legt einen Arm (z. B. rechts) um den Hals oder Kopf des Verteidigers von vorne (Guillotine), um ihn zu fixieren oder zu ziehen."
     },
     {
       "category": "Kopfumklammerung",
       "attack": "Kopfumklammerung von vorne (Thai Clinch)",
-      "explanation": "Angreifer umschlingt den Kopf des Verteidigers von vorne mit beiden Armen, z. B. Thai Clinch, um zu kontrollieren.",
-      "id": "attack_55"
+      "explanation": "Angreifer umschlingt den Kopf des Verteidigers von vorne mit beiden Armen, z. B. Thai Clinch, um zu kontrollieren."
     },
     {
       "category": "Kopfumklammerung",
       "attack": "Kopfumklammerung von der Seite (Headlock)",
-      "explanation": "Angreifer legt von der Seite (z. B. rechts) einen Arm um den Hals des Verteidigers und zieht den Kopf nach unten oder zur Seite.",
-      "id": "attack_56"
+      "explanation": "Angreifer legt von der Seite (z. B. rechts) einen Arm um den Hals des Verteidigers und zieht den Kopf nach unten oder zur Seite."
     },
     {
       "category": "Kopfumklammerung",
       "attack": "Kopfumklammerung von vorne mit Ziehen nach unten",
-      "explanation": "Angreifer umschlingt den Kopf von vorne (ein- oder zweiarmig) und zieht ihn nach unten, z. B. um den Verteidiger zu Boden zu bringen.",
-      "id": "attack_57"
+      "explanation": "Angreifer umschlingt den Kopf von vorne (ein- oder zweiarmig) und zieht ihn nach unten, z. B. um den Verteidiger zu Boden zu bringen."
     },
     {
       "category": "Kopfumklammerung",
       "attack": "Kopfumklammerung von der Seite mit Schlag",
-      "explanation": "Angreifer hält den Kopf von der Seite im Schwitzkasten und schlägt mit der anderen Hand richtung Gesicht.",
-      "id": "attack_58"
+      "explanation": "Angreifer hält den Kopf von der Seite im Schwitzkasten und schlägt mit der anderen Hand richtung Gesicht."
     },
     {
       "category": "Nelson",
       "attack": "Half Nelson (einarmig)",
-      "explanation": "Angreifer legt von hinten einen Arm (z. B. rechts) unter den Arm des Verteidigers durch, greift über die Schulter zum Nacken oder Kopf und drückt nach unten, um zu kontrollieren.",
-      "id": "attack_59"
+      "explanation": "Angreifer legt von hinten einen Arm (z. B. rechts) unter den Arm des Verteidigers durch, greift über die Schulter zum Nacken oder Kopf und drückt nach unten, um zu kontrollieren."
     },
     {
       "category": "Nelson",
       "attack": "Full Nelson",
-      "explanation": "Angreifer legt von hinten beide Arme unter die Achseln des Verteidigers, greift mit beiden Händen in den Nacken und drückt den Kopf nach vorne, um die Arme und den Oberkörper zu fixieren.",
-      "id": "attack_60"
+      "explanation": "Angreifer legt von hinten beide Arme unter die Achseln des Verteidigers, greift mit beiden Händen in den Nacken und drückt den Kopf nach vorne, um die Arme und den Oberkörper zu fixieren."
     },
     {
       "category": "Nelson",
       "attack": "Half Nelson mit Druck nach vorne",
-      "explanation": "Angreifer wendet einen Half Nelson an (ein Arm unter der Achsel zum Nacken) und drückt den Verteidiger nach vorne, um ihn aus dem Gleichgewicht zu bringen.",
-      "id": "attack_61"
+      "explanation": "Angreifer wendet einen Half Nelson an (ein Arm unter der Achsel zum Nacken) und drückt den Verteidiger nach vorne, um ihn aus dem Gleichgewicht zu bringen."
     },
     {
       "category": "Nelson",
       "attack": "Full Nelson mit Druck nach unten",
-      "explanation": "Angreifer wendet einen Full Nelson an und drückt den Kopf des Verteidigers nach unten, um ihn zu Boden zu zwingen.",
-      "id": "attack_62"
+      "explanation": "Angreifer wendet einen Full Nelson an und drückt den Kopf des Verteidigers nach unten, um ihn zu Boden zu zwingen."
     },
     {
       "category": "Nelson",
       "attack": "Half Nelson mit Würgeabsicht",
-      "explanation": "Angreifer wendet einen Half Nelson an und legt den anderen Arm um den Hals des Verteidigers, um einen Würgegriff zu kombinieren.",
-      "id": "attack_63"
+      "explanation": "Angreifer wendet einen Half Nelson an und legt den anderen Arm um den Hals des Verteidigers, um einen Würgegriff zu kombinieren."
     },
     {
       "category": "Nelson",
       "attack": "Full Nelson mit Heben",
-      "explanation": "Angreifer wendet einen Full Nelson an und versucht, den Verteidiger vom Boden anzuheben, um ihn zu immobilisieren.",
-      "id": "attack_64"
+      "explanation": "Angreifer wendet einen Full Nelson an und versucht, den Verteidiger vom Boden anzuheben, um ihn zu immobilisieren."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Gerader Faustschlag",
-      "explanation": "Angreifer führt einen geraden Schlag mit der Faust (rechts oder links) gegen das Gesicht oder den Oberkörper des Verteidigers aus.",
-      "id": "attack_65"
+      "explanation": "Angreifer führt einen geraden Schlag mit der Faust (rechts oder links) gegen das Gesicht oder den Oberkörper des Verteidigers aus."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Schwinger",
-      "explanation": "Angreifer führt einen seitlichen Faustschlag (Haken) gegen den Kopf oder die Seite des Verteidigers (z. B. von rechts oder links).",
-      "id": "attack_66"
+      "explanation": "Angreifer führt einen seitlichen Faustschlag (Haken) gegen den Kopf oder die Seite des Verteidigers (z. B. von rechts oder links)."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Aufwärtsschlag (Uppercut)",
-      "explanation": "Angreifer führt einen aufwärts gerichteten Faustschlag gegen das Kinn oder den Oberkörper des Verteidigers.",
-      "id": "attack_67"
+      "explanation": "Angreifer führt einen aufwärts gerichteten Faustschlag gegen das Kinn oder den Oberkörper des Verteidigers."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Rückhandschlag (Backfist)",
-      "explanation": "Angreifer führt einen Rückhandschlag gegen den Kopf des Verteidigers aus (z.B. links oder rechts).",
-      "id": "attack_68"
+      "explanation": "Angreifer führt einen Rückhandschlag gegen den Kopf des Verteidigers aus (z.B. links oder rechts)."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Ellbogenschlag (seitlich)",
-      "explanation": "Angreifer führt einen seitlichen Schlag mit dem Ellbogen gegen den Kopf des Verteidigers (z. B. von rechts oder links).",
-      "id": "attack_69"
+      "explanation": "Angreifer führt einen seitlichen Schlag mit dem Ellbogen gegen den Kopf des Verteidigers (z. B. von rechts oder links)."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Ellbogenschlag (vorne)",
-      "explanation": "Angreifer führt einen aufwärts gerichteten Ellbogenschlag gegen das Kinn des Verteidigers.",
-      "id": "attack_70"
+      "explanation": "Angreifer führt einen aufwärts gerichteten Ellbogenschlag gegen das Kinn des Verteidigers."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Jab - Cross (Kombination)",
-      "explanation": "Angreifer führt zwei schnelle Faustschläge in Folge aus (links, rechts), gegen den Kopf oder Oberkörper.",
-      "id": "attack_71"
+      "explanation": "Angreifer führt zwei schnelle Faustschläge in Folge aus (links, rechts), gegen den Kopf oder Oberkörper."
     },
     {
       "category": "Schlag-/Stoßangriffe",
       "attack": "Hammerfaustschlag",
-      "explanation": "Angreifer führt einen abwärts gerichteten Schlag mit der geballten Faust (Hammerfaust) gegen den Kopf oder die Schulter des Verteidigers.",
-      "id": "attack_72"
+      "explanation": "Angreifer führt einen abwärts gerichteten Schlag mit der geballten Faust (Hammerfaust) gegen den Kopf oder die Schulter des Verteidigers."
     },
     {
       "category": "Fuß-/Beinangriffe",
       "attack": "Frontkick (Mae Geri)",
-      "explanation": "Angreifer führt einen geraden Tritt mit dem Fußballen oder der Ferse gegen den Bauch oder die Brust des Verteidigers aus.",
-      "id": "attack_73"
+      "explanation": "Angreifer führt einen geraden Tritt mit dem Fußballen oder der Ferse gegen den Bauch oder die Brust des Verteidigers aus."
     },
     {
       "category": "Fuß-/Beinangriffe",
       "attack": "Sidekick (Yoko Geri)",
-      "explanation": "Angreifer führt einen seitlichen Tritt (z. B. mit der Fußkante) gegen die Seite des Verteidigers, z. B. auf Bauch- oder Brusthöhe.",
-      "id": "attack_74"
+      "explanation": "Angreifer führt einen seitlichen Tritt (z. B. mit der Fußkante) gegen die Seite des Verteidigers, z. B. auf Bauch- oder Brusthöhe."
     },
     {
       "category": "Fuß-/Beinangriffe",
       "attack": "Roundhouse Kick (Mawashi Geri)",
-      "explanation": "Angreifer führt einen runden Tritt mit dem Spann oder Schienbein gegen den Kopf, Oberkörper oder die Beine des Verteidigers (z. B. von rechts oder links).",
-      "id": "attack_75"
+      "explanation": "Angreifer führt einen runden Tritt mit dem Spann oder Schienbein gegen den Kopf, Oberkörper oder die Beine des Verteidigers (z. B. von rechts oder links)."
     },
     {
       "category": "Fuß-/Beinangriffe",
       "attack": "Kniestoß",
-      "explanation": "Angreifer führt ein Knie nach oben gegen den Bauch oder die Brust des Verteidigers, oft nach einem Greifen des Verteidigers.",
-      "id": "attack_76"
+      "explanation": "Angreifer führt ein Knie nach oben gegen den Bauch oder die Brust des Verteidigers, oft nach einem Greifen des Verteidigers."
     },
     {
       "category": "Fuß-/Beinangriffe",
       "attack": "Low Kick",
-      "explanation": "Angreifer führt einen tiefen Rundkick gegen das Schienbein oder den Oberschenkel des Verteidigers, um das Gleichgewicht zu stören.",
-      "id": "attack_77"
+      "explanation": "Angreifer führt einen tiefen Rundkick gegen das Schienbein oder den Oberschenkel des Verteidigers, um das Gleichgewicht zu stören."
     },
     {
       "category": "Fuß-/Beinangriffe",
       "attack": "Frontkick und Roundhouse Kick (Kombination)",
-      "explanation": "Angreifer führt einen geraden Frontkick gefolgt von einem Roundhouse Kick aus, um den Verteidiger zu überfordern.",
-      "id": "attack_78"
+      "explanation": "Angreifer führt einen geraden Frontkick gefolgt von einem Roundhouse Kick aus, um den Verteidiger zu überfordern."
     },
     {
       "category": "Stock",
       "attack": "Seitlicher Schlag (3 oder 4)",
-      "explanation": "Angreifer schwingt den Stock seitlich (Angriffswinkel 3 oder 4) gegen den Kopf, die Rippen oder die Hüfte des Verteidigers.",
-      "id": "attack_79"
+      "explanation": "Angreifer schwingt den Stock seitlich (Angriffswinkel 3 oder 4) gegen den Kopf, die Rippen oder die Hüfte des Verteidigers."
     },
     {
       "category": "Stock",
       "attack": "Abwärtsschlag (6)",
-      "explanation": "Angreifer führt einen abwärts gerichteten Schlag mit dem Stock gegen den Kopf oder die Schulter des Verteidigers.",
-      "id": "attack_80"
+      "explanation": "Angreifer führt einen abwärts gerichteten Schlag mit dem Stock gegen den Kopf oder die Schulter des Verteidigers."
     },
     {
       "category": "Stock",
       "attack": "Stoß mit dem Stock (5)",
-      "explanation": "Angreifer stößt mit dem Ende des Stocks (einhändig oder zweihändig) gegen die Brust oder den Bauch des Verteidigers.",
-      "id": "attack_81"
+      "explanation": "Angreifer stößt mit dem Ende des Stocks (einhändig oder zweihändig) gegen die Brust oder den Bauch des Verteidigers."
     },
     {
       "category": "Stock",
       "attack": "Diagonaler Schlag (1 oder 2)",
-      "explanation": "Angreifer führt einen diagonalen Schlag (Angriffswinkel 1 oder 2) gegen den Kopf oder Oberkörper des Verteidigers.",
-      "id": "attack_82"
+      "explanation": "Angreifer führt einen diagonalen Schlag (Angriffswinkel 1 oder 2) gegen den Kopf oder Oberkörper des Verteidigers."
     },
     {
       "category": "Stock",
       "attack": "Doppelter Schlag (Kombination)",
-      "explanation": "Angreifer führt zwei Schläge in Folge aus, 1, 2.",
-      "id": "attack_83"
+      "explanation": "Angreifer führt zwei Schläge in Folge aus, 1, 2."
     },
     {
       "category": "Messer",
       "attack": "Gerader Stich von vorne",
-      "explanation": "Angreifer führt einen geraden Stich mit dem Messer gegen die Brust oder den Bauch des Verteidigers.",
-      "id": "attack_84"
+      "explanation": "Angreifer führt einen geraden Stich mit dem Messer gegen die Brust oder den Bauch des Verteidigers."
     },
     {
       "category": "Messer",
       "attack": "Seitlicher Schnitt (3 oder 4)",
-      "explanation": "Angreifer führt einen seitlichen Schnitt (z. B. von rechts nach links) mit dem Messer gegen die Seite oder den Oberkörper des Verteidigers.",
-      "id": "attack_85"
+      "explanation": "Angreifer führt einen seitlichen Schnitt (z. B. von rechts nach links) mit dem Messer gegen die Seite oder den Oberkörper des Verteidigers."
     },
     {
       "category": "Messer",
       "attack": "Abwärtsstich (Dolchhaltung)",
-      "explanation": "Angreifer führt einen abwärts gerichteten Stich mit dem Messer gegen den Kopf des Verteidigers.",
-      "id": "attack_86"
+      "explanation": "Angreifer führt einen abwärts gerichteten Stich mit dem Messer gegen den Kopf des Verteidigers."
     },
     {
       "category": "Messer",
       "attack": "Bedrohung mit Messer an der Kehle",
-      "explanation": "Angreifer hält das Messer an die Kehle des Verteidigers (Winkel 1 oder 2), und droht, um Kontrolle zu erzwingen.",
-      "id": "attack_87"
+      "explanation": "Angreifer hält das Messer an die Kehle des Verteidigers (Winkel 1 oder 2), und droht, um Kontrolle zu erzwingen."
     },
     {
       "category": "Messer",
       "attack": "Bedrohung mit Messer Bauch oder Seite",
-      "explanation": "Angreifer hält das Messer an den Bauch oder die Seite des Verteidigers (z. B. Rippenbereich), um ihn zu bedrohen, ohne direkt anzugreifen.",
-      "id": "attack_88"
+      "explanation": "Angreifer hält das Messer an den Bauch oder die Seite des Verteidigers (z. B. Rippenbereich), um ihn zu bedrohen, ohne direkt anzugreifen."
     },
     {
       "category": "Messer",
       "attack": "Diagonaler Schnitt (1 oder 2)",
-      "explanation": "Angreifer führt einen diagonalen Schnitt (Winkel 1 oder 2) gegen den Oberkörper oder Hals des Verteidigers.",
-      "id": "attack_89"
+      "explanation": "Angreifer führt einen diagonalen Schnitt (Winkel 1 oder 2) gegen den Oberkörper oder Hals des Verteidigers."
     },
     {
       "category": "Messer",
       "attack": "Greifen und Messerbedrohung",
-      "explanation": "Angreifer greift den Verteidiger (z. B. am Kragen oder Arm) mit einer Hand und hält das Messer in der anderen Hand, um zu bedrohen oder zuzustechen.",
-      "id": "attack_90"
+      "explanation": "Angreifer greift den Verteidiger (z. B. am Kragen oder Arm) mit einer Hand und hält das Messer in der anderen Hand, um zu bedrohen oder zuzustechen."
     },
     {
       "category": "Messer",
       "attack": "Kombination aus Bedrohung und Stich",
-      "explanation": "Angreifer bedroht zunächst mit dem Messer (z. B. an der Kehle) und führt dann einen Stich gegen den Oberkörper aus.",
-      "id": "attack_91"
+      "explanation": "Angreifer bedroht zunächst mit dem Messer (z. B. an der Kehle) und führt dann einen Stich gegen den Oberkörper aus."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole an der Stirn (vorne)",
-      "explanation": "Angreifer hält die Pistole direkt an die Stirn des Verteidigers, um ihn zu bedrohen und zu kontrollieren.",
-      "id": "attack_92"
+      "explanation": "Angreifer hält die Pistole direkt an die Stirn des Verteidigers, um ihn zu bedrohen und zu kontrollieren."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole an der Brust (vorne)",
-      "explanation": "Angreifer richtet die Pistole auf die Brust des Verteidigers, in kurzer Distanz, um Einschüchterung auszuüben.",
-      "id": "attack_93"
+      "explanation": "Angreifer richtet die Pistole auf die Brust des Verteidigers, in kurzer Distanz, um Einschüchterung auszuüben."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole an der Schläfe (seitlich)",
-      "explanation": "Angreifer hält die Pistole an die Schläfe des Verteidigers (z. B. von rechts oder links), um ihn zu fixieren.",
-      "id": "attack_94"
+      "explanation": "Angreifer hält die Pistole an die Schläfe des Verteidigers (z. B. von rechts oder links), um ihn zu fixieren."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole von hinten (Nacken)",
-      "explanation": "Angreifer hält die Pistole von hinten an den Nacken oder Hinterkopf des Verteidigers, um ihn zu kontrollieren.",
-      "id": "attack_95"
+      "explanation": "Angreifer hält die Pistole von hinten an den Nacken oder Hinterkopf des Verteidigers, um ihn zu kontrollieren."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole an der Seite (Rippen)",
-      "explanation": "Angreifer hält die Pistole an die Seite des Verteidigers (z. B. Rippenbereich), oft in enger Distanz, um zu drohen.",
-      "id": "attack_96"
+      "explanation": "Angreifer hält die Pistole an die Seite des Verteidigers (z. B. Rippenbereich), oft in enger Distanz, um zu drohen."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole und Greifen (vorne)",
-      "explanation": "Angreifer hält die Pistole in einer Hand (z. B. an die Brust) und greift mit der anderen Hand den Verteidiger (z. B. am Kragen oder Arm).",
-      "id": "attack_97"
+      "explanation": "Angreifer hält die Pistole in einer Hand (z. B. an die Brust) und greift mit der anderen Hand den Verteidiger (z. B. am Kragen oder Arm)."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole von hinten mit Körperkontrolle",
-      "explanation": "Angreifer hält die Pistole an den Nacken des Verteidigers und legt den anderen Arm um den Oberkörper, um ihn zu fixieren.",
-      "id": "attack_98"
+      "explanation": "Angreifer hält die Pistole an den Nacken des Verteidigers und legt den anderen Arm um den Oberkörper, um ihn zu fixieren."
     },
     {
       "category": "Pistole",
       "attack": "Bedrohung mit Pistole und Bewegung (vorne)",
-      "explanation": "Angreifer hält die Pistole an den Verteidiger (z. B. Brust oder Kopf) und zwingt ihn, sich zu bewegen (z. B. zur Seite oder nach hinten).",
-      "id": "attack_99"
+      "explanation": "Angreifer hält die Pistole an den Verteidiger (z. B. Brust oder Kopf) und zwingt ihn, sich zu bewegen (z. B. zur Seite oder nach hinten)."
     }
   ],
   "techniques": [
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Gerader Faustschlag (Jab)",
-      "id": "tech_1"
+      "technique": "Gerader Faustschlag (Jab)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Gerader Faustschlag (Cross)",
-      "id": "tech_2"
+      "technique": "Gerader Faustschlag (Cross)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Haken (Hook)",
-      "id": "tech_3"
+      "technique": "Haken (Hook)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Aufwärtshaken (Uppercut)",
-      "id": "tech_4"
+      "technique": "Aufwärtshaken (Uppercut)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Hammerfaustschlag",
-      "id": "tech_5"
+      "technique": "Hammerfaustschlag"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Handkantenschlag (Innin- oder Außenkante)",
-      "id": "tech_6"
+      "technique": "Handkantenschlag (Innin- oder Außenkante)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Handflächenschlag",
-      "id": "tech_7"
+      "technique": "Handflächenschlag"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Ellbogenschlag (seitlich)",
-      "id": "tech_8"
+      "technique": "Ellbogenschlag (seitlich)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Ellbogenschlag (aufwärts)",
-      "id": "tech_9"
+      "technique": "Ellbogenschlag (aufwärts)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Rückhandschlag (Backfist)",
-      "id": "tech_10"
+      "technique": "Rückhandschlag (Backfist)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Fingerstoß (z. B. gegen Augen)",
-      "id": "tech_11"
+      "technique": "Fingerstoß (z. B. gegen Augen)"
     },
     {
       "category": "Schlag-/Stoßtechniken",
-      "technique": "Handballenstoß (z. B. gegen Kinn)",
-      "id": "tech_12"
+      "technique": "Handballenstoß (z. B. gegen Kinn)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Frontkick (Mae Geri)",
-      "id": "tech_13"
+      "technique": "Frontkick (Mae Geri)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Roundhouse Kick (Mawashi Geri)",
-      "id": "tech_14"
+      "technique": "Roundhouse Kick (Mawashi Geri)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Sidekick (Yoko Geri)",
-      "id": "tech_15"
+      "technique": "Sidekick (Yoko Geri)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Kniestoß",
-      "id": "tech_16"
+      "technique": "Kniestoß"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Low Kick",
-      "id": "tech_17"
+      "technique": "Low Kick"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Stampftritt (abwärts, gegen Fuß/Knie)",
-      "id": "tech_18"
+      "technique": "Stampftritt (abwärts, gegen Fuß/Knie)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Back Kick (Ushiro Geri)",
-      "id": "tech_19"
+      "technique": "Back Kick (Ushiro Geri)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Spinning Hook Kick (Ushiro Mawashi Geri)",
-      "id": "tech_20"
+      "technique": "Spinning Hook Kick (Ushiro Mawashi Geri)"
     },
     {
       "category": "Fuß-/Beintechniken",
-      "technique": "Hook Kick (Ura Mawashi Geri)",
-      "id": "tech_21"
+      "technique": "Hook Kick (Ura Mawashi Geri)"
     },
     {
       "category": "Würfe",
-      "technique": "Hiza Guruma (Knierad)",
-      "id": "tech_22"
+      "technique": "Hiza Guruma (Knierad)"
     },
     {
       "category": "Würfe",
-      "technique": "Sasae Tsurikomi Ashi (Stützender Fußheber)",
-      "id": "tech_23"
+      "technique": "Sasae Tsurikomi Ashi (Stützender Fußheber)"
     },
     {
       "category": "Würfe",
-      "technique": "Uki Goshi (Schwebender Hüftwurf)",
-      "id": "tech_24"
+      "technique": "Uki Goshi (Schwebender Hüftwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "O Soto Gari (Große Außensichel)",
-      "id": "tech_25"
+      "technique": "O Soto Gari (Große Außensichel)"
     },
     {
       "category": "Würfe",
-      "technique": "O Goshi (Großer Hüftwurf)",
-      "id": "tech_26"
+      "technique": "O Goshi (Großer Hüftwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "O Uchi Gari (Große Innensichel)",
-      "id": "tech_27"
+      "technique": "O Uchi Gari (Große Innensichel)"
     },
     {
       "category": "Würfe",
-      "technique": "Seoi Nage (Schulterwurf)",
-      "id": "tech_28"
+      "technique": "Seoi Nage (Schulterwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "Ko Soto Gari (Kleine Außensichel)",
-      "id": "tech_29"
+      "technique": "Ko Soto Gari (Kleine Außensichel)"
     },
     {
       "category": "Würfe",
-      "technique": "Ko Uchi Gari (Kleine Innensichel)",
-      "id": "tech_30"
+      "technique": "Ko Uchi Gari (Kleine Innensichel)"
     },
     {
       "category": "Würfe",
-      "technique": "Koshi Guruma (Hüftrad)",
-      "id": "tech_31"
+      "technique": "Koshi Guruma (Hüftrad)"
     },
     {
       "category": "Würfe",
-      "technique": "Tai Otoshi (Körpersturz)",
-      "id": "tech_32"
+      "technique": "Tai Otoshi (Körpersturz)"
     },
     {
       "category": "Würfe",
-      "technique": "Harai Goshi (Hüftfeger)",
-      "id": "tech_33"
+      "technique": "Harai Goshi (Hüftfeger)"
     },
     {
       "category": "Würfe",
-      "technique": "Uchi Mata (Innenschenkelwurf)",
-      "id": "tech_34"
+      "technique": "Uchi Mata (Innenschenkelwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "Ko Soto Gake (Kleiner Außenhaken)",
-      "id": "tech_35"
+      "technique": "Ko Soto Gake (Kleiner Außenhaken)"
     },
     {
       "category": "Würfe",
-      "technique": "Ashi Guruma (Beinrad)",
-      "id": "tech_36"
+      "technique": "Ashi Guruma (Beinrad)"
     },
     {
       "category": "Würfe",
-      "technique": "Hane Goshi (Flügelhüftwurf)",
-      "id": "tech_37"
+      "technique": "Hane Goshi (Flügelhüftwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "Tomoe Nage (Kreiswurf)",
-      "id": "tech_38"
+      "technique": "Tomoe Nage (Kreiswurf)"
     },
     {
       "category": "Würfe",
-      "technique": "Kata Guruma (Schulterrad)",
-      "id": "tech_39"
+      "technique": "Kata Guruma (Schulterrad)"
     },
     {
       "category": "Würfe",
-      "technique": "Sumi Gaeshi (Eck Wurf)",
-      "id": "tech_40"
+      "technique": "Sumi Gaeshi (Eck Wurf)"
     },
     {
       "category": "Würfe",
-      "technique": "Tani Otoshi (Talfall)",
-      "id": "tech_41"
+      "technique": "Tani Otoshi (Talfall)"
     },
     {
       "category": "Würfe",
-      "technique": "Sukui Nage (Schaufelwurf)",
-      "id": "tech_42"
+      "technique": "Sukui Nage (Schaufelwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "O Guruma (Großes Rad)",
-      "id": "tech_43"
+      "technique": "O Guruma (Großes Rad)"
     },
     {
       "category": "Würfe",
-      "technique": "Soto Makikomi (Äußerer Wickelwurf)",
-      "id": "tech_44"
+      "technique": "Soto Makikomi (Äußerer Wickelwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "O Soto Guruma (Großes Außenrad)",
-      "id": "tech_45"
+      "technique": "O Soto Guruma (Großes Außenrad)"
     },
     {
       "category": "Würfe",
-      "technique": "Yoko Guruma (Seitenrad)",
-      "id": "tech_46"
+      "technique": "Yoko Guruma (Seitenrad)"
     },
     {
       "category": "Würfe",
-      "technique": "Ushiro Goshi (Rückwärtiger Hüftwurf)",
-      "id": "tech_47"
+      "technique": "Ushiro Goshi (Rückwärtiger Hüftwurf)"
     },
     {
       "category": "Würfe",
-      "technique": "Sumi Otoshi (Ecksturz)",
-      "id": "tech_48"
+      "technique": "Sumi Otoshi (Ecksturz)"
     },
     {
       "category": "Hebel",
-      "technique": "Ude Garami (Kreuzfesselgriff | Kimura)",
-      "id": "tech_49"
+      "technique": "Ude Garami (Kreuzfesselgriff | Kimura)"
     },
     {
       "category": "Hebel",
-      "technique": "Juji Gatame (Kreuzarmhebel)",
-      "id": "tech_50"
+      "technique": "Juji Gatame (Kreuzarmhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Ude Gatame (Gerader Armhebel)",
-      "id": "tech_51"
+      "technique": "Ude Gatame (Gerader Armhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Hiza Gatame (Kniearmhebel)",
-      "id": "tech_52"
+      "technique": "Hiza Gatame (Kniearmhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Waki Gatame (Achselarmhebel)",
-      "id": "tech_53"
+      "technique": "Waki Gatame (Achselarmhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Hara Gatame (Baucharmhebel)",
-      "id": "tech_54"
+      "technique": "Hara Gatame (Baucharmhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Te Gatame (Handarmhebel)",
-      "id": "tech_55"
+      "technique": "Te Gatame (Handarmhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Hiza Hishigi (Knee Bar)",
-      "id": "tech_56"
+      "technique": "Hiza Hishigi (Knee Bar)"
     },
     {
       "category": "Hebel",
-      "technique": "Ashi Garami (Heel Hook)",
-      "id": "tech_57"
+      "technique": "Ashi Garami (Heel Hook)"
     },
     {
       "category": "Hebel",
-      "technique": "Ashi Hishigi (Ankle Lock)",
-      "id": "tech_58"
+      "technique": "Ashi Hishigi (Ankle Lock)"
     },
     {
       "category": "Hebel",
-      "technique": "Kote Gaeshi (Kipphandhebel)",
-      "id": "tech_59"
+      "technique": "Kote Gaeshi (Kipphandhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Kote Garami (Gerader Handhebel)",
-      "id": "tech_60"
+      "technique": "Kote Garami (Gerader Handhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Kote Hineri (Eingedrehter Handhebel)",
-      "id": "tech_61"
+      "technique": "Kote Hineri (Eingedrehter Handhebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Kote Mawashi (Z-Hebel)",
-      "id": "tech_62"
+      "technique": "Kote Mawashi (Z-Hebel)"
     },
     {
       "category": "Hebel",
-      "technique": "Kubi Hishigi (Nackenhebel)",
-      "id": "tech_63"
+      "technique": "Kubi Hishigi (Nackenhebel)"
     },
     {
       "category": "Würgetechniken",
-      "technique": "Hadaka Jime (Rear Naked Choke)",
-      "id": "tech_64"
+      "technique": "Hadaka Jime (Rear Naked Choke)"
     },
     {
       "category": "Würgetechniken",
-      "technique": "Kataha Jime (Einseitiger Würgegriff)",
-      "id": "tech_65"
+      "technique": "Kataha Jime (Einseitiger Würgegriff)"
     },
     {
       "category": "Würgetechniken",
-      "technique": "Okuri Eri Jime (Schiebender Kragenwürgegriff)",
-      "id": "tech_66"
+      "technique": "Okuri Eri Jime (Schiebender Kragenwürgegriff)"
     },
     {
       "category": "Würgetechniken",
-      "technique": "Sankaku Jime (Triangle Choke)",
-      "id": "tech_67"
+      "technique": "Sankaku Jime (Triangle Choke)"
     },
     {
       "category": "Würgetechniken",
-      "technique": "Sode Guruma Jime (Ärmelrad-Würgegriff)",
-      "id": "tech_68"
+      "technique": "Sode Guruma Jime (Ärmelrad-Würgegriff)"
     },
     {
       "category": "Abschluss",
-      "technique": "Festlegetechnik",
-      "id": "tech_69"
+      "technique": "Festlegetechnik"
     },
     {
       "category": "Abschluss",
-      "technique": "Transportgriff",
-      "id": "tech_70"
+      "technique": "Transportgriff"
     }
   ]
 }
